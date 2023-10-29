@@ -1,0 +1,9 @@
+__draft.py
+venv
+game/Pixel.exe
+editor/Editor.exe
+building/game/build
+building/game/Pixel.spec
+building/editor/build
+building/editor/Editor.spec
+.idea
