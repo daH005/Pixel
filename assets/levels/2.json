@@ -4085,11 +4085,9 @@
             }
         }
     ],
-    "is_available": true,
-    "is_completed": true,
+    "is_available": false,
+    "is_completed": false,
     "w": 2540,
     "h": 720,
-    "uncreating_ids": [
-        344
-    ]
+    "uncreating_ids": []
 }

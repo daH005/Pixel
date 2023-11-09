@@ -2040,12 +2040,9 @@
             }
         }
     ],
-    "is_available": true,
-    "is_completed": true,
+    "is_available": false,
+    "is_completed": false,
     "w": 2460,
     "h": 720,
-    "uncreating_ids": [
-        612,
-        893
-    ]
+    "uncreating_ids": []
 }

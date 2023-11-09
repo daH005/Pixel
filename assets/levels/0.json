@@ -1273,13 +1273,8 @@
         }
     ],
     "is_available": true,
-    "is_completed": true,
+    "is_completed": false,
     "w": 1820,
     "h": 720,
-    "uncreating_ids": [
-        125,
-        985,
-        486,
-        97
-    ]
+    "uncreating_ids": []
 }
