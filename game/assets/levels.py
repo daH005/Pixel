@@ -94,7 +94,7 @@ def _load_all() -> LevelsListType:
             levels.append(LevelData(index=level_index, **load_json(full_level_path)))
         except ValueError:
             continue
-    return levels
+    return sorted(levels, key=lambda x: x.index)
 
 
 class LevelsManager:
