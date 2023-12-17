@@ -1,4 +1,4 @@
-from pygame import K_a, K_d, K_SPACE, K_w, K_s
+from pygame import K_LEFT, K_RIGHT, K_UP, K_DOWN
 from pygame.key import get_pressed, ScancodeWrapper
 
 from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
@@ -26,10 +26,11 @@ class Player(AbstractMovingMapObject):
     JUMP_POWER: float = 11
     GRAVITY: float = 0.5
 
-    GO_LEFT_KEY: int = K_a
-    GO_RIGHT_KEY: int = K_d
-    JUMP_KEY: int = K_SPACE
-    GO_TOP_KEY: int = K_w
+    GO_LEFT_KEY: int = K_LEFT
+    GO_RIGHT_KEY: int = K_RIGHT
+    JUMP_KEY: int = K_UP
+    GO_TOP_KEY: int = K_UP
+    GO_BOTTOM_KEY: int = K_DOWN
 
     GO_ANIM_DELAY: float = 0.1
     LADDER_ANIM_DELAY: float = 0.1
@@ -117,7 +118,7 @@ class Player(AbstractMovingMapObject):
             self.y_vel = 0
             if self.pressed[self.GO_TOP_KEY] or self.pressed[self.JUMP_KEY]:
                 self.y_vel = -self.SPEED
-            elif self.on_ladder and self.pressed[K_s]:
+            elif self.on_ladder and self.pressed[self.GO_BOTTOM_KEY]:
                 self.y_vel = self.SPEED
             elif self.in_water:
                 self.y_vel = self.SPEED / 1.5
