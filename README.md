@@ -17,6 +17,5 @@ How to run
 For exe building (10.01.2023 - only Windows)
 --------------------------------------------
 
-1. Run `pip install pyinstaller`
-2. Run `python3 build.py` from `building/exe/game`
-3. Run `python3 build.py` from `building/exe/editor`
+1. Run `python3 build.py` from `building/exe/game`
+2. Run `python3 build.py` from `building/exe/editor`
