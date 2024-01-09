@@ -11,8 +11,8 @@ How to run
 2. Provide the virtualenv
 3. Run `pip install -r requirements.txt` from root directory
 4. Run `python3 game/main.py` (don't forgot about `PYTHONPATH`)
-4.1. Also you can to run `python3 editor/main.py`
-4.2. For levels reset run `python3 editor/reset_all.py`
+- Also you can to run `python3 editor/main.py`
+- For levels reset run `python3 editor/reset_all.py`
 
 For exe building (10.01.2023 - only Windows)
 --------------------------------------------
