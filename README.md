@@ -10,7 +10,7 @@ How to run
 1. Pull
 2. Provide the virtualenv
 3. Run `pip install -r requirements.txt` from root directory
-4. Run `python3 game/main.py` (don't forgot about `PYTHONPATH`)
+4. Run `python3 main.py` from `game` directory (don't forgot about `PYTHONPATH` - add path over `game` and `editor` directories)
 - Also you can to run `python3 editor/main.py`
 - For levels reset run `python3 editor/reset_all.py`
 
