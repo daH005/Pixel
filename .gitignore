@@ -1,4 +1,5 @@
 __draft.py
+__pycache__
 venv
 game/Pixel.exe
 editor/Editor.exe
