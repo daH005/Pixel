@@ -3,8 +3,8 @@ __pycache__
 venv
 game/Pixel.exe
 editor/Editor.exe
-building/game/build
-building/game/Pixel.spec
-building/editor/build
-building/editor/Editor.spec
+building/exe/game/build
+building/exe/game/Pixel.spec
+building/exe/editor/build
+building/exe/editor/Editor.spec
 .idea
