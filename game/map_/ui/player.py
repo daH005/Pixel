@@ -1,4 +1,14 @@
-from pygame import K_LEFT, K_RIGHT, K_UP, K_DOWN
+from pygame import (
+    K_LEFT, 
+    K_RIGHT, 
+    K_UP, 
+    K_DOWN,
+    K_w,
+    K_a,
+    K_d,
+    K_SPACE,
+    K_s,
+)
 from pygame.key import get_pressed, ScancodeWrapper
 
 from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
@@ -26,11 +36,11 @@ class Player(AbstractMovingMapObject):
     JUMP_POWER: float = 11
     GRAVITY: float = 0.5
 
-    GO_LEFT_KEY: int = K_LEFT
-    GO_RIGHT_KEY: int = K_RIGHT
-    JUMP_KEY: int = K_UP
-    GO_TOP_KEY: int = K_UP
-    GO_BOTTOM_KEY: int = K_DOWN
+    GO_LEFT_KEYS: list[int] = [K_LEFT, K_a]
+    GO_RIGHT_KEYS: list[int] = [K_RIGHT, K_d]
+    JUMP_KEYS: list[int] = [K_UP, K_w, K_SPACE]
+    GO_TOP_KEYS: list[int] = [K_UP, K_w, K_SPACE]
+    GO_BOTTOM_KEYS: list[int] = [K_DOWN, K_s]
 
     GO_ANIM_DELAY: float = 0.1
     LADDER_ANIM_DELAY: float = 0.1
@@ -88,9 +98,9 @@ class Player(AbstractMovingMapObject):
             self.x_vel = self.x_pushing
         else:
             self.x_vel = 0
-            if self.pressed[self.GO_LEFT_KEY] and not self.pressed[self.GO_RIGHT_KEY]:
+            if self._is_pressed(self.GO_LEFT_KEYS) and not self._is_pressed(self.GO_RIGHT_KEYS):
                 self.x_vel = -self.SPEED
-            elif self.pressed[self.GO_RIGHT_KEY] and not self.pressed[self.GO_LEFT_KEY]:
+            elif self._is_pressed(self.GO_RIGHT_KEYS) and not self._is_pressed(self.GO_LEFT_KEYS):
                 self.x_vel = self.SPEED
             if self.on_ladder or self.in_water:
                 self.x_vel /= 1.5
@@ -116,14 +126,14 @@ class Player(AbstractMovingMapObject):
     def _update_y_vel(self) -> None:
         if self.on_ladder or self.in_water:
             self.y_vel = 0
-            if self.pressed[self.GO_TOP_KEY] or self.pressed[self.JUMP_KEY]:
+            if self._is_pressed(self.GO_TOP_KEYS) or self._is_pressed(self.JUMP_KEYS):
                 self.y_vel = -self.SPEED
-            elif self.on_ladder and self.pressed[self.GO_BOTTOM_KEY]:
+            elif self.on_ladder and self._is_pressed(self.GO_BOTTOM_KEYS):
                 self.y_vel = self.SPEED
             elif self.in_water:
                 self.y_vel = self.SPEED / 1.5
         else:
-            if self.pressed[self.JUMP_KEY] and self.on_ground:
+            if self._is_pressed(self.JUMP_KEYS) and self.on_ground:
                 self.y_vel = -self.JUMP_POWER
             self.y_vel += self.GRAVITY
         self.on_ground = False
@@ -227,3 +237,10 @@ class Player(AbstractMovingMapObject):
                 self.flashing_time_counter.restart()
             if self.flashing_flag:
                 super()._draw()
+    
+    def _is_pressed(self, keys: list[int]) -> bool:
+        for key in keys:
+            if self.pressed[key]:
+                return True
+        return False
+    
