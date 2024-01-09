@@ -56,9 +56,13 @@ def load(path: Path, extension: str | None = 'png') -> Surface:
 
 def load_many(path: Path) -> ImagesListType:
     images: ImagesListType = []
-    for filename in listdir(path):
+    for filename in sorted(listdir(path), key=get_index_from_filename):
         images.append(load(path.joinpath(filename), extension=None))
     return images
+
+
+def get_index_from_filename(filename: str) -> int:
+    return int(filename.split('.')[0])
 
 
 def optimize(image: Surface) -> Surface:
