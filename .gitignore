@@ -2,7 +2,9 @@ __draft.py
 __pycache__
 venv
 game/Pixel.exe
+game/Pixel
 editor/Editor.exe
+editor/Editor
 building/exe/game/build
 building/exe/game/Pixel.spec
 building/exe/editor/build
