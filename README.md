@@ -7,7 +7,7 @@ I use pygame.
 How to run
 ----------
 
-1. Pull
+1. Clone
 2. Provide the virtualenv
 3. Run `pip install -r requirements.txt` from root directory
 4. Run `python3 main.py` from `game` directory (don't forgot about `PYTHONPATH` - add path over `game` and `editor` directories)
