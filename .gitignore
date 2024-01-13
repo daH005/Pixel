@@ -5,8 +5,8 @@ game/Pixel.exe
 game/Pixel
 editor/Editor.exe
 editor/Editor
-building/exe/game/build
-building/exe/game/Pixel.spec
-building/exe/editor/build
-building/exe/editor/Editor.spec
+building/game/build
+building/game/Pixel.spec
+building/editor/build
+building/editor/Editor.spec
 .idea
