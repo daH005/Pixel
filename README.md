@@ -14,8 +14,8 @@ How to run
 - Also you can to run `python3 main.py` from `editor`
 - For levels reset run `python3 reset_all.py` from `editor`
 
-For exe building (10.01.2023 - only Windows)
+For building
 --------------------------------------------
 
-1. Run `python3 main.py` from `building/exe/game`
-2. Run `python3 main.py` from `building/exe/editor`
+1. Run `python3 main.py` from `building/game`
+2. Run `python3 main.py` from `building/editor`
