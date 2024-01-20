@@ -327,7 +327,7 @@ class Hint(FixedByBottom):
                  factory_method_name: str = DEFAULT_FACTORY_METHOD_NAME,
                  ) -> None:
         if text is None:
-            text = input('Текст подсказки - ')
+            text = '<FILL ME>'
         self.text = text
         super().__init__(x, y, factory_method_name)
 
