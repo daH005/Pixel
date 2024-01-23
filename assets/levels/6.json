@@ -1,0 +1,5243 @@
+{
+    "objects": [
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1160,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1160,
+                "y": 200
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1120,
+                "y": 200
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1120,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 440
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 480
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 520
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 560
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 640
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1160,
+                "y": 280
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1160,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1120,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1080,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1040,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1000,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 280,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 280,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 40,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 280,
+                "y": 80,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 80,
+                "direction": -1,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 80,
+                "direction": 1,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 40,
+                "direction": 1,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 0,
+                "direction": 1,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1160,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1160,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1120,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1080,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1040,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1000,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1120,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1080,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1040,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1000,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 80
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 440
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 480
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 520
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 640
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 680
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 720
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 200
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 440
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 480
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 520
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 640
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 680
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 720
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 200
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 200
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 440
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 480
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 520
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 640
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 680
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 720
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 280
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 480
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 400,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 280,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 880,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1000,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1040,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1080,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1120,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1160,
+                "y": 760
+            }
+        },
+        {
+            "type": "Finish",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 160
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1200,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 280
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 360,
+                "y": 280
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 920,
+                "y": 280
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 960,
+                "y": 280
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 528,
+                "y": 340,
+                "id_": 255
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 574,
+                "y": 340,
+                "id_": 164
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 616,
+                "y": 340,
+                "id_": 554
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 654,
+                "y": 340,
+                "id_": 881
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 690,
+                "y": 340,
+                "id_": 655
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 340,
+                "id_": 839
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 747,
+                "y": 340,
+                "id_": 834
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 594,
+                "y": 340,
+                "id_": 80
+            }
+        },
+        {
+            "type": "Chest",
+            "factory_method": "__call__",
+            "args": {
+                "x": 551,
+                "y": 340,
+                "id_": 194
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 408,
+                "y": 288,
+                "start_x": 327,
+                "end_x": 507
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 844,
+                "y": 288,
+                "start_x": 807,
+                "end_x": 994
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 440,
+                "y": 720
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 552,
+                "y": 688,
+                "start_x": 126,
+                "end_x": 1190
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 660,
+                "y": 688,
+                "start_x": 128,
+                "end_x": 1193
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 862,
+                "y": 688,
+                "start_x": 127,
+                "end_x": 1194
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1074,
+                "y": 688,
+                "start_x": 127,
+                "end_x": 1197
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 404,
+                "y": 688,
+                "start_x": 130,
+                "end_x": 1192
+            }
+        },
+        {
+            "type": "Ladder",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 720
+            }
+        },
+        {
+            "type": "Ladder",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 680
+            }
+        },
+        {
+            "type": "Ladder",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 640
+            }
+        },
+        {
+            "type": "Ladder",
+            "factory_method": "__call__",
+            "args": {
+                "x": 840,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 800,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 680,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 640,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 600,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 560,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 520,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 600
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 733,
+                "y": 440,
+                "end_y": 591
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 683,
+                "y": 440,
+                "end_y": 592
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 629,
+                "y": 440,
+                "end_y": 596
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 569,
+                "y": 440,
+                "end_y": 590
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 601,
+                "y": 440,
+                "end_y": 590
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 657,
+                "y": 440,
+                "end_y": 595
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 710,
+                "y": 440,
+                "end_y": 594
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 761,
+                "y": 440,
+                "end_y": 591
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 541,
+                "y": 440,
+                "end_y": 590
+            }
+        },
+        {
+            "type": "Spider",
+            "factory_method": "__call__",
+            "args": {
+                "x": 512,
+                "y": 440,
+                "end_y": 595
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1245,
+                "y": 720
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 0,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 40,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 80,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 80,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 40,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 0,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 120,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 160,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 200,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 240,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 240,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 280,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 200,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 320,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 360,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 360,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 400,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 360,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 400,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 400,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 440,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 440,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 480,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 520,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 520,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 280,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 320,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 120,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 160,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 480,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 760,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 720,
+                "y": 0,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 600,
+                "direction": 1,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 560,
+                "direction": null,
+                "grass_enabled": true
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 280,
+                "y": 600,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 600,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 600,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 600,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Dirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 600,
+                "direction": null,
+                "grass_enabled": false
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 760
+            }
+        },
+        {
+            "type": "Skeleton",
+            "factory_method": "__call__",
+            "args": {
+                "x": 237,
+                "y": 688,
+                "start_x": 124,
+                "end_x": 1191
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 240,
+                "y": 560,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 200,
+                "y": 560,
+                "is_top": false
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 280,
+                "y": 568,
+                "is_top": true
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 160,
+                "y": 568,
+                "is_top": true
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 120,
+                "y": 568,
+                "is_top": true
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 480,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 560
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 568,
+                "is_top": true
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 568,
+                "is_top": true
+            }
+        },
+        {
+            "type": "Water",
+            "factory_method": "__call__",
+            "args": {
+                "x": 0,
+                "y": 568,
+                "is_top": true
+            }
+        },
+        {
+            "type": "Heart",
+            "factory_method": "__call__",
+            "args": {
+                "x": 320,
+                "y": 520
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 622,
+                "y": 164,
+                "start_x": 207,
+                "end_x": 1110
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 803,
+                "y": 124,
+                "start_x": 206,
+                "end_x": 1108
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 441,
+                "y": 204,
+                "start_x": 206,
+                "end_x": 1111
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1240,
+                "y": 200
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1209,
+                "y": 200
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1185,
+                "y": 200
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 24,
+                "y": 200
+            }
+        },
+        {
+            "type": "Hint",
+            "factory_method": "__call__",
+            "args": {
+                "x": 134,
+                "y": 120,
+                "text": "На этом пока всё, мой дорогой друг...\nИ да... добро пожаловать в рекурсию)"
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 80,
+                "y": 400
+            }
+        },
+        {
+            "type": "Cannon",
+            "factory_method": "__call__",
+            "args": {
+                "x": 35,
+                "y": 352,
+                "end_x": 310
+            }
+        },
+        {
+            "type": "Cannon",
+            "factory_method": "__call__",
+            "args": {
+                "x": 31,
+                "y": 392,
+                "end_x": 311
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 40,
+                "y": 400
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1193,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1087,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 979,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 871,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 763,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 249,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 139,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 37,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1112,
+                "y": 44,
+                "start_x": 1100,
+                "end_x": 1165
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1110,
+                "y": 84,
+                "start_x": 1101,
+                "end_x": 1166
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1110,
+                "y": 124,
+                "start_x": 1100,
+                "end_x": 1166
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1108,
+                "y": 164,
+                "start_x": 1102,
+                "end_x": 1169
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1008,
+                "y": 364,
+                "start_x": 999,
+                "end_x": 1058
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1062,
+                "y": 364,
+                "start_x": 1046,
+                "end_x": 1123
+            }
+        },
+        {
+            "type": "Bat",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1125,
+                "y": 364,
+                "start_x": 1118,
+                "end_x": 1177
+            }
+        },
+        {
+            "type": "Cannon",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1168,
+                "y": 152,
+                "end_x": 1631
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 120
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 0
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 160
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 200
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 360
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 440
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 480
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 520
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 560
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 640
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 680
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 720
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1440,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1440,
+                "y": 280
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1480,
+                "y": 240
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 320
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 520
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 560
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 600
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 640
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 680
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 720
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 760
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1440,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1480,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1520,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1560,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1600,
+                "y": 0
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1600,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1600,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1560,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1520,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1480,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1480,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1640,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1560,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1520,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1440,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 80
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1440,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 40
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 40
+            }
+        },
+        {
+            "type": "Player",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1635,
+                "y": 48
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1440,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1480,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1520,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1560,
+                "y": 760
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1600,
+                "y": 760
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 200
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 240
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 280
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 280
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 240
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 200
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 320
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 680
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1280,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 400
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 440
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 520
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 560
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 360
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 600
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 640
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1360,
+                "y": 720
+            }
+        },
+        {
+            "type": "Shield",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1521,
+                "y": 544
+            }
+        },
+        {
+            "type": "Slug",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1497,
+                "y": 708,
+                "start_x": 1444,
+                "end_x": 1632
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1438,
+                "y": 720
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1596,
+                "y": 720
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1359,
+                "y": 720
+            }
+        },
+        {
+            "type": "BackgroundDirt",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1320,
+                "y": 0
+            }
+        },
+        {
+            "type": "Coin",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1292,
+                "y": 0,
+                "id_": 494
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1389,
+                "y": 200
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1358,
+                "y": 200
+            }
+        },
+        {
+            "type": "Spike",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1414,
+                "y": 200
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1480,
+                "y": 200
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1440,
+                "y": 200
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 480
+            }
+        },
+        {
+            "type": "BackgroundBricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 440
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 400
+            }
+        },
+        {
+            "type": "Bricks",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 360
+            }
+        },
+        {
+            "type": "Cannon",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1375,
+                "y": 472,
+                "end_x": 1244
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1512,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1400,
+                "y": 660,
+                "image_index": 2
+            }
+        },
+        {
+            "type": "Tree",
+            "factory_method": "__call__",
+            "args": {
+                "x": 1297,
+                "y": 660,
+                "image_index": 2
+            }
+        }
+    ],
+    "is_available": false,
+    "is_completed": false,
+    "w": 1680,
+    "h": 800,
+    "uncreating_ids": []
+}
