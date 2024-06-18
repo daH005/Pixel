@@ -4,6 +4,10 @@ About project
 `Pixel` is 2D platformer. We play as a red-haired boy and complete the levels!:)
 I use pygame.
 
+Demo
+----
+https://github.com/daH005/Pixel/assets/60618372/4ecfdfe7-b8fe-4cf8-ba18-65da7bbc8f92
+
 How to run
 ----------
 
