@@ -1,9 +1,6 @@
-from pygame import Surface
-
-from game.map_.map_ import Map
+from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractInteractingWithPlayerMapObject
 from game.assets.images import WaterImages
-from game.contrib.annotations import SizeTupleType
 
 __all__ = (
     'Water',
@@ -12,17 +9,24 @@ __all__ = (
 
 @Map.add_object_type
 class Water(AbstractInteractingWithPlayerMapObject):
-    Z_INDEX: int = 6
 
-    def __init__(self, x: int, y: int,
+    def __init__(self, map_: Map,
+                 x: int, y: int,
                  is_top: bool = False,
                  ):
-        if is_top:
-            self.image: Surface = WaterImages.TOP
+        self._is_top = is_top
+        self._init_image()
+        super().__init__(
+            map_=map_,
+            rect=self._image.get_rect(x=x, y=y),
+            z_index=6,
+        )
+
+    def _init_image(self) -> None:
+        if self._is_top:
+            self._image = WaterImages.TOP
         else:
-            self.image: Surface = WaterImages.DEFAULT
-        self.size: SizeTupleType = self.image.get_size()
-        super().__init__(x, y)
+            self._image = WaterImages.DEFAULT
 
     def _handle_collision_with_player(self) -> None:
-        self.map.player.in_water = True
+        self._map.player.set_that_in_water()

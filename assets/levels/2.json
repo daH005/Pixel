@@ -3013,5 +3013,7 @@
     "is_completed": false,
     "w": 1280,
     "h": 840,
-    "uncreating_ids": []
+    "extra_data": {
+        "ids": []
+    }
 }

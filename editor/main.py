@@ -37,13 +37,14 @@ from pygame.key import get_pressed as get_keys
 
 from game.config import GameConfig
 GameConfig.WINDOW_FLAGS = HWSURFACE | DOUBLEBUF | SCALED
-from game.main import Game as Editor
-from game.scenes.base import ScenesManager, AbstractScene
+from engine.main_game_class import Game as Editor
+from engine.scenes.manager import ScenesManager
+from engine.scenes.abstract_scene import AbstractScene
 from game.contrib.screen import screen
 from game.contrib.colors import Color
-from game.assets.levels import LEVELS_PATH
+from engine.levels.levels import LEVELS_PATH
 from game.contrib.files import save_json
-from game.contrib.annotations import XYTupleType
+from engine.common.typing_ import XYTupleType
 from game.contrib.direction import Direction
 from editor.map_ import Map, SomeEditorMapObjectType
 from editor.ui import *
@@ -70,7 +71,7 @@ class EditorScene(AbstractScene):
         self.pressed_keys: list[int] = []
         self._selected_object: SomeEditorMapObjectType | None = None
 
-    def on_switch(self) -> None:
+    def on_open(self) -> None:
         self.map.reset()
 
     def _handle_event(self, event: Event) -> None:
@@ -194,8 +195,8 @@ class EditorScene(AbstractScene):
 
     def _create_object(self) -> None:
         xy: XYTupleType = self.map.camera.get_cursor()
-        for ob in self.map.grid.visible_objects:
-            if type(ob) == self.CurrentMapObjectType and ob.rect.collidepoint(xy):
+        for ob in self.map.grid._visible_objects:
+            if type(ob) == self.CurrentMapObjectType and ob._rect.collidepoint(xy):
                 break
         else:
             new_obj = self.CurrentMapObjectType.new_with_coords_fix(*xy)
@@ -203,14 +204,14 @@ class EditorScene(AbstractScene):
             self._selected_object = new_obj
 
     def _select_object(self) -> None:
-        for ob in self.map.grid.visible_objects:
-            if ob.rect.collidepoint(self.map.camera.get_cursor()):
+        for ob in self.map.grid._visible_objects:
+            if ob._rect.collidepoint(self.map.camera.get_cursor()):
                 self._selected_object = ob
                 break
 
     def _del_object(self) -> None:
-        for ob in self.map.grid.visible_objects:
-            if ob.rect.collidepoint(self.map.camera.get_cursor()):
+        for ob in self.map.grid._visible_objects:
+            if ob._rect.collidepoint(self.map.camera.get_cursor()):
                 ob.remove()
 
     def save_level(self) -> None:

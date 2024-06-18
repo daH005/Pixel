@@ -1460,5 +1460,7 @@
     "is_completed": false,
     "w": 2440,
     "h": 720,
-    "uncreating_ids": []
+    "extra_data": {
+        "ids": []
+    }
 }

@@ -1,11 +1,8 @@
+from engine.map_.map_ import Map
+from engine.common.counters import TimeCounter
 from game.assets.images import CHEST_IMAGES
-from game.assets.levels import LevelsManager
-from game.contrib.annotations import SizeTupleType
-from game.contrib.counters import TimeCounter
-from game.map_.map_ import Map
-from game.map_.abstract_ui import AbstractInteractingWithPlayerMapObject
+from game.map_.abstract_ui import AbstractItemToDisposableCollect
 from game.map_.ui.coin import Coin
-from game.map_.exceptions import MapObjectCannotBeCreated
 
 __all__ = (
     'Chest',
@@ -13,46 +10,51 @@ __all__ = (
 
 
 @Map.add_object_type
-class Chest(AbstractInteractingWithPlayerMapObject):
-    size: SizeTupleType = CHEST_IMAGES[0].get_size()
-    COINS_SPAWN_DELAY: float = 0.1
-    DEFAULT_COUNT: int = 10
+class Chest(AbstractItemToDisposableCollect):
 
-    def __init__(self, x: int, y: int,
+    def __init__(self, map_: Map,
+                 x: int, y: int,
                  id_: int, count: int | None = None,
                  ) -> None:
-        if id_ in LevelsManager.current_level.uncreating_ids:
-            raise MapObjectCannotBeCreated
-        super().__init__(x, y)
-        self.id = id_
+        super().__init__(
+            map_=map_,
+            rect=CHEST_IMAGES[0].get_rect(x=x, y=y),
+            id_=id_,
+        )
+
         if count is None:
-            count = self.DEFAULT_COUNT
-        self.max_count = count
-        self.spawned_count: int = 0
-        self.coins_spawn_timer: TimeCounter = TimeCounter(self.COINS_SPAWN_DELAY)
-        self.is_opened = False
+            count = 10
+
+        self._max_count = count
+        self._spawned_count: int = 0
+        self._coins_spawn_delay_timer: TimeCounter = TimeCounter(0.1)
+        self._is_opened = False
 
     def update(self) -> None:
         super().update()
-        if self.is_opened and self.spawned_count < self.max_count:
-            if not self.coins_spawn_timer.is_work():
-                self.coins_spawn_timer.restart()
-                self.map.grid.add(self._new_coin())
-                self.spawned_count += 1
-            self.coins_spawn_timer.next()
+        if self._is_opened and self._spawned_count < self._max_count:
+            if not self._coins_spawn_delay_timer.is_working():
+                self._coins_spawn_delay_timer.restart()
+                self._map.grid.add(self._new_coin())
+                self._spawned_count += 1
+            self._coins_spawn_delay_timer.next()
 
     def _update_image(self) -> None:
-        if self.is_opened:
-            self.image = CHEST_IMAGES[1]
+        if self._is_opened:
+            self._image = CHEST_IMAGES[1]
         else:
-            self.image = CHEST_IMAGES[0]
+            self._image = CHEST_IMAGES[0]
 
     def _handle_collision_with_player(self) -> None:
-        if not self.is_opened:
-            self.is_opened = True
-            self.map.uncreating_ids.append(self.id)
+        if not self._is_opened:
+            self._is_opened = True
+            self.take()
 
     def _new_coin(self) -> Coin:
-        coin: Coin = Coin(self.rect.x, self.rect.y)
+        coin: Coin = Coin(
+            map_=self._map,
+            x=self._rect.x,
+            y=self._rect.y,
+        )
         coin.take()
         return coin

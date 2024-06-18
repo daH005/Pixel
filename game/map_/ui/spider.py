@@ -1,14 +1,12 @@
 from pygame import Rect
 from pygame.draw import rect as draw_rect
 
+from engine.common.counters import FramesCounter
+from engine.common.float_rect import FloatRect
+from engine.common.colors import Color
+from engine.map_.map_ import Map
 from game.assets.images import SpiderImages
-from game.contrib.counters import FramesCounter
-from game.contrib.annotations import SizeTupleType
-from game.contrib.rects import FloatRect
-from game.contrib.colors import Color
-from game.map_.map_ import Map
 from game.map_.abstract_ui import AbstractMovingAndInteractingWithPlayerMapObject
-from game.contrib.screen import screen
 
 __all__ = (
     'Spider',
@@ -17,56 +15,58 @@ __all__ = (
 
 @Map.add_object_type
 class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
-    size: SizeTupleType = SpiderImages.STAND.get_size()
-    RectType: type[FloatRect] = FloatRect
-    SPEED: float = 1.75
-    GO_ANIM_DELAY: float = 0.075
-    SPIDERWEB_W: int = 2
 
-    def __init__(self, x: int, y: int,
+    def __init__(self, map_: Map,
+                 x: int, y: int,
                  end_y: int,
                  ) -> None:
-        super().__init__(x, y)
-        self.start_y = y
-        self.end_y = end_y
-        self.go_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(SpiderImages.GO),
-            transition_delay_as_seconds=self.GO_ANIM_DELAY,
+        super().__init__(
+            map_=map_,
+            rect=FloatRect(SpiderImages.GO[0].get_rect(x=x, y=y)),
         )
-        self.y_vel: float = 0
-        self.attack_rect: Rect = Rect(self.rect.x, self.start_y, self.rect.w, self.end_y - self.start_y)
+        self._end_y = end_y
+
+        self._go_frames_counter: FramesCounter = FramesCounter(
+            frames_count=len(SpiderImages.GO),
+            transition_delay_as_seconds=0.075,
+        )
+
+        self._start_y: int = y
+        self._speed: float = 1.75
+        self._y_vel: float = 0
+        self._reaction_rect: Rect = Rect(self._rect.x, self._start_y, self._rect.w, self._end_y - self._start_y)
+        self._spiderweb_w: int = 2
 
     def _move(self) -> None:
-        self.y_vel = 0
-        if self.attack_rect.colliderect(self.map.player.rect):
-            if self.rect.bottom < self.map.player.rect.y:
-                self.y_vel = self.SPEED
-        elif self.rect.y > self.start_y:
-            self.y_vel = -self.SPEED
-        self.rect.float_y += self.y_vel
+        self._y_vel = 0
+        if self._reaction_rect.colliderect(self._map.player.get_rect()):
+            if self._rect.bottom <= self._map.player._rect.y:
+                self._y_vel = self._speed
+        elif self._rect.y > self._start_y:
+            self._y_vel = -self._speed
+        self._rect.float_y += self._y_vel
 
     def _handle_collision_with_player(self) -> None:
-        self.map.player.hit()
+        self._map.player.hit()
 
     def _update_image(self) -> None:
-        if self.y_vel:
-            self.image = SpiderImages.GO[self.go_frames_counter.current_index]
-            self.go_frames_counter.next()
+        if self._y_vel:
+            self._image = SpiderImages.GO[self._go_frames_counter.current_index]
+            self._go_frames_counter.next()
         else:
-            self.image = SpiderImages.STAND
+            self._image = SpiderImages.STAND
 
     def _draw(self) -> None:
         self._draw_spiderweb()
         super()._draw()
 
     def _draw_spiderweb(self) -> None:
-        draw_rect(screen, Color.WHITE, self.camera.apply(self.spiderweb_rect))
+        draw_rect(self._screen, Color.WHITE, self._map.camera.apply(self._make_spiderweb_rect()))
 
-    @property
-    def spiderweb_rect(self) -> Rect:
+    def _make_spiderweb_rect(self) -> Rect:
         return Rect(
-            self.rect.x + self.rect.w // 2 - self.SPIDERWEB_W // 2,
-            self.start_y,
-            self.SPIDERWEB_W,
-            self.rect.y - self.start_y + self.rect.h // 2
+            self._rect.x + self._rect.w // 2 - self._spiderweb_w // 2,
+            self._start_y,
+            self._spiderweb_w,
+            self._rect.y - self._start_y + self._rect.h // 2
         )

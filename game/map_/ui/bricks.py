@@ -1,8 +1,5 @@
-from pygame import Surface
-
+from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractBlock, AbstractBackground
-from game.map_.map_ import Map
-from game.contrib.annotations import SizeTupleType
 from game.assets.images import BricksImages
 
 __all__ = (
@@ -13,11 +10,25 @@ __all__ = (
 
 @Map.add_object_type
 class Bricks(AbstractBlock):
-    image: Surface = BricksImages.DEFAULT
-    size: SizeTupleType = image.get_size()
+
+    def __init__(self, map_: Map,
+                 x: int, y: int,
+                 ) -> None:
+        self._image = BricksImages.DEFAULT
+        super().__init__(
+            map_=map_,
+            rect=self._image.get_rect(x=x, y=y),
+        )
 
 
 @Map.add_object_type
 class BackgroundBricks(AbstractBackground):
-    image: Surface = BricksImages.BACKGROUND
-    size: SizeTupleType = image.get_size()
+
+    def __init__(self, map_: Map,
+                 x: int, y: int,
+                 ) -> None:
+        self._image = BricksImages.BACKGROUND
+        super().__init__(
+            map_=map_,
+            rect=self._image.get_rect(x=x, y=y),
+        )

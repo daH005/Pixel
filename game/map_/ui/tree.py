@@ -1,9 +1,8 @@
 from pygame import Surface
 
+from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractBackground
-from game.map_.map_ import Map
 from game.assets.images import TREES_IMAGES
-from game.contrib.annotations import SizeTupleType
 
 __all__ = (
     'Tree',
@@ -12,11 +11,14 @@ __all__ = (
 
 @Map.add_object_type
 class Tree(AbstractBackground):
-    Z_INDEX: int = -3
 
-    def __init__(self, x: int, y: int,
+    def __init__(self, map_: Map,
+                 x: int, y: int,
                  image_index: int = 0,
                  ) -> None:
-        self.image: Surface = TREES_IMAGES[image_index]
-        self.size: SizeTupleType = self.image.get_size()
-        super().__init__(x, y)
+        self._image: Surface = TREES_IMAGES[image_index]
+        super().__init__(
+            map_=map_,
+            rect=self._image.get_rect(x=x, y=y),
+            z_index=-3,
+        )

@@ -1,8 +1,3 @@
-"""Здесь подключаются все изображения из папки 'assets/images'.
-По необходимости некоторые изображения отражаются по горизонтали,
-перекрашиваются. Могут производиться и другие предобработки.
-"""
-
 from pygame.image import load as load_
 from pygame import Surface, SRCALPHA
 from pygame.transform import flip
@@ -12,13 +7,10 @@ from typing import TypeAlias
 from pathlib import Path
 
 from game.config import GameConfig
-from game.contrib.colors import Color
+from engine.common.colors import Color
 
 __all__ = (
     'ImagesListType',
-    'IMAGES_PATH',
-    'load_many',
-    'flip_many',
     'ICON_IMAGE',
     'SUN_IMAGE',
     'FINISH_IMAGE',
@@ -45,19 +37,18 @@ __all__ = (
 )
 
 ImagesListType: TypeAlias = list[Surface]
-IMAGES_PATH: Path = GameConfig.ASSETS_PATH.joinpath('images')
 
 
-def load(path: Path, extension: str | None = 'png') -> Surface:
+def load_image(path: Path, extension: str | None = 'png') -> Surface:
     if extension is not None:
         path: str = str(path) + '.' + extension
     return optimize(load_(path))
 
 
-def load_many(path: Path) -> ImagesListType:
+def load_images(path: Path) -> ImagesListType:
     images: ImagesListType = []
     for filename in sorted(listdir(path), key=get_index_from_filename):
-        images.append(load(path.joinpath(filename), extension=None))
+        images.append(load_image(path.joinpath(filename), extension=None))
     return images
 
 
@@ -100,109 +91,100 @@ def flip_many(images: ImagesListType,
     return flipped_images
 
 
-# Импорты изображений:
-
-ICON_IMAGE: Surface = load(IMAGES_PATH.joinpath('icons/icon'), extension='ico')
-SUN_IMAGE: Surface = load(IMAGES_PATH.joinpath('sun'))
-FINISH_IMAGE: Surface = load(IMAGES_PATH.joinpath('finish'))
-CLOUDS_IMAGES: ImagesListType = load_many(IMAGES_PATH.joinpath('clouds'))
-COIN_IMAGES: ImagesListType = load_many(IMAGES_PATH.joinpath('coin'))
-HEART_IMAGES: ImagesListType = load_many(IMAGES_PATH.joinpath('heart/as_item'))
-TREES_IMAGES: ImagesListType = load_many(IMAGES_PATH.joinpath('trees'))
-SPIKE_IMAGE: Surface = load(IMAGES_PATH.joinpath('spike'))
-HINT_IMAGES: ImagesListType = load_many(IMAGES_PATH.joinpath('hint'))
-LADDER_IMAGE: Surface = load(IMAGES_PATH.joinpath('ladder'))
-CHEST_IMAGES: ImagesListType = load_many(IMAGES_PATH.joinpath('chest'))
-SHIELD_IMAGES: ImagesListType = load_many(IMAGES_PATH.joinpath('shield'))
+ICON_IMAGE: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('icons/icon'), extension='ico')
+SUN_IMAGE: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('sun'))
+FINISH_IMAGE: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('finish'))
+CLOUDS_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('clouds'))
+COIN_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('coin'))
+HEART_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('heart/as_item'))
+TREES_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('trees'))
+SPIKE_IMAGE: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('spike'))
+HINT_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('hint'))
+LADDER_IMAGE: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('ladder'))
+CHEST_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('chest'))
+SHIELD_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('shield'))
 
 
 class BackgroundImages:
-    __PATH: Path = IMAGES_PATH.joinpath('backgrounds')
-    HOME: Surface = load(__PATH.joinpath('home'))
-    BOTTOM_HOME_BORDER: Surface = load(__PATH.joinpath('home_border'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('backgrounds')
+    HOME: Surface = load_image(__PATH.joinpath('home'))
+    BOTTOM_HOME_BORDER: Surface = load_image(__PATH.joinpath('home_border'))
     TOP_HOME_BORDER: Surface = flip(BOTTOM_HOME_BORDER, flip_x=False, flip_y=True)
-    MAP: Surface = load(__PATH.joinpath('map'))
+    MAP: Surface = load_image(__PATH.joinpath('map'))
 
 
 class DirtImages:
-    __PATH: Path = IMAGES_PATH.joinpath('dirt')
-    DEFAULT: Surface = load(__PATH.joinpath('default'))
-    BACKGROUND: Surface = load(__PATH.joinpath('background'))
-    LEFT: Surface = load(__PATH.joinpath('left'))
-    RIGHT: Surface = load(__PATH.joinpath('right'))
-    GRASS_LIST: ImagesListType = load_many(__PATH.joinpath('grass'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('dirt')
+    DEFAULT: Surface = load_image(__PATH.joinpath('default'))
+    BACKGROUND: Surface = load_image(__PATH.joinpath('background'))
+    LEFT: Surface = load_image(__PATH.joinpath('left'))
+    RIGHT: Surface = load_image(__PATH.joinpath('right'))
+    GRASS_LIST: ImagesListType = load_images(__PATH.joinpath('grass'))
 
 
 class BricksImages:
-    __PATH: Path = IMAGES_PATH.joinpath('bricks')
-    DEFAULT: Surface = load(__PATH.joinpath('default'))
-    BACKGROUND: Surface = load(__PATH.joinpath('background'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('bricks')
+    DEFAULT: Surface = load_image(__PATH.joinpath('default'))
+    BACKGROUND: Surface = load_image(__PATH.joinpath('background'))
 
 
 class PlayerDefaultImages:
-    __PATH: Path = IMAGES_PATH.joinpath('player/default')
-    STAND: Surface = load(__PATH.joinpath('stand'))
-    GO_RIGHT: ImagesListType = load_many(__PATH.joinpath('go'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('player/default')
+    STAND: Surface = load_image(__PATH.joinpath('stand'))
+    GO_RIGHT: ImagesListType = load_images(__PATH.joinpath('go'))
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
-    LADDER: ImagesListType = load_many(__PATH.joinpath('ladder'))
+    GO_VERTICAL: ImagesListType = load_images(__PATH.joinpath('go_vertical'))
 
 
 class PlayerDefaultWhiteImages:
     STAND: Surface = whitewash(PlayerDefaultImages.STAND)
     GO_RIGHT: ImagesListType = whitewash_many(PlayerDefaultImages.GO_RIGHT)
     GO_LEFT: ImagesListType = whitewash_many(PlayerDefaultImages.GO_LEFT)
-    LADDER: ImagesListType = whitewash_many(PlayerDefaultImages.LADDER)
+    LADDER: ImagesListType = whitewash_many(PlayerDefaultImages.GO_VERTICAL)
 
 
 class SlugImages:
-    __PATH: Path = IMAGES_PATH.joinpath('slug')
-    GO: ImagesListType = load_many(__PATH.joinpath('go'))
-    DEATH: ImagesListType = load_many(__PATH.joinpath('death'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('slug')
+    GO: ImagesListType = load_images(__PATH.joinpath('go'))
+    DEATH: ImagesListType = load_images(__PATH.joinpath('death'))
 
 
 class BatImages:
-    GO_RIGHT: ImagesListType = load_many(IMAGES_PATH.joinpath('bat'))
+    GO_RIGHT: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('bat'))
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
 
 
 class SkeletonImages:
-    __PATH: Path = IMAGES_PATH.joinpath('skeleton')
-    GO_RIGHT: ImagesListType = load_many(__PATH.joinpath('go'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('skeleton')
+    GO_RIGHT: ImagesListType = load_images(__PATH.joinpath('go'))
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
-    ATTACK_RIGHT: ImagesListType = load_many(__PATH.joinpath('attack'))
+    ATTACK_RIGHT: ImagesListType = load_images(__PATH.joinpath('attack'))
     ATTACK_LEFT: ImagesListType = flip_many(ATTACK_RIGHT)
 
 
 class CannonImages:
-    __PATH: Path = IMAGES_PATH.joinpath('cannon')
-    DEFAULT_RIGHT: Surface = load(__PATH.joinpath('cannon/default'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('cannon')
+    DEFAULT_RIGHT: Surface = load_image(__PATH.joinpath('cannon/default'))
     DEFAULT_LEFT: Surface = flip(DEFAULT_RIGHT, flip_x=True, flip_y=False)
-    SHOOT_RIGHT: ImagesListType = load_many(__PATH.joinpath('cannon/shoot'))
+    SHOOT_RIGHT: ImagesListType = load_images(__PATH.joinpath('cannon/shoot'))
     SHOOT_LEFT: ImagesListType = flip_many(SHOOT_RIGHT)
 
     class CannonballImages:
-        __PATH: Path = IMAGES_PATH.joinpath('cannon/cannonball')
-        DEFAULT: Surface = load(__PATH.joinpath('default'))
-        DEATH: ImagesListType = load_many(__PATH.joinpath('death'))
+        __PATH: Path = GameConfig.IMAGES_PATH.joinpath('cannon/cannonball')
+        DEFAULT: Surface = load_image(__PATH.joinpath('default'))
+        DEATH: ImagesListType = load_images(__PATH.joinpath('death'))
 
 
 class SpiderImages:
-    __PATH: Path = IMAGES_PATH.joinpath('spider')
-    STAND: Surface = load(__PATH.joinpath('stand'))
-    GO: ImagesListType = load_many(__PATH.joinpath('go'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('spider')
+    STAND: Surface = load_image(__PATH.joinpath('stand'))
+    GO: ImagesListType = load_images(__PATH.joinpath('go'))
 
 
 class WaterImages:
     ALPHA: int = 225
-    __PATH: Path = IMAGES_PATH.joinpath('water')
-    DEFAULT: Surface = load(__PATH.joinpath('default'))
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('water')
+    DEFAULT: Surface = load_image(__PATH.joinpath('default'))
     DEFAULT.set_alpha(ALPHA)
-    TOP: Surface = load(__PATH.joinpath('top'))
+    TOP: Surface = load_image(__PATH.joinpath('top'))
     TOP.set_alpha(ALPHA)
-
-
-if __name__ == '__main__':
-    print(ICON_IMAGE)
-    print(BackgroundImages.HOME)
-    print(BackgroundImages.MAP)
-    whitewash(PlayerDefaultImages.STAND)

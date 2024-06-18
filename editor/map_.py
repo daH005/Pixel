@@ -5,11 +5,12 @@ from typing import TypeVar, TypeAlias
 
 from game.map_.abstract_ui import AbstractMapObject
 from game.contrib.screen import SCREEN_W, SCREEN_H
-from game.map_.map_ import Map as BaseMap
-from game.map_.camera import Camera as BaseCamera
-from game.map_.grid import Grid as BaseGrid
-from game.contrib.annotations import XYTupleType
-from game.assets.levels import LevelsManager, LevelData
+from engine.map_.map_ import Map as BaseMap
+from engine.map.camera import Camera as BaseCamera
+from engine.map.grid.grid import Grid as BaseGrid
+from engine.common.typing_ import XYTupleType
+from engine.levels.manager import LevelsManager
+from engine.levels.level import Level
 
 __all__ = (
     'Map',
@@ -53,8 +54,8 @@ class AbstractEditorMapObject(AbstractMapObject):
 
     def _prepare_args(self) -> MapObjectArgsJsonType:
         return dict(
-            x=self.rect.x,
-            y=self.rect.y,
+            x=self._rect.x,
+            y=self._rect.y,
         )
 
     def remove(self) -> None:
@@ -68,7 +69,7 @@ SomeEditorMapObjectType: TypeVar = TypeVar('SomeEditorMapObjectType',
 
 class Map(BaseMap):
     BLOCK_SCALE: int = 40
-    level: LevelData | None
+    _current_level: Level | None
     w: int
     h: int
 
@@ -85,14 +86,14 @@ class Map(BaseMap):
 
         def update(self) -> None:
             mos_x_y: XYTupleType = get_pos()
-            if mos_x_y[0] <= self.MAP_MOVING_BORDER_LEN and self.rect.left >= 0:
-                self.rect.x -= self.SPEED
-            if mos_x_y[0] >= SCREEN_W - self.MAP_MOVING_BORDER_LEN and self.rect.right <= self.map_w:
-                self.rect.x += self.SPEED
-            if mos_x_y[1] <= self.MAP_MOVING_BORDER_LEN and self.rect.top >= 0:
-                self.rect.y -= self.SPEED
-            if mos_x_y[1] >= SCREEN_H - self.MAP_MOVING_BORDER_LEN and self.rect.bottom <= self.map_h:
-                self.rect.y += self.SPEED
+            if mos_x_y[0] <= self.MAP_MOVING_BORDER_LEN and self._rect.left >= 0:
+                self._rect.x -= self.SPEED
+            if mos_x_y[0] >= SCREEN_W - self.MAP_MOVING_BORDER_LEN and self._rect.right <= self.map_w:
+                self._rect.x += self.SPEED
+            if mos_x_y[1] <= self.MAP_MOVING_BORDER_LEN and self._rect.top >= 0:
+                self._rect.y -= self.SPEED
+            if mos_x_y[1] >= SCREEN_H - self.MAP_MOVING_BORDER_LEN and self._rect.bottom <= self.map_h:
+                self._rect.y += self.SPEED
 
     def __init__(self) -> None:
         super().__init__()
@@ -110,17 +111,17 @@ class Map(BaseMap):
         self.grid.reset(self.w, self.h)
         if self.level:
             for object_data in self.level.objects:
-                self.add_object_by_data(object_data)
+                self._add_object(object_data)
 
     def _reset_camera(self) -> None:
         self.camera.reset(self.w, self.h)
-        self.camera.central_rect = self.map_scrolling.rect
+        self.camera.central_rect = self.map_scrolling._rect
         self.camera.move_quick()
 
     def _load_level(self) -> None:
         level_index: str = input('Ввод: индекс уровня либо ENTER - ')
         if level_index:
-            self.level: LevelData = LevelsManager.LEVELS[int(level_index)]
+            self.level: Level = LevelsManager._levels[int(level_index)]
             self.w: int = self.level.w
             self.h: int = self.level.h
         else:
@@ -152,28 +153,28 @@ class Map(BaseMap):
 
     def increase_w(self) -> None:
         self.w += self.BLOCK_SCALE
-        if self.grid.divide(self.w) > self.grid.w - 1:
+        if self.grid._divide(self.w) > self.grid.w - 1:
             self.grid.add_x()
         self.camera.reset(self.w, self.h)
         self.map_scrolling.reset(self.w, self.h)
 
     def increase_h(self) -> None:
         self.h += self.BLOCK_SCALE
-        if self.grid.divide(self.h) > self.grid.h - 1:
+        if self.grid._divide(self.h) > self.grid.h - 1:
             self.grid.add_y()
         self.camera.reset(self.w, self.h)
         self.map_scrolling.reset(self.w, self.h)
 
     def decrease_w(self) -> None:
         self.w -= self.BLOCK_SCALE
-        if self.grid.w - 1 > self.grid.divide(self.w):
+        if self.grid.w - 1 > self.grid._divide(self.w):
             self.grid.del_x()
         self.camera.reset(self.w, self.h)
         self.map_scrolling.reset(self.w, self.h)
 
     def decrease_h(self) -> None:
         self.h -= self.BLOCK_SCALE
-        if self.grid.h - 1 > self.grid.divide(self.h):
+        if self.grid.h - 1 > self.grid._divide(self.h):
             self.grid.del_y()
         self.camera.reset(self.w, self.h)
         self.map_scrolling.reset(self.w, self.h)
@@ -183,7 +184,7 @@ class Camera(BaseCamera):
 
     def get_cursor(self) -> XYTupleType:
         mouse_x_y: XYTupleType = get_pos()
-        rect: Rect = self.rect.move(*mouse_x_y)
+        rect: Rect = self._rect.move(*mouse_x_y)
         return rect.x, rect.y
 
 
@@ -194,8 +195,8 @@ class Grid(BaseGrid):
         self.camera: Camera = Camera()
 
     def add(self, object_: SomeEditorMapObjectType) -> None:
-        y: int = self.divide(object_.rect.y)
-        x: int = self.divide(object_.rect.x)
+        y: int = self._divide(object_._rect.y)
+        x: int = self._divide(object_._rect.x)
         if y < 0:
             y = 0
         elif y > self.h - 1:

@@ -1,11 +1,25 @@
-from game.assets.levels import LevelsManager
-from game.assets.save import save
+import json
+import os
 
-if __name__ == '__main__':
-    save.coins_count = 0
-    for level in LevelsManager.LEVELS:
-        level.is_available = False
-        if level.index == 0:
-            level.is_available = True
-        level.is_completed = False
-        level.uncreating_ids = []
+base_path = '../assets/levels/'
+for filename in os.listdir(base_path):
+    with open(base_path + filename, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    data['is_completed'] = False
+
+    if filename == '0.json':
+        data['is_available'] = True
+    else:
+        data['is_available'] = False
+
+    data['extra_data'] = {
+        'ids': [],
+    }
+
+    with open(base_path + filename, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
+
+
+with open('../assets/save.json', 'w', encoding='utf-8') as f:
+    json.dump({'coins_count': 0}, f, indent=4, ensure_ascii=False)

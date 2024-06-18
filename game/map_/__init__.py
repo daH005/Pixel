@@ -1,8 +1,5 @@
-"""Модуль формирует полностью готовый к работе класс `Map`."""
-
-from game.map_.map_ import Map
+from engine.map_.map_ import Map
 from game.map_.ui.player import Player
-from game.map_.ui.barrier import InvisibleBarrier
 from game.map_.ui.dirt import Dirt, BackgroundDirt
 from game.map_.ui.bricks import Bricks, BackgroundBricks
 from game.map_.ui.finish import Finish

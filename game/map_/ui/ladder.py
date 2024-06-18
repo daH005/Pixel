@@ -1,8 +1,5 @@
-from pygame import Surface
-
+from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractInteractingWithPlayerMapObject
-from game.map_.map_ import Map
-from game.contrib.annotations import SizeTupleType
 from game.assets.images import LADDER_IMAGE
 
 __all__ = (
@@ -12,8 +9,15 @@ __all__ = (
 
 @Map.add_object_type
 class Ladder(AbstractInteractingWithPlayerMapObject):
-    image: Surface = LADDER_IMAGE
-    size: SizeTupleType = image.get_size()
+
+    def __init__(self, map_: Map,
+                 x: int, y: int,
+                 ) -> None:
+        self._image = LADDER_IMAGE
+        super().__init__(
+            map_=map_,
+            rect=self._image.get_rect(x=x, y=y),
+        )
 
     def _handle_collision_with_player(self) -> None:
-        self.map.player.on_ladder = True
+        self._map.player.set_that_on_ladder()

@@ -1,12 +1,11 @@
 from pygame import Rect
 
+from engine.map_.map_ import Map
+from engine.common.counters import FramesCounter
+from engine.common.direction import Direction
+from engine.common.float_rect import FloatRect
 from game.assets.images import SkeletonImages
-from game.contrib.counters import FramesCounter
-from game.contrib.annotations import SizeTupleType
-from game.contrib.direction import Direction
-from game.map_.map_ import Map
 from game.map_.abstract_ui import AbstractXPatrolEnemy
-from game.contrib.screen import screen
 
 __all__ = (
     'Skeleton',
@@ -15,73 +14,78 @@ __all__ = (
 
 @Map.add_object_type
 class Skeleton(AbstractXPatrolEnemy):
-    size: SizeTupleType = SkeletonImages.GO_RIGHT[0].get_size()
-    SPEED: float = 1.5
-    X_PUSHING_POWER: float = 20
-    Y_PUSHING_POWER: float = 3
 
-    GO_ANIM_DELAY: float = 0.15
-    ATTACK_ANIM_DELAY: float = 0.15
-    ATTACK_ANIM_INDENTS: dict[Direction, tuple[int, int]] = {
-        Direction.LEFT: (0, 72),
-        Direction.RIGHT: (28, 0),
-    }
-    ATTACK_FRAME_INDEX: int = 1
-
-    def __init__(self, x: int, y: int,
+    def __init__(self, map_: Map,
+                 x: int, y: int,
                  start_x: int,
                  end_x: int,
                  ) -> None:
-        super().__init__(x, y, start_x, end_x)
-        self._anim_rect: Rect = self.rect
-        self.go_frames_counter: FramesCounter = FramesCounter(
+        super().__init__(
+            map_=map_,
+            rect=FloatRect(SkeletonImages.GO_RIGHT[0].get_rect(x=x, y=y)),
+            start_x=start_x,
+            end_x=end_x,
+            speed=1.5,
+            x_pushing_power=20,
+            y_pushing_power=3,
+        )
+
+        self._go_frames_counter: FramesCounter = FramesCounter(
             frames_count=len(SkeletonImages.GO_RIGHT),
-            transition_delay_as_seconds=self.GO_ANIM_DELAY,
+            transition_delay_as_seconds=0.15,
         )
-        self.attack_frames_counter: FramesCounter = FramesCounter(
+        self._attack_frames_counter: FramesCounter = FramesCounter(
             frames_count=len(SkeletonImages.ATTACK_RIGHT),
-            transition_delay_as_seconds=self.ATTACK_ANIM_DELAY,
+            transition_delay_as_seconds=0.15,
         )
+
+        self._attack_anim_indents: dict[Direction, tuple[int, int]] = {
+            Direction.LEFT: (0, 72),
+            Direction.RIGHT: (28, 0),
+        }
+        self._attack_frame_index: int = 1
+
+        self._anim_rect: Rect = self._rect
         self.attack_direction: Direction | None = None
 
     def _move(self) -> None:
-        if self.attack_frames_counter.is_end:
+        if self._attack_frames_counter.is_end:
             super()._move()
 
     def _handle_collision_with_player(self) -> None:
-        if self.attack_frames_counter.current_index == self.ATTACK_FRAME_INDEX:
+        if self._attack_frames_counter.current_index == self._attack_frame_index:
             super()._handle_collision_with_player()
-        if self.attack_frames_counter.is_end:
-            self.attack_frames_counter.is_end = False
-            if self.map.player.rect.centerx < self.rect.centerx:
+        if self._attack_frames_counter.is_end:
+            self._attack_frames_counter.start()
+            if self._map.player.get_rect().centerx < self._rect.centerx:
                 self.attack_direction = Direction.LEFT
-            elif self.map.player.rect.centerx >= self.rect.centerx:
+            elif self._map.player.get_rect().centerx >= self._rect.centerx:
                 self.attack_direction = Direction.RIGHT
 
     def _update_image(self) -> None:
-        if self.attack_frames_counter.is_end:
-            self._anim_rect = self.rect
-            if self.x_vel < 0:
-                self.image = SkeletonImages.GO_LEFT[self.go_frames_counter.current_index]
-            elif self.x_vel > 0:
-                self.image = SkeletonImages.GO_RIGHT[self.go_frames_counter.current_index]
-            self.go_frames_counter.next()
+        if self._attack_frames_counter.is_end:
+            self._anim_rect = self._rect
+            if self._x_vel < 0:
+                self._image = SkeletonImages.GO_LEFT[self._go_frames_counter.current_index]
+            elif self._x_vel > 0:
+                self._image = SkeletonImages.GO_RIGHT[self._go_frames_counter.current_index]
+            self._go_frames_counter.next()
         else:
             if self.attack_direction == Direction.LEFT:
-                self.image = SkeletonImages.ATTACK_LEFT[self.attack_frames_counter.current_index]
+                self._image = SkeletonImages.ATTACK_LEFT[self._attack_frames_counter.current_index]
             elif self.attack_direction == Direction.RIGHT:
-                self.image = SkeletonImages.ATTACK_RIGHT[self.attack_frames_counter.current_index]
+                self._image = SkeletonImages.ATTACK_RIGHT[self._attack_frames_counter.current_index]
             self._update_anim_rect_for_attack()
-            self.attack_frames_counter.next()
+            self._attack_frames_counter.next()
 
     def _update_anim_rect_for_attack(self) -> None:
         self._anim_rect = Rect(
-            self.rect.x - self.ATTACK_ANIM_INDENTS[self.attack_direction][self.attack_frames_counter.current_index],
+            self._rect.x - self._attack_anim_indents[self.attack_direction][self._attack_frames_counter.current_index],
             0,
-            self.image.get_width(),
-            self.image.get_height(),
+            self._image.get_width(),
+            self._image.get_height(),
         )
-        self._anim_rect.bottom = self.rect.bottom
+        self._anim_rect.bottom = self._rect.bottom
 
     def _draw(self) -> None:
-        screen.blit(self.image, self.map.camera.apply(self._anim_rect))
+        self._screen.blit(self._image, self._map.camera.apply(self._anim_rect))

@@ -1,59 +1,50 @@
 from abc import ABC, abstractmethod
 from pygame import Rect
 
-from game.contrib.annotations import XYTupleType
-from game.contrib.rects import FloatRect
-from game.map_.map_ import Map
-from game.map_.grid import (
-    AbstractMapGridObject,
-    MapObjectAttr,
-    MapObjectAttrsListType,
-)
-from game.map_.camera import Camera
-from game.contrib.screen import screen
+from engine.common.float_rect import FloatRect
+from engine.map_.grid.typing_ import AttrsType
+from engine.map_.abstract_map_object import AbstractMapObject
+from engine.map_.map_ import Map
+from engine.exceptions import MapObjectCannotBeCreated
+from game.map_.attrs import MapObjectAttr
+from game.map_.levels_extra_data_keys import LevelExtraDataKey
 
 __all__ = (
-    'AbstractMapObject',
-    'AbstractMapObject',
     'AbstractBlock',
     'AbstractBackground',
     'AbstractInteractingWithPlayerMapObject',
+    'AbstractItemToDisposableCollect',
     'AbstractMovingMapObject',
     'AbstractMovingAndInteractingWithPlayerMapObject',
     'AbstractXPatrolEnemy',
 )
 
 
-class AbstractMapObject(AbstractMapGridObject, ABC):
-    Z_INDEX: int = 0
-    ATTRS: MapObjectAttrsListType = []
-    size: XYTupleType
-    RectType: type[Rect] | type[FloatRect] = Rect
-
-    def __init__(self, x: int, y: int) -> None:
-        self.map: Map = Map()
-        self.camera: Camera = Camera()
-        self.rect: Rect | FloatRect = self.RectType((x, y) + self.size)
-        self.to_delete: bool = False
-
-    def update(self) -> None:
-        self._update_image()
-        super().update()
-
-    def _update_image(self) -> None:
-        pass
-
-    def _draw(self) -> None:
-        screen.blit(self.image, self.camera.apply(self.rect))
-
-
 class AbstractBlock(AbstractMapObject, ABC):
-    Z_INDEX: int = 7
-    ATTRS: MapObjectAttrsListType = [MapObjectAttr.BLOCK]
+
+    def __init__(self, map_: Map,
+                 rect: Rect | FloatRect,
+                 z_index: int = 7,
+                 ) -> None:
+        super().__init__(
+            map_=map_,
+            rect=rect,
+            attrs=[MapObjectAttr.BLOCK],
+            z_index=z_index,
+        )
 
 
 class AbstractBackground(AbstractMapObject, ABC):
-    Z_INDEX: int = -2
+
+    def __init__(self, map_: Map,
+                 rect: Rect | FloatRect,
+                 z_index: int = -2,
+                 ) -> None:
+        super().__init__(
+            map_=map_,
+            rect=rect,
+            z_index=z_index,
+        )
 
 
 class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
@@ -63,12 +54,47 @@ class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
         super().update()
 
     def _check_collision_with_player(self) -> None:
-        if self.rect.colliderect(self.map.player.rect):
+        if self._rect.colliderect(self._map.player.get_rect()):
             self._handle_collision_with_player()
 
     @abstractmethod
     def _handle_collision_with_player(self) -> None:
         pass
+
+
+class AbstractItemToDisposableCollect(AbstractInteractingWithPlayerMapObject, ABC):
+    _collected_ids: list[int] = []
+
+    def __init__(self, map_: Map,
+                 rect: Rect | FloatRect,
+                 attrs: AttrsType | None = None,
+                 z_index: int = 1,
+                 id_: int | None = None,
+                 ) -> None:
+        if id_ in map_.levels_manager.current_level.extra.get(LevelExtraDataKey.COLLECTED_ITEMS_IDS, []):
+            raise MapObjectCannotBeCreated
+
+        super().__init__(
+            map_=map_,
+            rect=rect,
+            attrs=attrs,
+            z_index=z_index,
+        )
+        self._id = id_
+
+    @classmethod
+    def reset_class(cls) -> None:
+        AbstractItemToDisposableCollect._collected_ids.clear()
+
+    @classmethod
+    @property
+    def collected_ids(cls) -> list[int]:
+        return list(AbstractItemToDisposableCollect._collected_ids)
+
+    def take(self) -> None:
+        if self._id is None:
+            return
+        AbstractItemToDisposableCollect._collected_ids.append(self._id)
 
 
 class AbstractMovingMapObject(AbstractMapObject, ABC):
@@ -92,31 +118,37 @@ class AbstractMovingAndInteractingWithPlayerMapObject(AbstractMovingMapObject,
 
 
 class AbstractXPatrolEnemy(AbstractMovingAndInteractingWithPlayerMapObject, ABC):
-    Z_INDEX: int = 2
-    RectType: type[FloatRect] = FloatRect
-    X_PUSHING_POWER: float = 22
-    Y_PUSHING_POWER: float = 11
-    SPEED: float
 
-    def __init__(self, x: int, y: int,
+    def __init__(self, map_: Map,
+                 rect: FloatRect,
                  start_x: int,
                  end_x: int,
+                 speed: float,
+                 attrs: AttrsType | None = None,
+                 x_pushing_power: float = 22,
+                 y_pushing_power: float = 11,
                  ) -> None:
-        super().__init__(x, y)
-        if start_x is None or end_x is None:
-            raise ValueError(f'Диапазон патрулирования для моба {type(self).__name__} не указан!')
-        self.start_x = start_x
-        self.end_x = end_x
-        self.x_vel: float = self.SPEED
+        super().__init__(
+            map_=map_,
+            rect=rect,
+            attrs=attrs,
+            z_index=2,
+        )
+        self._start_x = start_x
+        self._end_x = end_x
+        self._speed = speed
+        self._x_pushing_power = x_pushing_power
+        self._y_pushing_power = y_pushing_power
+        self._x_vel: float = self._speed
 
     def _move(self) -> None:
-        if self.rect.left <= self.start_x or self.rect.right >= self.end_x:
-            self.x_vel *= -1
-        self.rect.float_x += self.x_vel
+        if self._rect.left <= self._start_x or self._rect.right >= self._end_x:
+            self._x_vel *= -1
+        self._rect.float_x += self._x_vel
 
     def _handle_collision_with_player(self) -> None:
-        self.map.player.hit(
-            x_pushing=self.X_PUSHING_POWER,
-            y_pushing=self.Y_PUSHING_POWER,
-            enemy_center_x=self.rect.centerx,
+        self._map.player.hit(
+            x_pushing=self._x_pushing_power,
+            y_pushing=self._y_pushing_power,
+            enemy_center_x=self._rect.centerx,
         )

@@ -1,9 +1,6 @@
-from pygame import Surface
-
+from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractInteractingWithPlayerMapObject
-from game.map_.map_ import Map
 from game.assets.images import FINISH_IMAGE
-from game.contrib.annotations import SizeTupleType
 
 __all__ = (
     'Finish',
@@ -12,8 +9,16 @@ __all__ = (
 
 @Map.add_object_type
 class Finish(AbstractInteractingWithPlayerMapObject):
-    image: Surface = FINISH_IMAGE
-    size: SizeTupleType = image.get_size()
+
+    def __init__(self, map_: Map,
+                 x: int, y: int,
+                 ) -> None:
+        self._image = FINISH_IMAGE
+        super().__init__(
+            map_=map_,
+            rect=self._image.get_rect(x=x, y=y),
+            z_index=99,
+        )
 
     def _handle_collision_with_player(self) -> None:
-        self.map.finish()
+        self._map.finish()

@@ -5239,5 +5239,7 @@
     "is_completed": false,
     "w": 1680,
     "h": 800,
-    "uncreating_ids": []
+    "extra_data": {
+        "ids": []
+    }
 }

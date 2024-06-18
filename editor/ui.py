@@ -4,7 +4,7 @@ from pygame.draw import rect as draw_rect
 from random import randint
 
 from game.map_.ui.dirt import Dirt as RealDirt
-from game.contrib.annotations import SizeTupleType
+from engine.common.typing_ import SizeTupleType
 from game.contrib.direction import Direction
 from game.assets.images import (
     DirtImages,
@@ -74,8 +74,8 @@ class FixedBySquare(AbstractEditorMapObject):
     @classmethod
     def new_with_coords_fix(cls, *args, **kwargs) -> FixedBySquare:
         obj_ = cls(*args, **kwargs)
-        obj_.rect.x -= obj_.rect.x % Map.BLOCK_SCALE
-        obj_.rect.y -= obj_.rect.y % Map.BLOCK_SCALE
+        obj_._rect.x -= obj_._rect.x % Map.BLOCK_SCALE
+        obj_._rect.y -= obj_._rect.y % Map.BLOCK_SCALE
         return obj_
 
 
@@ -84,8 +84,8 @@ class FixedByLeftAndBottom(AbstractEditorMapObject):
     @classmethod
     def new_with_coords_fix(cls, *args, **kwargs) -> FixedByLeftAndBottom:
         obj_ = cls(*args, **kwargs)
-        obj_.rect.x -= obj_.rect.x % Map.BLOCK_SCALE
-        obj_.rect.bottom = obj_.rect.y + (-obj_.rect.y % Map.BLOCK_SCALE)
+        obj_._rect.x -= obj_._rect.x % Map.BLOCK_SCALE
+        obj_._rect.bottom = obj_._rect.y + (-obj_._rect.y % Map.BLOCK_SCALE)
         return obj_
 
 
@@ -94,8 +94,8 @@ class FixedByBottom(AbstractEditorMapObject):
     @classmethod
     def new_with_coords_fix(cls, *args, **kwargs) -> FixedByBottom:
         obj_ = cls(*args, **kwargs)
-        obj_.rect.bottom = obj_.rect.y + (-obj_.rect.y % Map.BLOCK_SCALE)
-        obj_.rect.x -= obj_.rect.w // 2
+        obj_._rect.bottom = obj_._rect.y + (-obj_._rect.y % Map.BLOCK_SCALE)
+        obj_._rect.x -= obj_._rect.w // 2
         return obj_
 
 
@@ -104,8 +104,8 @@ class FixedByTop(AbstractEditorMapObject):
     @classmethod
     def new_with_coords_fix(cls, *args, **kwargs) -> FixedByTop:
         obj_ = cls(*args, **kwargs)
-        obj_.rect.top = obj_.rect.y - (obj_.rect.y % Map.BLOCK_SCALE)
-        obj_.rect.x -= obj_.rect.w // 2
+        obj_._rect.top = obj_._rect.y - (obj_._rect.y % Map.BLOCK_SCALE)
+        obj_._rect.x -= obj_._rect.w // 2
         return obj_
 
 
@@ -131,7 +131,7 @@ class Dirt(FixedBySquare):
         else:
             self.grass_enabled = self.common_grass_enabled
         if direction is not None:
-            self.image: Surface = RealDirt.EDGES_IMAGES[direction].copy()
+            self.image: Surface = RealDirt._EDGES_IMAGES[direction].copy()
         else:
             self.image: Surface = DirtImages.DEFAULT.copy()
         if self.grass_enabled:
@@ -148,27 +148,27 @@ class Dirt(FixedBySquare):
 @Map.add_object_type
 class BackgroundDirt(FixedBySquare):
     Z_INDEX: int = -2
-    image: Surface = DirtImages.BACKGROUND
+    _image: Surface = DirtImages.BACKGROUND
     size: SizeTupleType = DirtImages.BACKGROUND.get_size()
 
 
 @Map.add_object_type
 class Bricks(FixedBySquare):
     Z_INDEX: int = 7
-    image: Surface = BricksImages.DEFAULT
+    _image: Surface = BricksImages.DEFAULT
     size: SizeTupleType = BricksImages.DEFAULT.get_size()
 
 
 @Map.add_object_type
 class BackgroundBricks(FixedBySquare):
     Z_INDEX: int = -2
-    image: Surface = BricksImages.BACKGROUND
+    _image: Surface = BricksImages.BACKGROUND
     size: SizeTupleType = BricksImages.DEFAULT.get_size()
 
 
 @Map.add_object_type
 class Finish(FixedBySquare):
-    image: Surface = FINISH_IMAGE
+    _image: Surface = FINISH_IMAGE
     size: SizeTupleType = image.get_size()
 
 
@@ -197,14 +197,14 @@ class Tree(FixedByBottom):
 
 @Map.add_object_type
 class Spike(FixedByBottom):
-    image: Surface = SPIKE_IMAGE
+    _image: Surface = SPIKE_IMAGE
     size: SizeTupleType = image.get_size()
 
 
 @Map.add_object_type
 class Coin(FixedByBottom):
     Z_INDEX = 2
-    image: Surface = COIN_IMAGES[0]
+    _image: Surface = COIN_IMAGES[0]
     size: SizeTupleType = image.get_size()
 
     def __init__(self, x: int, y: int,
@@ -225,19 +225,19 @@ class Coin(FixedByBottom):
 
 @Map.add_object_type
 class Heart(FixedByBottom):
-    image: Surface = HEART_IMAGES[0]
+    _image: Surface = HEART_IMAGES[0]
     size: SizeTupleType = image.get_size()
 
 
 @Map.add_object_type
 class Shield(FixedByBottom):
-    image: Surface = SHIELD_IMAGES[0]
+    _image: Surface = SHIELD_IMAGES[0]
     size: SizeTupleType = image.get_size()
 
 
 @Map.add_object_type
 class Chest(FixedByBottom):
-    image: Surface = CHEST_IMAGES[0]
+    _image: Surface = CHEST_IMAGES[0]
     size: SizeTupleType = image.get_size()
 
     def __init__(self, x: int, y: int,
@@ -258,7 +258,7 @@ class Chest(FixedByBottom):
 
 @Map.add_object_type
 class Player(FixedByBottom):
-    image: Surface = PlayerDefaultImages.STAND
+    _image: Surface = PlayerDefaultImages.STAND
     size: SizeTupleType = image.get_size()
 
 
@@ -284,9 +284,9 @@ class AbstractEditorEnemy(FixedByBottom):
         draw_rect(
             screen,
             Color.RED,
-            self.map.camera.apply(Rect(
-                x, self.rect.y,
-                5, self.rect.h
+            self.map._camera.apply(Rect(
+                x, self._rect.y,
+                5, self._rect.h
             ))
         )
 
@@ -300,26 +300,26 @@ class AbstractEditorEnemy(FixedByBottom):
 
 @Map.add_object_type
 class Slug(AbstractEditorEnemy):
-    image: Surface = SlugImages.GO[0]
+    _image: Surface = SlugImages.GO[0]
     size: SizeTupleType = image.get_size()
 
 
 @Map.add_object_type
 class Bat(AbstractEditorEnemy):
-    image: Surface = BatImages.GO_RIGHT[0]
+    _image: Surface = BatImages.GO_RIGHT[0]
     size: SizeTupleType = image.get_size()
 
 
 @Map.add_object_type
 class Skeleton(AbstractEditorEnemy):
-    image: Surface = SkeletonImages.GO_RIGHT[0]
+    _image: Surface = SkeletonImages.GO_RIGHT[0]
     size: SizeTupleType = image.get_size()
 
 
 @Map.add_object_type
 class Hint(FixedByBottom):
     Z_INDEX = 10
-    image: Surface = HINT_IMAGES[0]
+    _image: Surface = HINT_IMAGES[0]
     size: SizeTupleType = image.get_size()
 
     def __init__(self, x: int, y: int,
@@ -340,7 +340,7 @@ class Hint(FixedByBottom):
 
 @Map.add_object_type
 class Ladder(FixedBySquare):
-    image: Surface = LADDER_IMAGE
+    _image: Surface = LADDER_IMAGE
     size: SizeTupleType = image.get_size()
 
 
@@ -372,7 +372,7 @@ class Water(FixedByLeftAndBottom):
 
 @Map.add_object_type
 class Cannon(FixedByBottom):
-    image: Surface = CannonImages.DEFAULT_RIGHT
+    _image: Surface = CannonImages.DEFAULT_RIGHT
     size: SizeTupleType = image.get_size()
 
     def __init__(self, x: int, y: int,
@@ -384,7 +384,7 @@ class Cannon(FixedByBottom):
 
     def _update_image(self) -> None:
         if self.end_x is not None:
-            if self.rect.centerx < self.end_x:
+            if self._rect.centerx < self.end_x:
                 self.image = CannonImages.DEFAULT_RIGHT
             else:
                 self.image = CannonImages.DEFAULT_LEFT
@@ -398,9 +398,9 @@ class Cannon(FixedByBottom):
         draw_rect(
             screen,
             Color.GOLD,
-            self.map.camera.apply(Rect(
-                self.end_x, self.rect.y,
-                5, self.rect.h
+            self.map._camera.apply(Rect(
+                self.end_x, self._rect.y,
+                5, self._rect.h
             ))
         )
 
@@ -413,7 +413,7 @@ class Cannon(FixedByBottom):
 
 @Map.add_object_type
 class Spider(FixedByTop):
-    image: Surface = SpiderImages.STAND
+    _image: Surface = SpiderImages.STAND
     size: SizeTupleType = image.get_size()
 
     def __init__(self, x: int, y: int,
@@ -432,9 +432,9 @@ class Spider(FixedByTop):
         draw_rect(
             screen,
             Color.GREEN,
-            self.map.camera.apply(Rect(
-                self.rect.x, self.end_y,
-                self.rect.w, 3
+            self.map._camera.apply(Rect(
+                self._rect.x, self.end_y,
+                self._rect.w, 3
             ))
         )
 

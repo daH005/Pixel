@@ -1,36 +1,25 @@
-"""Основной модуль, импортирующий сцены и запускающий окно игры."""
-
-from pygame import quit
-from pygame.display import flip
-
-from game.scenes import ScenesManager, SceneKey, SceneKeyType
-from game.contrib.exceptions import Exit
-from game.contrib.singleton_ import SingletonMeta
-
-__all__ = (
-    'Game',
-)
-
-
-class Game(metaclass=SingletonMeta):
-    """Класс-одиночка, метод `run()` которого запускает игру.
-    В `__init__(...)` можно передать ключ начальной сцены.
-    """
-
-    def __init__(self, initial_scene_key: SceneKeyType = SceneKey.HOME) -> None:
-        ScenesManager.switch(initial_scene_key)
-
-    @staticmethod
-    def run() -> None:
-        while True:
-            try:
-                ScenesManager.current_scene.update()
-                flip()
-            except Exit:
-                break
-        quit()
-
+from engine.screen import set_global_screen
+from engine.levels.manager import LevelsManager
+from engine.main_game_class import Game
+from game.scenes import ScenesManager
+from game.scenes.keys import SceneKey
+from game.assets.images import ICON_IMAGE
+from game.config import GameConfig
 
 if __name__ == '__main__':
-    game: Game = Game()
+    set_global_screen(
+        h=GameConfig.WINDOW_HEIGHT,
+        title=GameConfig.WINDOW_TITLE,
+        flags=GameConfig.WINDOW_FLAGS,
+        icon=ICON_IMAGE,
+    )
+    game: Game = Game(
+        max_fps=GameConfig.MAX_FPS,
+        scenes_manager=ScenesManager(
+            initial_scene_key=SceneKey.HOME,
+            levels_manager=LevelsManager(
+                levels_folder_path=GameConfig.LEVELS_PATH,
+            ),
+        ),
+    )
     game.run()
