@@ -3,6 +3,8 @@ About project
 
 `Pixel` is the 2D platformer. In this game you have to play the red-haired boy and complete the levels!
 
+You can download a release with `.exe` file. There is also a version for Linux.
+
 Stack
 -----
 - pygame
