@@ -1,8 +1,12 @@
 About project
 -------------
 
-`Pixel` is 2D platformer. We play as a red-haired boy and complete the levels!:)
-I use pygame.
+`Pixel` is the 2D platformer. In this game you have to play the red-haired boy and complete the levels!
+
+Stack
+-----
+- pygame
+- pyinstaller
 
 Demo
 ----
@@ -18,5 +22,8 @@ How to run
 
 For building
 --------------------------------------------
+Run `python3 main.py` from `building/game`
 
-1. Run `python3 main.py` from `building/game`
+Thanks
+------
+Vildan for the sounds, the music
