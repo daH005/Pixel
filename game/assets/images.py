@@ -140,7 +140,7 @@ class PlayerDefaultWhiteImages:
     STAND: Surface = whitewash(PlayerDefaultImages.STAND)
     GO_RIGHT: ImagesListType = whitewash_many(PlayerDefaultImages.GO_RIGHT)
     GO_LEFT: ImagesListType = whitewash_many(PlayerDefaultImages.GO_LEFT)
-    LADDER: ImagesListType = whitewash_many(PlayerDefaultImages.GO_VERTICAL)
+    GO_VERTICAL: ImagesListType = whitewash_many(PlayerDefaultImages.GO_VERTICAL)
 
 
 class SlugImages:
