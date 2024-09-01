@@ -74,6 +74,10 @@ class Cannon(AbstractMapObject):
 
 class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
 
+    _START_SPEED: float = 15
+    _END_SPEED: float = 10
+    _SPEED_DECREASE: float = 0.25
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  end_x: int,
@@ -95,9 +99,7 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
         else:
             self._direction: Direction = Direction.RIGHT
 
-        self._current_speed: float = 15
-        self._end_speed: float = 10
-        self._speed_decrease: float = 0.25
+        self._current_speed: float = self._START_SPEED
 
     def update(self) -> None:
         super().update()
@@ -114,8 +116,8 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
             self._decrease_speed()
 
     def _decrease_speed(self) -> None:
-        if self._current_speed > self._end_speed:
-            self._current_speed -= self._speed_decrease
+        if self._current_speed > self._END_SPEED:
+            self._current_speed -= self._SPEED_DECREASE
 
     def _handle_collision_with_player(self) -> None:
         self._map.player.hit()

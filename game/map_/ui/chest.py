@@ -11,6 +11,7 @@ __all__ = (
 
 @Map.add_object_type
 class Chest(AbstractItemToDisposableCollect):
+    _DEFAULT_COINS_COUNT: int = 10
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -23,7 +24,7 @@ class Chest(AbstractItemToDisposableCollect):
         )
 
         if count is None:
-            count = 10
+            count = self._DEFAULT_COINS_COUNT
 
         self._max_count = count
         self._spawned_count: int = 0

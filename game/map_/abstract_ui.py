@@ -21,30 +21,12 @@ __all__ = (
 
 
 class AbstractBlock(AbstractMapObject, ABC):
-
-    def __init__(self, map_: Map,
-                 rect: Rect | FloatRect,
-                 z_index: int = 7,
-                 ) -> None:
-        super().__init__(
-            map_=map_,
-            rect=rect,
-            attrs=[MapObjectAttr.BLOCK],
-            z_index=z_index,
-        )
+    _DEFAULT_Z_INDEX = 7
+    _DEFAULT_ATTRS = [MapObjectAttr.BLOCK]
 
 
 class AbstractBackground(AbstractMapObject, ABC):
-
-    def __init__(self, map_: Map,
-                 rect: Rect | FloatRect,
-                 z_index: int = -2,
-                 ) -> None:
-        super().__init__(
-            map_=map_,
-            rect=rect,
-            z_index=z_index,
-        )
+    _DEFAULT_Z_INDEX = -2
 
 
 class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
@@ -63,12 +45,14 @@ class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
 
 
 class AbstractItemToDisposableCollect(AbstractInteractingWithPlayerMapObject, ABC):
+
     _collected_ids: list[int] = []
+    _DEFAULT_Z_INDEX = 1
 
     def __init__(self, map_: Map,
                  rect: Rect | FloatRect,
                  attrs: AttrsType | None = None,
-                 z_index: int = 1,
+                 z_index: int | None = None,
                  id_: int | None = None,
                  ) -> None:
         if id_ in map_.levels_manager.current_level.extra.get(LevelExtraDataKey.COLLECTED_ITEMS_IDS, []):
@@ -119,20 +103,29 @@ class AbstractMovingAndInteractingWithPlayerMapObject(AbstractMovingMapObject,
 
 class AbstractXPatrolEnemy(AbstractMovingAndInteractingWithPlayerMapObject, ABC):
 
+    _DEFAULT_Z_INDEX = 2
+    _DEFAULT_X_PUSHING_POWER: float = 22
+    _DEFAULT_Y_PUSHING_POWER: float = 11
+
     def __init__(self, map_: Map,
                  rect: FloatRect,
                  start_x: int,
                  end_x: int,
                  speed: float,
                  attrs: AttrsType | None = None,
-                 x_pushing_power: float = 22,
-                 y_pushing_power: float = 11,
+                 x_pushing_power: float | None = None,
+                 y_pushing_power: float | None = None,
                  ) -> None:
+        if x_pushing_power is None:
+            x_pushing_power = self._DEFAULT_X_PUSHING_POWER
+
+        if y_pushing_power is None:
+            y_pushing_power = self._DEFAULT_Y_PUSHING_POWER
+
         super().__init__(
             map_=map_,
             rect=rect,
             attrs=attrs,
-            z_index=2,
         )
         self._start_x = start_x
         self._end_x = end_x

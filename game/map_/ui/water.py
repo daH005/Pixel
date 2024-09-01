@@ -9,6 +9,7 @@ __all__ = (
 
 @Map.add_object_type
 class Water(AbstractInteractingWithPlayerMapObject):
+    _Z_INDEX: int = 6
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -19,7 +20,7 @@ class Water(AbstractInteractingWithPlayerMapObject):
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),
-            z_index=6,
+            z_index=self._Z_INDEX,
         )
 
     def _init_image(self) -> None:

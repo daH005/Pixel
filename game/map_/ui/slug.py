@@ -15,6 +15,10 @@ __all__ = (
 @Map.add_object_type
 class Slug(AbstractXPatrolEnemy):
 
+    _SPEED: float = 1
+    _PLAYER_Y_VEL_FOR_DEATH: float = 8
+    _Y_PUSHING_POWER_AFTER_DEATH: float = 15
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  start_x: int,
@@ -25,7 +29,7 @@ class Slug(AbstractXPatrolEnemy):
             rect=FloatRect(SlugImages.GO[0].get_rect(x=x, y=y)),
             start_x=start_x,
             end_x=end_x,
-            speed=1,
+            speed=self._SPEED,
         )
 
         self._go_frames_counter: FramesCounter = FramesCounter(
@@ -38,17 +42,15 @@ class Slug(AbstractXPatrolEnemy):
         )
 
         self._anim_rect: Rect = self._rect
-        self._player_y_vel_for_death: float = 8
-        self._y_pushing_power_after_death: float = 15
 
     def _move(self) -> None:
         if self._death_frames_counter.is_end:
             super()._move()
 
     def _handle_collision_with_player(self) -> None:
-        if self._map.player.y_vel >= self._player_y_vel_for_death:
+        if self._map.player.y_vel >= self._PLAYER_Y_VEL_FOR_DEATH:
             if not self._map.player.in_god_mode():
-                self._map.player.jump_from_slug(-self._y_pushing_power_after_death)
+                self._map.player.jump_from_slug(-self._Y_PUSHING_POWER_AFTER_DEATH)
                 self._death_frames_counter.start()
                 slug_sound.play()
         elif self._death_frames_counter.is_end:

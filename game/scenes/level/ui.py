@@ -26,6 +26,7 @@ __all__ = (
 
 
 class Background(AbstractUI):
+    _SMOOTH: float = 0.03
 
     def __init__(self, camera: Camera) -> None:
         super().__init__()
@@ -35,7 +36,6 @@ class Background(AbstractUI):
         self._w: int = self._image.get_width()
         self._h: int = self._image.get_height()
         self._y = self._screen.get_height() - self._h
-        self._smooth: float = 0.03
         self._float_x: float = 0
 
     def update(self) -> None:
@@ -44,7 +44,7 @@ class Background(AbstractUI):
         self._draw(1)
 
     def _update_float_x(self) -> None:
-        self._float_x = -self._camera.float_x * self._smooth
+        self._float_x = -self._camera.float_x * self._SMOOTH
 
     def _draw(self, right_x_indent_factor: int = 0) -> None:
         x = round(self._float_x) + right_x_indent_factor * self._w
@@ -52,9 +52,9 @@ class Background(AbstractUI):
 
 
 class CloudsManager:
+    _INITIAL_CLOUDS_COUNT: int = 50
 
     def __init__(self) -> None:
-        self._initial_clouds_count: int = 50
         self._clouds: list[Cloud] = []
         self._spawn_delay_timer: TimeCounter = TimeCounter(20)
 
@@ -63,7 +63,7 @@ class CloudsManager:
         self._create_initial_clouds()
 
     def _create_initial_clouds(self) -> None:
-        for i in range(self._initial_clouds_count):
+        for i in range(self._INITIAL_CLOUDS_COUNT):
             self._clouds.append(self._new_random_cloud(behind_left_edge=False))
 
     def update(self) -> None:

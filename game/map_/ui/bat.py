@@ -12,6 +12,10 @@ __all__ = (
 @Map.add_object_type
 class Bat(AbstractXPatrolEnemy):
 
+    _SPEED: float = 2
+    _X_PUSHING_POWER: float = 15
+    _Y_PUSHING_POWER: float = -5
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  start_x: int,
@@ -22,9 +26,9 @@ class Bat(AbstractXPatrolEnemy):
             rect=FloatRect(BatImages.GO_RIGHT[0].get_rect(x=x, y=y)),
             start_x=start_x,
             end_x=end_x,
-            speed=2,
-            x_pushing_power=15,
-            y_pushing_power=-5,
+            speed=self._SPEED,
+            x_pushing_power=self._X_PUSHING_POWER,
+            y_pushing_power=self._Y_PUSHING_POWER,
         )
         self.go_frames_counter: FramesCounter = FramesCounter(
             frames_count=len(BatImages.GO_RIGHT),

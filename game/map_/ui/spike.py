@@ -9,6 +9,7 @@ __all__ = (
 
 @Map.add_object_type
 class Spike(AbstractInteractingWithPlayerMapObject):
+    _PLAYER_Y_VEL_FOR_HIT: float = 5
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -18,8 +19,7 @@ class Spike(AbstractInteractingWithPlayerMapObject):
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),
         )
-        self._player_y_vel_for_hit: float = 5
 
     def _handle_collision_with_player(self) -> None:
-        if self._map.player.y_vel >= self._player_y_vel_for_hit:
+        if self._map.player.y_vel >= self._PLAYER_Y_VEL_FOR_HIT:
             self._map.player.hit()

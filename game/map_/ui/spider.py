@@ -16,6 +16,9 @@ __all__ = (
 @Map.add_object_type
 class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
 
+    _SPEED: float = 1.75
+    _SPIDERWEB_W: int = 2
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  end_y: int,
@@ -32,18 +35,16 @@ class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
         )
 
         self._start_y: int = y
-        self._speed: float = 1.75
         self._y_vel: float = 0
         self._reaction_rect: Rect = Rect(self._rect.x, self._start_y, self._rect.w, self._end_y - self._start_y)
-        self._spiderweb_w: int = 2
 
     def _move(self) -> None:
         self._y_vel = 0
         if self._reaction_rect.colliderect(self._map.player.get_rect()):
             if self._rect.bottom <= self._map.player._rect.y:
-                self._y_vel = self._speed
+                self._y_vel = self._SPEED
         elif self._rect.y > self._start_y:
-            self._y_vel = -self._speed
+            self._y_vel = -self._SPEED
         self._rect.float_y += self._y_vel
 
     def _handle_collision_with_player(self) -> None:
@@ -65,8 +66,8 @@ class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
 
     def _make_spiderweb_rect(self) -> Rect:
         return Rect(
-            self._rect.x + self._rect.w // 2 - self._spiderweb_w // 2,
+            self._rect.x + self._rect.w // 2 - self._SPIDERWEB_W // 2,
             self._start_y,
-            self._spiderweb_w,
+            self._SPIDERWEB_W,
             self._rect.y - self._start_y + self._rect.h // 2
         )

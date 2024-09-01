@@ -11,6 +11,7 @@ __all__ = (
 
 @Map.add_object_type
 class Tree(AbstractBackground):
+    _Z_INDEX: int = -3
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -20,5 +21,5 @@ class Tree(AbstractBackground):
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),
-            z_index=-3,
+            z_index=self._Z_INDEX,
         )

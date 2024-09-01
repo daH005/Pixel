@@ -27,6 +27,13 @@ __all__ = (
 @Map.add_object_type
 class Player(AbstractMovingMapObject):
 
+    _Z_INDEX: int = 5
+    _MAX_HP: int = 3
+    _SPEED: float = 5
+    _GRAVITY: float = 0.5
+    _JUMP_POWER: float = 11
+    _X_PUSHING_DECELERATION: float = 1
+
     _GO_LEFT_KEYS = [K_LEFT, K_a]
     _GO_RIGHT_KEYS = [K_RIGHT, K_d]
     _JUMP_KEYS = [K_UP, K_w, K_SPACE]
@@ -41,7 +48,7 @@ class Player(AbstractMovingMapObject):
         super().__init__(
             map_=map_,
             rect=FloatRect(PlayerDefaultImages.STAND.get_rect(x=x, y=y)),
-            z_index=5,
+            z_index=self._Z_INDEX,
         )
 
         self._be_white_count: float = calc_count_by_fps_from_seconds(0.25)
@@ -56,17 +63,11 @@ class Player(AbstractMovingMapObject):
         self._god_mode_time_counter: TimeCounter = TimeCounter(1.2)
         self._flashing_time_counter: TimeCounter = TimeCounter(0.1)
 
-        self._max_hp: int = 3
-        self._speed: float = 5
-        self._gravity: float = 0.5
-        self._jump_power: float = 11
-        self._x_pushing_deceleration = 1
-
         self._flashing_flag: bool = False
         self._on_ground: bool = False
         self._on_ladder: bool = False
         self._in_water: bool = False
-        self._hp: int = self._max_hp
+        self._hp: int = self._MAX_HP
         self._has_shield: bool = False
         self._x_pushing: int = 0
         self._x_vel: float = 0
@@ -78,7 +79,7 @@ class Player(AbstractMovingMapObject):
 
     @property
     def max_hp(self) -> int:
-        return self._max_hp
+        return self._MAX_HP
 
     @property
     def has_shield(self) -> bool:
@@ -113,19 +114,19 @@ class Player(AbstractMovingMapObject):
         else:
             self._x_vel = 0
             if self._is_pressed(self._GO_LEFT_KEYS) and not self._is_pressed(self._GO_RIGHT_KEYS):
-                self._x_vel = -self._speed
+                self._x_vel = -self._SPEED
             elif self._is_pressed(self._GO_RIGHT_KEYS) and not self._is_pressed(self._GO_LEFT_KEYS):
-                self._x_vel = self._speed
+                self._x_vel = self._SPEED
             if self._on_ladder or self._in_water:
                 self._x_vel /= 1.5
 
     def _decrease_x_pushing(self) -> None:
         if self._x_pushing > 0:
-            self._x_pushing -= self._x_pushing_deceleration
+            self._x_pushing -= self._X_PUSHING_DECELERATION
             if self._x_pushing < 0 or self._check_left_map_edge():
                 self._x_pushing = 0
         elif self._x_pushing < 0:
-            self._x_pushing += self._x_pushing_deceleration
+            self._x_pushing += self._X_PUSHING_DECELERATION
             if self._x_pushing > 0 or self._check_right_map_edge():
                 self._x_pushing = 0
 
@@ -141,15 +142,15 @@ class Player(AbstractMovingMapObject):
         if self._on_ladder or self._in_water:
             self._y_vel = 0
             if self._is_pressed(self._GO_TOP_KEYS) or self._is_pressed(self._JUMP_KEYS):
-                self._y_vel = -self._speed
+                self._y_vel = -self._SPEED
             elif self._on_ladder and self._is_pressed(self._GO_BOTTOM_KEYS):
-                self._y_vel = self._speed
+                self._y_vel = self._SPEED
             elif self._in_water:
-                self._y_vel = self._speed / 1.5
+                self._y_vel = self._SPEED / 1.5
         else:
             if self._is_pressed(self._JUMP_KEYS) and self._on_ground:
-                self._y_vel = -self._jump_power
-            self._y_vel += self._gravity
+                self._y_vel = -self._JUMP_POWER
+            self._y_vel += self._GRAVITY
         self._on_ground = False
 
     def _update_rect_xy(self) -> None:
@@ -208,8 +209,8 @@ class Player(AbstractMovingMapObject):
 
     def replenish_hp(self, hp_to_add: int = 1) -> None:
         self._hp += hp_to_add
-        if self._hp > self._max_hp:
-            self._hp = self._max_hp
+        if self._hp > self._MAX_HP:
+            self._hp = self._MAX_HP
 
     def _update_image(self) -> None:
         if self._god_mode_time_counter.delta() <= self._be_white_count:

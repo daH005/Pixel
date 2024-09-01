@@ -15,6 +15,15 @@ __all__ = (
 @Map.add_object_type
 class Skeleton(AbstractXPatrolEnemy):
 
+    _SPEED: float = 1.5
+    _X_PUSHING_POWER: float = 20
+    _Y_PUSHING_POWER: float = 3
+    _ATTACK_ANIM_INDENTS: dict[Direction, tuple[int, int]] = {
+        Direction.LEFT: (0, 72),
+        Direction.RIGHT: (28, 0),
+    }
+    _ATTACK_FRAME_INDEX: int = 1
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  start_x: int,
@@ -25,9 +34,9 @@ class Skeleton(AbstractXPatrolEnemy):
             rect=FloatRect(SkeletonImages.GO_RIGHT[0].get_rect(x=x, y=y)),
             start_x=start_x,
             end_x=end_x,
-            speed=1.5,
-            x_pushing_power=20,
-            y_pushing_power=3,
+            speed=self._SPEED,
+            x_pushing_power=self._X_PUSHING_POWER,
+            y_pushing_power=self._Y_PUSHING_POWER,
         )
 
         self._go_frames_counter: FramesCounter = FramesCounter(
@@ -39,12 +48,6 @@ class Skeleton(AbstractXPatrolEnemy):
             transition_delay_as_seconds=0.15,
         )
 
-        self._attack_anim_indents: dict[Direction, tuple[int, int]] = {
-            Direction.LEFT: (0, 72),
-            Direction.RIGHT: (28, 0),
-        }
-        self._attack_frame_index: int = 1
-
         self._anim_rect: Rect = self._rect
         self.attack_direction: Direction | None = None
 
@@ -53,7 +56,7 @@ class Skeleton(AbstractXPatrolEnemy):
             super()._move()
 
     def _handle_collision_with_player(self) -> None:
-        if self._attack_frames_counter.current_index == self._attack_frame_index:
+        if self._attack_frames_counter.current_index == self._ATTACK_FRAME_INDEX:
             super()._handle_collision_with_player()
         if self._attack_frames_counter.is_end:
             self._attack_frames_counter.start()
@@ -80,7 +83,7 @@ class Skeleton(AbstractXPatrolEnemy):
 
     def _update_anim_rect_for_attack(self) -> None:
         self._anim_rect = Rect(
-            self._rect.x - self._attack_anim_indents[self.attack_direction][self._attack_frames_counter.current_index],
+            self._rect.x - self._ATTACK_ANIM_INDENTS[self.attack_direction][self._attack_frames_counter.current_index],
             0,
             self._image.get_width(),
             self._image.get_height(),

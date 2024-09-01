@@ -2,7 +2,6 @@ from engine.map_.map_ import Map
 from engine.common.counters import FramesCounter
 from engine.common.typing_ import XYTupleType
 from engine.common.float_rect import FloatRect
-from engine.exceptions import MapObjectCannotBeCreated
 from game.assets.images import COIN_IMAGES
 from game.assets.sounds import coin_sound
 from game.map_.abstract_ui import AbstractItemToDisposableCollect
@@ -17,7 +16,9 @@ class Coin(AbstractItemToDisposableCollect):
 
     _collected_count: int = 0
     _visual_collected_count: int = 0
+
     _flying_rect: FloatRect
+    _FLYING_SPEED: float = 15
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -37,7 +38,6 @@ class Coin(AbstractItemToDisposableCollect):
 
         self._is_taken: bool = False
         self._flying_end_xy: XYTupleType = self._screen.get_rect().topright
-        self._flying_speed: float = 15
 
     @classmethod
     def reset_class(cls) -> None:
@@ -70,8 +70,8 @@ class Coin(AbstractItemToDisposableCollect):
         if hypotenuse == 0:
             hypotenuse = 1
 
-        self._flying_rect.float_x += self._flying_speed * (x_dis / hypotenuse)
-        self._flying_rect.float_y -= self._flying_speed * (y_dis / hypotenuse)
+        self._flying_rect.float_x += self._FLYING_SPEED * (x_dis / hypotenuse)
+        self._flying_rect.float_y -= self._FLYING_SPEED * (y_dis / hypotenuse)
         if self._flying_rect.x > self._flying_end_xy[0] and self._flying_rect.y < self._flying_end_xy[1]:
             self._to_delete = True
             type(self)._visual_collected_count += 1

@@ -13,13 +13,14 @@ __all__ = (
 
 
 class AbstractGridObject(AbstractUI, ABC):
+    _DEFAULT_ATTRS: AttrsType = []
 
     def __init__(self, rect: Rect | FloatRect | None = None,
                  attrs: AttrsType | None = None,
                  ) -> None:
         super().__init__(rect=rect)
         if attrs is None:
-            attrs = []
+            attrs = self._DEFAULT_ATTRS.copy()
 
         self._to_delete = False
         self._attrs = attrs

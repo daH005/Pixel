@@ -13,6 +13,7 @@ __all__ = (
 
 @Map.add_object_type
 class Hint(AbstractInteractingWithPlayerMapObject):
+    _Z_INDEX: int = 10
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -21,7 +22,7 @@ class Hint(AbstractInteractingWithPlayerMapObject):
         super().__init__(
             map_=map_,
             rect=HINT_IMAGES[0].get_rect(x=x, y=y),
-            z_index=10,
+            z_index=self._Z_INDEX,
         )
 
         self._x = x
