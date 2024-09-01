@@ -56,13 +56,18 @@ class Level(Generic[ExtraDataType]):
         self._data['is_completed'] = True
         self._save()
 
-    def _save(self) -> None:
-        save_json(self._file_path, self._data)
-
     def open(self) -> None:
         self._data['is_available'] = True
+        self._save()
+
+    def close(self) -> None:
+        self._data['is_completed'] = False
+        self._data['is_available'] = False
         self._save()
 
     def update_extra_data(self, **kwargs) -> None:
         self._data['extra_data'].update(**kwargs)
         self._save()
+
+    def _save(self) -> None:
+        save_json(self._file_path, self._data)
