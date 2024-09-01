@@ -63,6 +63,9 @@ class Level(Generic[ExtraDataType]):
     def close(self) -> None:
         self._data['is_completed'] = False
         self._data['is_available'] = False
+        self._data['extra_data'] = {
+            'ids': []
+        }
         self._save()
 
     def update_extra_data(self, **kwargs) -> None:
