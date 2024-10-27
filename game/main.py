@@ -6,7 +6,12 @@ from game.scenes.keys import SceneKey
 from game.assets.images import ICON_IMAGE
 from game.config import GameConfig
 
-if __name__ == '__main__':
+__all__ = (
+    'start_game',
+)
+
+
+def start_game() -> None:
     set_global_screen(
         h=GameConfig.WINDOW_HEIGHT,
         title=GameConfig.WINDOW_TITLE,
@@ -23,3 +28,7 @@ if __name__ == '__main__':
         ),
     )
     game.run()
+
+
+if __name__ == '__main__':
+    start_game()
