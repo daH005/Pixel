@@ -20,7 +20,7 @@ Run
 1. Clone
 2. Provide virtualenv
 3. Run `pip install -r requirements.txt` from the root directory
-4. Run `python3 main.py` from `game` directory (don't forgot about `PYTHONPATH`)
+4. Run `python3 main.py` from `game` directory (don't forget about `PYTHONPATH`)
 
 Build
 --------------------------------------------
