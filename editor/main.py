@@ -6,7 +6,7 @@ _MULTIPLE_CELL_SYMBOL: str = 'M'
 _BLOCK_W: int = 40
 _RESULT_JSON_MAP_FILENAME: str = 'result_map.json'
 
-id_global_count: int = 0
+_id_global_count: int = 0
 
 _TREE_X_OFFSETS_FROM_CENTER = {
     0: 100,
@@ -18,9 +18,9 @@ _TREE_Y_OFFSETS_FROM_BOTTOM = {
     1: 200,
     2: 140,
 }
-TOP_WATER_Y_OFFSET_FROM_BOTTOM = 32
-HINT_Y_OFFSET_FROM_BOTTOM = 80
-CHEST_Y_OFFSET_FROM_BOTTOM = 60
+_TOP_WATER_Y_OFFSET_FROM_BOTTOM = 32
+_HINT_Y_OFFSET_FROM_BOTTOM = 80
+_CHEST_Y_OFFSET_FROM_BOTTOM = 60
 
 
 def main() -> None:
@@ -68,7 +68,7 @@ def _handle_cell(x: int, y: int,
                  symbols: str, 
                  objects: list[dict],
                  ) -> None:
-    global id_global_count
+    global _id_global_count
 
     for symbol in symbols:
         args = {
@@ -88,17 +88,17 @@ def _handle_cell(x: int, y: int,
             t = 'Coin'
             args = {
                 **args,
-                'id_': id_global_count,
+                'id_': _id_global_count,
             }
-            id_global_count += 1
+            _id_global_count += 1
         elif symbol == 'c':
             t = 'Chest'
             args = {
                 **args,
-                'y': args['y'] + _BLOCK_W - CHEST_Y_OFFSET_FROM_BOTTOM,
-                'id_': id_global_count,
+                'y': args['y'] + _BLOCK_W - _CHEST_Y_OFFSET_FROM_BOTTOM,
+                'id_': _id_global_count,
             }
-            id_global_count += 1            
+            _id_global_count += 1            
         elif symbol == 'h':
             t = 'Heart'
         elif symbol == 'G':
@@ -110,7 +110,7 @@ def _handle_cell(x: int, y: int,
                 'is_top': False if symbol == 'w' else True,
             }
             if symbol == 't':
-                args['y'] = args['y'] + _BLOCK_W - TOP_WATER_Y_OFFSET_FROM_BOTTOM
+                args['y'] = args['y'] + _BLOCK_W - _TOP_WATER_Y_OFFSET_FROM_BOTTOM
         elif symbol == '#':
             t = 'Bricks'
         elif symbol == '+':
@@ -123,7 +123,7 @@ def _handle_cell(x: int, y: int,
             t = 'Hint'
             args = {
                 **args,
-                'y': args['y'] + _BLOCK_W - HINT_Y_OFFSET_FROM_BOTTOM,
+                'y': args['y'] + _BLOCK_W - _HINT_Y_OFFSET_FROM_BOTTOM,
                 'text': 'Default text... Fill it.',
             }
         elif symbol == '^':
