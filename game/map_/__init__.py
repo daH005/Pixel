@@ -2,6 +2,7 @@ from engine.map_.map_ import Map
 from game.map_.ui.player import Player
 from game.map_.ui.dirt import Dirt, BackgroundDirt
 from game.map_.ui.bricks import Bricks, BackgroundBricks
+from game.map_.ui.web import Web
 from game.map_.ui.finish import Finish
 from game.map_.ui.ladder import Ladder
 from game.map_.ui.water import Water

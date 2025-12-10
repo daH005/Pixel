@@ -34,6 +34,7 @@ __all__ = (
     'CannonImages',
     'SpiderImages',
     'WaterImages',
+    'WebImages',
 )
 
 ImagesListType: TypeAlias = list[Surface]
@@ -188,3 +189,8 @@ class WaterImages:
     DEFAULT.set_alpha(ALPHA)
     TOP: Surface = load_image(__PATH.joinpath('top'))
     TOP.set_alpha(ALPHA)
+
+
+class WebImages:
+    LEFT: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('left_web'))
+    RIGHT: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('right_web'))
