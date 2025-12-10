@@ -1,10 +1,11 @@
 import json
+import sys
 
 _FILENAME: str = 'map.txt'
 _DELIMITER: str = '\nMultiple cells:'
 _MULTIPLE_CELL_SYMBOL: str = 'M'
 _BLOCK_W: int = 40
-_RESULT_JSON_MAP_FILENAME: str = 'result_map.json'
+_RESULT_JSON_MAP_FILENAME: str = '../assets/levels/{}.json'
 
 _id_global_count: int = 0
 
@@ -21,6 +22,9 @@ _TREE_Y_OFFSETS_FROM_BOTTOM = {
 _TOP_WATER_Y_OFFSET_FROM_BOTTOM = 32
 _HINT_Y_OFFSET_FROM_BOTTOM = 80
 _CHEST_Y_OFFSET_FROM_BOTTOM = 60
+
+_SKELETON_Y_OFFSET_FROM_BOTTOM = 72
+_SLUG_Y_OFFSET_FROM_BOTTOM = 52
 
 
 def main() -> None:
@@ -46,7 +50,7 @@ def main() -> None:
     multiple_cell_i: int = 0
     max_row_len: int = 0
     for y, row in enumerate(map_):
-        max_row_len = max(max_row_len, len(row))
+        max_row_len = max(max_row_len, len(row.strip()))
         for x, cell in enumerate(row):
             symbols = cell
             if cell == _MULTIPLE_CELL_SYMBOL:
@@ -58,7 +62,13 @@ def main() -> None:
     result_json_map['w'] = max_row_len * _BLOCK_W
     result_json_map['h'] = len(map_) * _BLOCK_W
 
-    with open(_RESULT_JSON_MAP_FILENAME, 'w', encoding='utf-8') as f:
+    if len(sys.argv) > 1:
+        fn = sys.argv[1]
+    else:
+        fn = 'result'
+
+    path = _RESULT_JSON_MAP_FILENAME.format(fn)
+    with open(path, 'w', encoding='utf-8') as f:
         f.write(json.dumps(result_json_map, indent=4, ensure_ascii=False))
 
     print('The map has been successfully created!')
@@ -69,6 +79,8 @@ def _handle_cell(x: int, y: int,
                  objects: list[dict],
                  ) -> None:
     global _id_global_count
+
+    symbols = symbols.replace('f', '+=')
 
     for symbol in symbols:
         args = {
@@ -137,6 +149,10 @@ def _handle_cell(x: int, y: int,
                 'start_x': 0,
                 'end_x': 999999,
             }
+            if symbol == 'S':
+                args['y'] = args['y'] + _BLOCK_W - _SLUG_Y_OFFSET_FROM_BOTTOM
+            elif symbol == 'K':
+                args['y'] = args['y'] + _BLOCK_W - _SKELETON_Y_OFFSET_FROM_BOTTOM
         elif symbol == 'P':
             t = 'Spider'
             args = {
@@ -148,6 +164,12 @@ def _handle_cell(x: int, y: int,
             args = {
                 **args,
                 'end_x': 999999,
+            }
+        elif symbol in ('/', '\\'):
+            t = 'Web'
+            args = {
+                **args,
+                'direction': -1 if symbol == '/' else 1
             }
         elif symbol.isdigit():
             _i = int(symbol)
