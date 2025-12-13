@@ -14,6 +14,7 @@ from pygame.key import get_pressed, ScancodeWrapper
 from engine.common.counters import FramesCounter, TimeCounter, calc_count_by_fps_from_seconds
 from engine.common.float_rect import FloatRect
 from engine.map_.map_ import Map
+from engine.common.direction import Direction
 from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
 from game.assets.sounds import hit_sound
 from game.map_.grid_attrs import GridObjectAttr
@@ -28,7 +29,14 @@ __all__ = (
 class Player(AbstractMovingMapObject):
 
     _Z_INDEX = 5
-    _IMAGES = PlayerDefaultImages
+    _DEFAULT_IMAGES = PlayerDefaultImages
+    _WHITE_IMAGES = PlayerDefaultWhiteImages
+
+    _BE_WHITE_DURATION: float = 0.25
+    _GOD_MOD_DURATION: float = 1.2
+    _FLASHING_DURATION: float = 0.1
+    _GO_ANIMATION_DELAY: float = 0.1
+    _STAND_ANIMATION_DELAY: float = 2
 
     _MAX_HP: int = 3
     _SPEED: float = 5
@@ -49,21 +57,25 @@ class Player(AbstractMovingMapObject):
                  ) -> None:
         super().__init__(
             map_=map_,
-            rect=FloatRect(PlayerDefaultImages.STAND.get_rect(x=x, y=y)),
+            rect=FloatRect(self._DEFAULT_IMAGES.STAND_RIGHT[0].get_rect(x=x, y=y)),
         )
         self._map.set_player(self)
 
-        self._be_white_count: float = calc_count_by_fps_from_seconds(0.25)
+        self._be_white_count: float = calc_count_by_fps_from_seconds(self._BE_WHITE_DURATION)
         self._go_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(PlayerDefaultImages.GO_RIGHT),
-            transition_delay_as_seconds=0.1,
+            frames_count=len(self._DEFAULT_IMAGES.GO_RIGHT),
+            transition_delay_as_seconds=self._GO_ANIMATION_DELAY,
+        )
+        self._stand_frames_counter: FramesCounter = FramesCounter(
+            frames_count=len(self._DEFAULT_IMAGES.STAND_RIGHT),
+            transition_delay_as_seconds=self._STAND_ANIMATION_DELAY,
         )
         self._go_vertical_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(PlayerDefaultImages.GO_VERTICAL),
-            transition_delay_as_seconds=0.1,
+            frames_count=len(self._DEFAULT_IMAGES.GO_VERTICAL),
+            transition_delay_as_seconds=self._GO_ANIMATION_DELAY,
         )
-        self._god_mode_time_counter: TimeCounter = TimeCounter(1.2)
-        self._flashing_time_counter: TimeCounter = TimeCounter(0.1)
+        self._god_mode_time_counter: TimeCounter = TimeCounter(self._GOD_MOD_DURATION)
+        self._flashing_time_counter: TimeCounter = TimeCounter(self._FLASHING_DURATION)
 
         self._flashing_flag: bool = False
         self._on_ground: bool = False
@@ -74,6 +86,7 @@ class Player(AbstractMovingMapObject):
         self._x_pushing: int = 0
         self._x_vel: float = 0
         self._y_vel: float = 0
+        self._stand_direction: Direction = Direction.RIGHT
 
     @property
     def hp(self) -> int:
@@ -115,6 +128,7 @@ class Player(AbstractMovingMapObject):
             self._decrease_x_pushing()
             self._x_vel = self._x_pushing
         else:
+            self._update_stand_direction()
             self._x_vel = 0
             if self._is_pressed(self._GO_LEFT_KEYS) and not self._is_pressed(self._GO_RIGHT_KEYS):
                 self._x_vel = -self._SPEED
@@ -122,6 +136,12 @@ class Player(AbstractMovingMapObject):
                 self._x_vel = self._SPEED
             if self._on_ladder or self._in_water:
                 self._x_vel /= 1.5
+
+    def _update_stand_direction(self) -> None:
+        if self._x_vel < 0:
+            self._stand_direction = Direction.LEFT
+        elif self._x_vel > 0:
+            self._stand_direction = Direction.RIGHT
 
     def _decrease_x_pushing(self) -> None:
         if self._x_pushing > 0:
@@ -217,9 +237,9 @@ class Player(AbstractMovingMapObject):
 
     def _update_image(self) -> None:
         if self._god_mode_time_counter.delta() <= self._be_white_count:
-            images = PlayerDefaultWhiteImages
+            images = self._WHITE_IMAGES
         else:
-            images = PlayerDefaultImages
+            images = self._DEFAULT_IMAGES
 
         if self._x_pushing:
             if self._x_pushing > 0:
@@ -235,9 +255,13 @@ class Player(AbstractMovingMapObject):
                 self._image = images.GO_LEFT[self._go_frames_counter.current_index]
             elif self._x_vel > 0:
                 self._image = images.GO_RIGHT[self._go_frames_counter.current_index]
-            else:
-                self._image = images.STAND
+            elif self._stand_direction == Direction.RIGHT:
+                self._image = images.STAND_RIGHT[self._stand_frames_counter.current_index]
+            elif self._stand_direction == Direction.LEFT:
+                self._image = images.STAND_LEFT[self._stand_frames_counter.current_index]
+
             self._go_frames_counter.next()
+            self._stand_frames_counter.next()
 
         self._god_mode_time_counter.next()
         if self._god_mode_time_counter.is_working():

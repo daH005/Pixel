@@ -134,14 +134,16 @@ class BricksImages:
 
 class PlayerDefaultImages:
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('player/default')
-    STAND: Surface = load_image(__PATH.joinpath('stand'))
+    STAND_RIGHT: ImagesListType = load_images(__PATH.joinpath('stand'))
+    STAND_LEFT: ImagesListType = flip_many(STAND_RIGHT)
     GO_RIGHT: ImagesListType = load_images(__PATH.joinpath('go'))
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
     GO_VERTICAL: ImagesListType = load_images(__PATH.joinpath('go_vertical'))
 
 
 class PlayerDefaultWhiteImages:
-    STAND: Surface = whitewash(PlayerDefaultImages.STAND)
+    STAND_RIGHT: ImagesListType = whitewash_many(PlayerDefaultImages.STAND_RIGHT)
+    STAND_LEFT: ImagesListType = whitewash_many(PlayerDefaultImages.STAND_LEFT)
     GO_RIGHT: ImagesListType = whitewash_many(PlayerDefaultImages.GO_RIGHT)
     GO_LEFT: ImagesListType = whitewash_many(PlayerDefaultImages.GO_LEFT)
     GO_VERTICAL: ImagesListType = whitewash_many(PlayerDefaultImages.GO_VERTICAL)
