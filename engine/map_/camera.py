@@ -2,7 +2,7 @@ from pygame import Rect
 
 from engine.common.singleton import SingletonMeta
 from engine.common.float_rect import FloatRect
-from engine.common.typing_ import SizeTupleType
+from engine.common.typing_ import SizeTupleType, AnyRectType, XYTupleType
 from engine.screen_access_mixin import ScreenAccessMixin
 
 __all__ = (
@@ -66,8 +66,14 @@ class Camera(ScreenAccessMixin, metaclass=SingletonMeta):
         self._rect.float_x = -self._x_to_move
         self._rect.float_y = -self._y_to_move
 
-    def apply(self, rect: Rect | FloatRect) -> Rect:
-        return rect.move(-self._rect.x, -self._rect.y)
+    def apply_rect(self, rect: AnyRectType) -> AnyRectType:
+        rect = rect.copy()
+        rect.x -= self._rect.x
+        rect.y -= self._rect.y
+        return rect
+
+    def apply_xy(self, xy: XYTupleType) -> XYTupleType:
+        return xy[0] - self._rect.x, xy[1] - self._rect.y
 
     @property
     def centerx(self) -> int:

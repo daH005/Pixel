@@ -14,7 +14,7 @@ __all__ = (
 @Map.add_object_type
 class Coin(AbstractItemToDisposableCollect):
 
-    _Z_INDEX = 2
+    _Z_INDEX = 15
     _IMAGES = COIN_IMAGES
     _ANIMATION_DELAY: float = 0.15
 
@@ -87,7 +87,7 @@ class Coin(AbstractItemToDisposableCollect):
     def take(self) -> None:
         super().take()
         self._is_taken = True
-        self._flying_rect = FloatRect(self._map.camera.apply(self._rect))
+        self._flying_rect = FloatRect(self._map.camera.apply_rect(self._rect))
         type(self)._collected_count += 1
 
     def _draw(self) -> None:

@@ -65,7 +65,7 @@ class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
         super()._draw()
 
     def _draw_spiderweb(self) -> None:
-        draw_rect(self._screen, Color.WHITE, self._map.camera.apply(self._make_spiderweb_rect()))
+        draw_rect(self._screen, Color.WHITE, self._map.camera.apply_rect(self._make_spiderweb_rect()))
 
     def _make_spiderweb_rect(self) -> Rect:
         return Rect(

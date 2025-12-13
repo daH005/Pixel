@@ -72,4 +72,4 @@ class Slug(AbstractXPatrolEnemy):
                 self._to_delete = True
 
     def _draw(self) -> None:
-        self._screen.blit(self._image, self._map.camera.apply(self._anim_rect))
+        self._screen.blit(self._image, self._map.camera.apply_rect(self._anim_rect))

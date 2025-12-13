@@ -92,4 +92,4 @@ class Skeleton(AbstractXPatrolEnemy):
         self._anim_rect.bottom = self._rect.bottom
 
     def _draw(self) -> None:
-        self._screen.blit(self._image, self._map.camera.apply(self._anim_rect))
+        self._screen.blit(self._image, self._map.camera.apply_rect(self._anim_rect))

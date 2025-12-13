@@ -1,11 +1,10 @@
 from engine.common.counters import FramesCounter
 from engine.common.float_rect import FloatRect
 from engine.common.direction import Direction
-from engine.map_.abstract_map_object import AbstractMapObject
 from engine.map_.map_ import Map
 from game.assets.images import CannonImages
 from game.assets.sounds import cannon_sound
-from game.map_.abstract_ui import AbstractMovingAndInteractingWithPlayerMapObject
+from game.map_.abstract_ui import AbstractMapObject, AbstractMovingAndInteractingWithPlayerMapObject
 
 __all__ = (
     'Cannon',

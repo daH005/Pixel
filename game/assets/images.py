@@ -110,6 +110,7 @@ SHIELD_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('shi
 
 
 class BackgroundImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('backgrounds')
     HOME: Surface = load_image(__PATH.joinpath('home'))
     BOTTOM_HOME_BORDER: Surface = load_image(__PATH.joinpath('home_border'))
@@ -118,6 +119,7 @@ class BackgroundImages:
 
 
 class DirtImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('dirt')
     DEFAULT: Surface = load_image(__PATH.joinpath('default'))
     BACKGROUND: Surface = load_image(__PATH.joinpath('background'))
@@ -127,12 +129,14 @@ class DirtImages:
 
 
 class BricksImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('bricks')
     DEFAULT: Surface = load_image(__PATH.joinpath('default'))
     BACKGROUND: Surface = load_image(__PATH.joinpath('background'))
 
 
 class PlayerDefaultImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('player/default')
     STAND_RIGHT: ImagesListType = load_images(__PATH.joinpath('stand'))
     STAND_LEFT: ImagesListType = flip_many(STAND_RIGHT)
@@ -140,8 +144,13 @@ class PlayerDefaultImages:
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
     GO_VERTICAL: ImagesListType = load_images(__PATH.joinpath('go_vertical'))
 
+    class SwordImages:
+        RIGHT: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('player/default/sword'))
+        LEFT: ImagesListType = flip_many(RIGHT)
+
 
 class PlayerDefaultWhiteImages:
+
     STAND_RIGHT: ImagesListType = whitewash_many(PlayerDefaultImages.STAND_RIGHT)
     STAND_LEFT: ImagesListType = whitewash_many(PlayerDefaultImages.STAND_LEFT)
     GO_RIGHT: ImagesListType = whitewash_many(PlayerDefaultImages.GO_RIGHT)
@@ -150,17 +159,20 @@ class PlayerDefaultWhiteImages:
 
 
 class SlugImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('slug')
     GO: ImagesListType = load_images(__PATH.joinpath('go'))
     DEATH: ImagesListType = load_images(__PATH.joinpath('death'))
 
 
 class BatImages:
+
     GO_RIGHT: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('bat'))
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
 
 
 class SkeletonImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('skeleton')
     GO_RIGHT: ImagesListType = load_images(__PATH.joinpath('go'))
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
@@ -169,6 +181,7 @@ class SkeletonImages:
 
 
 class CannonImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('cannon')
     DEFAULT_RIGHT: Surface = load_image(__PATH.joinpath('cannon/default'))
     DEFAULT_LEFT: Surface = flip(DEFAULT_RIGHT, flip_x=True, flip_y=False)
@@ -176,18 +189,21 @@ class CannonImages:
     SHOOT_LEFT: ImagesListType = flip_many(SHOOT_RIGHT)
 
     class CannonballImages:
+
         __PATH: Path = GameConfig.IMAGES_PATH.joinpath('cannon/cannonball')
         DEFAULT: Surface = load_image(__PATH.joinpath('default'))
         DEATH: ImagesListType = load_images(__PATH.joinpath('death'))
 
 
 class SpiderImages:
+
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('spider')
     STAND: Surface = load_image(__PATH.joinpath('stand'))
     GO: ImagesListType = load_images(__PATH.joinpath('go'))
 
 
 class WaterImages:
+
     ALPHA: int = 225
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('water')
     DEFAULT: Surface = load_image(__PATH.joinpath('default'))
@@ -197,5 +213,6 @@ class WaterImages:
 
 
 class WebImages:
+
     LEFT: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('left_web'))
     RIGHT: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('right_web'))

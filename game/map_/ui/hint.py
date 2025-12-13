@@ -14,8 +14,7 @@ __all__ = (
 @Map.add_object_type
 class Hint(AbstractInteractingWithPlayerMapObject):
 
-    _Z_INDEX: int = 10
-
+    _Z_INDEX: int = 20
     _IMAGES = HINT_IMAGES
     _ANIMATION_DELAY: float = 0.09
     _WINDOW_SHOWING_ANIMATION_DELAY: float = 0.025
@@ -94,7 +93,7 @@ class _HintTextWindow(TextWindow):
         self._map = map_
 
     def _draw(self) -> None:
-        rect_to_draw = self._map.camera.apply(self._rect)
+        rect_to_draw = self._map.camera.apply_rect(self._rect)
         if rect_to_draw.right > self._screen.get_width():
             rect_to_draw.right = self._screen.get_width()
         self._screen.blit(self._image, rect_to_draw)

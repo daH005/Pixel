@@ -9,6 +9,7 @@ from game.map_.grid_attrs import GridObjectAttr
 from game.map_.levels_extra_data_keys import LevelExtraDataKey
 
 __all__ = (
+    'AbstractMapObject',
     'AbstractBlock',
     'AbstractBackground',
     'AbstractInteractingWithPlayerMapObject',
@@ -24,7 +25,7 @@ class AbstractMapObject(BaseAbstractMapObject):
 
 
 class AbstractBlock(AbstractMapObject, ABC):
-    _Z_INDEX = 7
+    _Z_INDEX = 10
     _GRID_ATTRS = [GridObjectAttr.BLOCK]
 
 

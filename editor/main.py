@@ -3,6 +3,7 @@ import sys
 from math import ceil
 
 _FILENAME: str = 'map.txt'
+_EXTRA_OBJECTS_FILENAME: str = 'extra_objects.json'
 _BLOCK_W: int = 40
 _RESULT_JSON_MAP_FILENAME: str = '../assets/levels/{}.json'
 
@@ -40,12 +41,15 @@ def main() -> None:
     with open(_FILENAME, 'r', encoding='utf-8') as f:
         map_: list[str] = f.read().split('\n')
 
+    with open(_EXTRA_OBJECTS_FILENAME, 'r', encoding='utf-8') as f:
+        extra_objects = json.load(f)
+
     max_row_len: int = 0
     for y, row in enumerate(map_):
         max_row_len = max(max_row_len, len(row.strip()))
         for x in range(0, len(row), 2):
             symbols = row[x:x+2]
-            _handle_cell(x // 2, y, symbols, result_json_map['objects'])
+            _handle_cell(x // 2, y, symbols, result_json_map['objects'], extra_objects)
 
     result_json_map['w'] = ceil(max_row_len / 2) * _BLOCK_W
     result_json_map['h'] = len(map_) * _BLOCK_W
@@ -65,12 +69,14 @@ def main() -> None:
 def _handle_cell(x: int, y: int,
                  symbols: str, 
                  objects: list[dict],
+                 extra_objects: dict[str, dict],
                  ) -> None:
     global _id_global_count
 
     symbols = symbols.replace('f', '+=')
 
     for symbol in symbols:
+        factory_method = '__call__'
         args = {
             'x': x * _BLOCK_W,
             'y': y * _BLOCK_W,
@@ -169,12 +175,20 @@ def _handle_cell(x: int, y: int,
                 'y': args['y'] + _BLOCK_W - _TREE_Y_OFFSETS_FROM_BOTTOM[_i],
                 'image_index': _i,
             }
+        elif symbol in 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя':
+            extra_obj = extra_objects[symbol]
+            t = extra_obj['type']
+            factory_method = extra_obj.get('factory_method', factory_method)
+            args = {
+                **args,
+                **extra_obj['args'],
+            }
         else:
             continue
 
         obj = {
             'type': t,
-            'factory_method': '__call__',
+            'factory_method': factory_method,
             'args': args,
         }
         objects.append(obj)

@@ -22,7 +22,7 @@ class AbstractMapObject(AbstractGridObject, ABC):
         return self._Z_INDEX
 
     def _draw(self) -> None:
-        self._screen.blit(self._image, self._map.camera.apply(self._rect))
+        self._screen.blit(self._image, self._map.camera.apply_rect(self._rect))
 
     @classmethod
     def reset_class(cls) -> None:

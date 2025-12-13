@@ -8,6 +8,7 @@ from pygame import (
     K_d,
     K_SPACE,
     K_s,
+    K_RETURN,
 )
 from pygame.key import get_pressed, ScancodeWrapper
 
@@ -15,6 +16,7 @@ from engine.common.counters import FramesCounter, TimeCounter, calc_count_by_fps
 from engine.common.float_rect import FloatRect
 from engine.map_.map_ import Map
 from engine.common.direction import Direction
+from engine.abstract_ui import AbstractNoSizeUI
 from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
 from game.assets.sounds import hit_sound
 from game.map_.grid_attrs import GridObjectAttr
@@ -35,7 +37,7 @@ class Player(AbstractMovingMapObject):
     _BE_WHITE_DURATION: float = 0.25
     _GOD_MOD_DURATION: float = 1.2
     _FLASHING_DURATION: float = 0.1
-    _GO_ANIMATION_DELAY: float = 0.1
+    _GO_ANIMATION_DELAY: float = 0.13
     _STAND_ANIMATION_DELAY: float = 2
 
     _MAX_HP: int = 3
@@ -43,6 +45,8 @@ class Player(AbstractMovingMapObject):
     _GRAVITY: float = 0.5
     _JUMP_POWER: float = 11
     _X_PUSHING_DECELERATION: float = 1
+    _WATER_OR_LADDER_VEL_DECREASE_FACTOR: float = 1.5
+    _ABSOLUTE_Y_VEL_TO_FALLING_DETECTION: float = 1
 
     _GO_LEFT_KEYS = [K_LEFT, K_a]
     _GO_RIGHT_KEYS = [K_RIGHT, K_d]
@@ -86,7 +90,10 @@ class Player(AbstractMovingMapObject):
         self._x_pushing: int = 0
         self._x_vel: float = 0
         self._y_vel: float = 0
-        self._stand_direction: Direction = Direction.RIGHT
+        self._direction: Direction = Direction.RIGHT
+
+        self._is_attack_moment: bool = False
+        self._sword: _Sword = _Sword(self._map, self)
 
     @property
     def hp(self) -> int:
@@ -109,39 +116,48 @@ class Player(AbstractMovingMapObject):
     def y_vel(self) -> float:
         return self._y_vel
 
+    @property
+    def direction(self) -> Direction:
+        return self._direction
+
+    @property
+    def is_attack_moment(self) -> bool:
+        return self._is_attack_moment
+
     def update(self) -> None:
         self._pressed = get_pressed()
         super().update()
         self._on_ladder = False
         self._in_water = False
 
+        self._is_attack_moment = False
+        self._sword.update()
+
     def _move(self) -> None:
+        self._set_on_ground_or_not()
         self._update_x_vel()
         self._update_y_vel()
         self._update_rect_xy()
+        self._kill_if_is_out_of_map()
 
-        if self._rect.y > self._map.levels_manager.current_level.h:
-            self._hp = 0
+    def _set_on_ground_or_not(self) -> None:
+        if abs(self._y_vel) >= self._ABSOLUTE_Y_VEL_TO_FALLING_DETECTION:
+            self._on_ground = False
 
     def _update_x_vel(self) -> None:
         if self._x_pushing:
             self._decrease_x_pushing()
             self._x_vel = self._x_pushing
         else:
-            self._update_stand_direction()
             self._x_vel = 0
             if self._is_pressed(self._GO_LEFT_KEYS) and not self._is_pressed(self._GO_RIGHT_KEYS):
                 self._x_vel = -self._SPEED
+                self._direction = Direction.LEFT
             elif self._is_pressed(self._GO_RIGHT_KEYS) and not self._is_pressed(self._GO_LEFT_KEYS):
                 self._x_vel = self._SPEED
+                self._direction = Direction.RIGHT
             if self._on_ladder or self._in_water:
-                self._x_vel /= 1.5
-
-    def _update_stand_direction(self) -> None:
-        if self._x_vel < 0:
-            self._stand_direction = Direction.LEFT
-        elif self._x_vel > 0:
-            self._stand_direction = Direction.RIGHT
+                self._x_vel /= self._WATER_OR_LADDER_VEL_DECREASE_FACTOR
 
     def _decrease_x_pushing(self) -> None:
         if self._x_pushing > 0:
@@ -169,12 +185,11 @@ class Player(AbstractMovingMapObject):
             elif self._on_ladder and self._is_pressed(self._GO_BOTTOM_KEYS):
                 self._y_vel = self._SPEED
             elif self._in_water:
-                self._y_vel = self._SPEED / 1.5
+                self._y_vel = self._SPEED / self._WATER_OR_LADDER_VEL_DECREASE_FACTOR
         else:
             if self._is_pressed(self._JUMP_KEYS) and self._on_ground:
                 self._y_vel = -self._JUMP_POWER
             self._y_vel += self._GRAVITY
-        self._on_ground = False
 
     def _update_rect_xy(self) -> None:
         blocks: list[AbstractBlock] = self._map.grid.visible_by_attrs([GridObjectAttr.BLOCK])
@@ -198,18 +213,23 @@ class Player(AbstractMovingMapObject):
                                     x_vel: float,
                                     y_vel: float,
                                     ) -> None:
-        if self._rect.colliderect(block._rect):
+        block_rect = block.get_rect()
+        if self._rect.colliderect(block_rect):
             if x_vel > 0:
-                self._rect.right = block._rect.left
+                self._rect.right = block_rect.left
             elif x_vel < 0:
-                self._rect.left = block._rect.right
+                self._rect.left = block_rect.right
             elif y_vel > 0:
-                self._rect.bottom = block._rect.top
+                self._rect.bottom = block_rect.top
                 self._y_vel = 0
                 self._on_ground = True
             elif y_vel < 0:
-                self._rect.top = block._rect.bottom
+                self._rect.top = block_rect.bottom
                 self._y_vel = 0
+
+    def _kill_if_is_out_of_map(self) -> None:
+        if self._rect.y > self._map.levels_manager.current_level.h:
+            self._hp = 0
 
     def hit(self, x_pushing: float | None = None,
             y_pushing: float | None = None,
@@ -251,14 +271,20 @@ class Player(AbstractMovingMapObject):
             if self._y_vel:
                 self._go_vertical_frames_counter.next()
         else:
-            if self._x_vel < 0:
-                self._image = images.GO_LEFT[self._go_frames_counter.current_index]
-            elif self._x_vel > 0:
-                self._image = images.GO_RIGHT[self._go_frames_counter.current_index]
-            elif self._stand_direction == Direction.RIGHT:
-                self._image = images.STAND_RIGHT[self._stand_frames_counter.current_index]
-            elif self._stand_direction == Direction.LEFT:
-                self._image = images.STAND_LEFT[self._stand_frames_counter.current_index]
+            if self._direction == Direction.LEFT:
+                if self._x_vel < 0:
+                    self._image = images.GO_LEFT[self._go_frames_counter.current_index]
+                elif not self._on_ground:
+                    self._image = images.GO_LEFT[0]
+                else:
+                    self._image = images.STAND_LEFT[self._stand_frames_counter.current_index]
+            elif self._direction == Direction.RIGHT:
+                if self._x_vel > 0:
+                    self._image = images.GO_RIGHT[self._go_frames_counter.current_index]
+                elif not self._on_ground:
+                    self._image = images.GO_RIGHT[0]
+                else:
+                    self._image = images.STAND_RIGHT[self._stand_frames_counter.current_index]
 
             self._go_frames_counter.next()
             self._stand_frames_counter.next()
@@ -297,3 +323,64 @@ class Player(AbstractMovingMapObject):
 
     def add_shield(self) -> None:
         self._has_shield = True
+
+    def set_attack_moment(self) -> None:
+        self._is_attack_moment = True
+
+
+class _Sword(AbstractNoSizeUI):
+
+    _IMAGES = PlayerDefaultImages.SwordImages
+    _ANIMATION_DELAY: float = 0.2
+    _ATTACK_BOTTOM_KEY = K_RETURN
+
+    _INDENTS_BY_DIRECTION_AND_FRAMES = {
+        Direction.LEFT: [
+            (-25, 40),
+            (65, 40),
+        ],
+        Direction.RIGHT: [
+            (20, 40),
+            (0, 40),
+        ]
+    }
+
+    def __init__(self, map_: Map, player: Player) -> None:
+        super().__init__()
+        self._map = map_
+        self._player = player
+
+        self._frames_counter: FramesCounter = FramesCounter(
+            frames_count=len(self._IMAGES.RIGHT),
+            transition_delay_as_seconds=self._ANIMATION_DELAY,
+        )
+        self._is_on: bool = False
+
+    def update(self) -> None:
+        if get_pressed()[self._ATTACK_BOTTOM_KEY] and not self._is_on:
+            # self._is_on = True
+            pass
+
+        if not self._is_on:
+            return
+
+        indents = self._INDENTS_BY_DIRECTION_AND_FRAMES[self._player.direction][self._frames_counter.current_index]
+        self._x = self._player.x - indents[0]
+        self._y = self._player.y - indents[1]
+        if self._player.direction == Direction.LEFT:
+            images = self._IMAGES.LEFT
+        else:
+            images = self._IMAGES.RIGHT
+        self._image = images[self._frames_counter.current_index]
+
+        self._frames_counter.next()
+        if self._frames_counter.is_end:
+            self._is_on = False
+            self._player.set_attack_moment()
+        super().update()
+
+    def on(self) -> None:
+        self._is_on = True
+
+    def _draw(self) -> None:
+        self._screen.blit(self._image, self._map.camera.apply_xy((self._x, self._y)))

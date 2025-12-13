@@ -18,6 +18,7 @@ from game.map_.ui.heart import Heart
 from game.map_.ui.shield import Shield
 from game.map_.ui.chest import Chest
 from game.map_.ui.hint import Hint
+from game.map_.ui.overlay import Overlay
 
 __all__ = (
     'Map',
