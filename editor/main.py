@@ -1,9 +1,8 @@
 import json
 import sys
+from math import ceil
 
 _FILENAME: str = 'map.txt'
-_DELIMITER: str = '\nMultiple cells:'
-_MULTIPLE_CELL_SYMBOL: str = 'M'
 _BLOCK_W: int = 40
 _RESULT_JSON_MAP_FILENAME: str = '../assets/levels/{}.json'
 
@@ -25,6 +24,7 @@ _CHEST_Y_OFFSET_FROM_BOTTOM = 60
 
 _SKELETON_Y_OFFSET_FROM_BOTTOM = 72
 _SLUG_Y_OFFSET_FROM_BOTTOM = 52
+_CANNON_Y_OFFSET_FROM_BOTTOM = 48
 
 
 def main() -> None:
@@ -38,28 +38,16 @@ def main() -> None:
     }
 
     with open(_FILENAME, 'r', encoding='utf-8') as f:
-        map_: str = f.read()
+        map_: list[str] = f.read().split('\n')
 
-    if _DELIMITER in map_:
-        map_, multiple_cells = map_.split(_DELIMITER)
-        multiple_cells = multiple_cells.strip().split('\n')
-    else:
-        multiple_cells = []
-    map_ = map_.split('\n')
-
-    multiple_cell_i: int = 0
     max_row_len: int = 0
     for y, row in enumerate(map_):
         max_row_len = max(max_row_len, len(row.strip()))
-        for x, cell in enumerate(row):
-            symbols = cell
-            if cell == _MULTIPLE_CELL_SYMBOL:
-                symbols = multiple_cells[multiple_cell_i]
-                multiple_cell_i += 1
+        for x in range(0, len(row), 2):
+            symbols = row[x:x+2]
+            _handle_cell(x // 2, y, symbols, result_json_map['objects'])
 
-            _handle_cell(x, y, symbols, result_json_map['objects'])
-
-    result_json_map['w'] = max_row_len * _BLOCK_W
+    result_json_map['w'] = ceil(max_row_len / 2) * _BLOCK_W
     result_json_map['h'] = len(map_) * _BLOCK_W
 
     if len(sys.argv) > 1:
@@ -163,6 +151,7 @@ def _handle_cell(x: int, y: int,
             t = 'Cannon'
             args = {
                 **args,
+                'y': args['y'] + _BLOCK_W - _CANNON_Y_OFFSET_FROM_BOTTOM,
                 'end_x': 999999,
             }
         elif symbol in ('/', '\\'):
