@@ -11,11 +11,14 @@ __all__ = (
 @Map.add_object_type
 class Web(AbstractBackground):
 
+    _Z_INDEX = -1
+    _IMAGES = WebImages
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  direction: Direction,
                  ) -> None:
-        self._image = WebImages.LEFT if direction == Direction.LEFT else WebImages.RIGHT
+        self._image = self._IMAGES.LEFT if direction == Direction.LEFT else self._IMAGES.RIGHT
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),

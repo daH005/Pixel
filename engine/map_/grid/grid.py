@@ -53,8 +53,8 @@ class Grid(ScreenAccessMixin, metaclass=SingletonMeta):
         return int(r)
 
     def add(self, object_: AnyGridObjectType) -> None:
-        y: int = self._divide(object_.get_rect().y)
-        x: int = self._divide(object_.get_rect().x)
+        y: int = self._divide(object_.y)
+        x: int = self._divide(object_.x)
         if y < 0:
             y = 0
         elif y > self.h - 1:
@@ -74,8 +74,8 @@ class Grid(ScreenAccessMixin, metaclass=SingletonMeta):
         self._visible_objects = list(set(self._visible_objects))
 
     def _calc_ranges(self) -> RangesType:
-        start_cell_x: int = self._divide(self._camera._rect.centerx)
-        start_cell_y: int = self._divide(self._camera._rect.centery)
+        start_cell_x: int = self._divide(self._camera.centerx)
+        start_cell_y: int = self._divide(self._camera.centery)
         end_cell_x: int = start_cell_x
         end_cell_y: int = start_cell_y
         if start_cell_x != 0:
@@ -98,7 +98,7 @@ class Grid(ScreenAccessMixin, metaclass=SingletonMeta):
     def visible_by_attrs(self, desired_attrs: list[int]) -> list[AnyGridObjectType]:
         desired_objects: list[AnyGridObjectType] = []
         for object_ in self._visible_objects:
-            if self._attrs_is_exist(object_.attrs, desired_attrs):
+            if self._attrs_is_exist(object_.grid_attrs, desired_attrs):
                 desired_objects.append(object_)
         return desired_objects
 

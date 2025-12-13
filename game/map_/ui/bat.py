@@ -16,6 +16,9 @@ class Bat(AbstractXPatrolEnemy):
     _X_PUSHING_POWER: float = 15
     _Y_PUSHING_POWER: float = -5
 
+    _IMAGES = BatImages
+    _ANIMATION_DELAY: float = 0.05
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  start_x: int,
@@ -23,21 +26,18 @@ class Bat(AbstractXPatrolEnemy):
                  ) -> None:
         super().__init__(
             map_=map_,
-            rect=FloatRect(BatImages.GO_RIGHT[0].get_rect(x=x, y=y)),
+            rect=FloatRect(self._IMAGES.GO_RIGHT[0].get_rect(x=x, y=y)),
             start_x=start_x,
             end_x=end_x,
-            speed=self._SPEED,
-            x_pushing_power=self._X_PUSHING_POWER,
-            y_pushing_power=self._Y_PUSHING_POWER,
         )
-        self.go_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(BatImages.GO_RIGHT),
-            transition_delay_as_seconds=0.05,
+        self._go_frames_counter: FramesCounter = FramesCounter(
+            frames_count=len(self._IMAGES.GO_RIGHT),
+            transition_delay_as_seconds=self._ANIMATION_DELAY,
         )
 
     def _update_image(self) -> None:
         if self._x_vel > 0:
-            self._image = BatImages.GO_RIGHT[self.go_frames_counter.current_index]
+            self._image = self._IMAGES.GO_RIGHT[self._go_frames_counter.current_index]
         elif self._x_vel < 0:
-            self._image = BatImages.GO_LEFT[self.go_frames_counter.current_index]
-        self.go_frames_counter.next()
+            self._image = self._IMAGES.GO_LEFT[self._go_frames_counter.current_index]
+        self._go_frames_counter.next()

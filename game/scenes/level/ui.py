@@ -1,10 +1,10 @@
 from random import uniform, randint
+from typing import cast
+from pygame import Surface, SRCALPHA
 
-from engine.abstract_ui import AbstractUI
+from engine.abstract_ui import AbstractNoSizeUI
 from engine.map_.camera import Camera
-from engine.map_.map_ import Map
 from engine.common.counters import TimeCounter
-from engine.common.float_rect import FloatRect
 from engine.common.colors import Color
 from game.assets.fonts import PixelFonts
 from game.assets.images import (
@@ -12,46 +12,39 @@ from game.assets.images import (
     CLOUDS_IMAGES,
     COIN_IMAGES,
     HEART_IMAGES,
+    LOST_HEART_IMAGE,
     SHIELD_IMAGES,
 )
 from game.assets.save import get_coins_count
 from game.map_.ui.coin import Coin
+from game.map_.ui.player import Player
+from game.map_ import Map
 
 __all__ = (
     'Background',
-    'CloudsManager',
-    'CoinsCounterHUD',
+    'CloudManager',
+    'CoinCounterHUD',
     'PlayerHPHUD',
 )
 
 
-class Background(AbstractUI):
+class Background(AbstractNoSizeUI):
+
+    _image = BackgroundImages.MAP
     _SMOOTH: float = 0.03
 
     def __init__(self, camera: Camera) -> None:
-        super().__init__()
+        super().__init__(y=self._screen.get_height() - self._image.get_height())
         self._camera = camera
-
-        self._image = BackgroundImages.MAP
-        self._w: int = self._image.get_width()
-        self._h: int = self._image.get_height()
-        self._y = self._screen.get_height() - self._h
         self._float_x: float = 0
 
     def update(self) -> None:
-        self._update_float_x()
-        self._draw()
-        self._draw(1)
-
-    def _update_float_x(self) -> None:
         self._float_x = -self._camera.float_x * self._SMOOTH
-
-    def _draw(self, right_x_indent_factor: int = 0) -> None:
-        x = round(self._float_x) + right_x_indent_factor * self._w
-        self._screen.blit(self._image, (x, self._y))
+        self._x = round(self._float_x)
+        super().update()
 
 
-class CloudsManager:
+class CloudManager:
     _INITIAL_CLOUDS_COUNT: int = 50
 
     def __init__(self) -> None:
@@ -81,18 +74,23 @@ class CloudsManager:
         return Cloud.new_random_cloud(behind_left_edge)
 
 
-class Cloud(AbstractUI):
+class Cloud(AbstractNoSizeUI):
+
+    _IMAGE_VARIANTS = CLOUDS_IMAGES
     _AREA_H: int = 300
     _RANDOM_SPEED_RANGE: tuple[float, float] = (0, 0.05)
 
     def __init__(self, x: int, y: int,
                  image_variant_index: int,
-                 x_vel: float = 1,
+                 speed: float,
                  ) -> None:
-        super().__init__()
-        self._x_vel: float = x_vel
-        self._image = CLOUDS_IMAGES[image_variant_index]
-        self._rect: FloatRect = FloatRect((x, y) + self._image.get_size())
+        super().__init__(x, y)
+        self._image = self._IMAGE_VARIANTS[image_variant_index]
+
+        self._float_x: float = x
+        self._x_vel: float = speed
+        self._x_to_delete: int = self._screen.get_width()
+
         self._to_delete: bool = False
 
     @property
@@ -104,62 +102,101 @@ class Cloud(AbstractUI):
         x: int = 0
         if not behind_left_edge:
             x = randint(0, cls._screen.get_width())  # noqa
+
         cloud: cls = cls(
             x=x,
             y=randint(0, cls._AREA_H),
-            image_variant_index=randint(0, len(CLOUDS_IMAGES) - 1),
-            x_vel=uniform(*cls._RANDOM_SPEED_RANGE),
+            image_variant_index=randint(0, len(cls._IMAGE_VARIANTS) - 1),
+            speed=uniform(*cls._RANDOM_SPEED_RANGE),
         )
         if behind_left_edge:
-            cloud._rect.right = 0
-            cloud.float_x = cloud._rect.x
+            cloud._float_x = -cloud._image.get_width()
+
         return cloud
 
     def update(self) -> None:
-        self._rect.float_x += self._x_vel
-        if self._rect.left > self._screen.get_width():
+        self._float_x += self._x_vel
+        self._x = int(self._float_x)
+        if self._float_x > self._x_to_delete:
             self._to_delete = True
         super().update()
 
 
-class CoinsCounterHUD(AbstractUI):
+class CoinCounterHUD:
 
     def __init__(self) -> None:
-        self._image = COIN_IMAGES[0].copy()
-        super().__init__(rect=self._image.get_rect(topright=self._screen.get_rect().topright))
+        self._coin = _Coin()
+        self._count = _Count(self._coin.x)
 
     def update(self) -> None:
-        super().update()
-        self._update_count_surface()
+        self._coin.update()
+        self._count.update()
 
-    def _update_count_surface(self) -> None:
-        count_text: str = str(get_coins_count() + Coin.visual_collected_count)  # type: ignore
-        count_surface = PixelFonts.SMALL.render(
-            count_text, 0,
+
+class _Coin(AbstractNoSizeUI):
+    _image = COIN_IMAGES[0]
+
+    def __init__(self) -> None:
+        super().__init__(x=self._screen.get_width() - self._image.get_width(), y=0)
+
+
+class _Count(AbstractNoSizeUI):
+
+    def __init__(self, base_x: int) -> None:
+        super().__init__()
+        self._base_x = base_x
+        self._count: int = -999
+
+    def update(self) -> None:
+        self._update_image()
+        super().update()
+
+    def _update_image(self) -> None:
+        current_count: int = get_coins_count() + cast(int, Coin.visual_collected_count)
+        if current_count == self._count:
+            return
+
+        self._image = PixelFonts.SMALL.render(
+            str(current_count), 0,
             Color.WHITE,
         )
-        self._screen.blit(count_surface, count_surface.get_rect(midright=self._rect.midleft))
+        self._x = self._base_x - self._image.get_width()
 
 
-class PlayerHPHUD(AbstractUI):
+class PlayerHPHUD(AbstractNoSizeUI):
+
+    _HEART_IMAGE = HEART_IMAGES[0]
+    _LOST_HEART_IMAGE = LOST_HEART_IMAGE
+    _SHIELD_IMAGE = SHIELD_IMAGES[-2]
+    _HEART_W: int = _HEART_IMAGE.get_width()
 
     def __init__(self, map_: Map) -> None:
         super().__init__()
         self._map = map_
 
-        self._heart_image = HEART_IMAGES[0]
-        self._lost_heart_image = self._heart_image.copy()
-        self._lost_heart_image.set_alpha(100)
-        self._shield_image = SHIELD_IMAGES[-2]
-        self._w: int = self._heart_image.get_width()
+        self._hp: int = -999
+        self._has_shield: bool | None = None
+        self._w: int = cast(int, Player.max_hp) * self._HEART_W + self._SHIELD_IMAGE.get_width()
+        self._h: int = self._HEART_IMAGE.get_height()
 
-    def _draw(self) -> None:
+    def update(self) -> None:
+        self._update_image()
+        super().update()
+
+    def _update_image(self) -> None:
+        current_shield = self._map.player.has_shield
+        current_hp = self._map.player.hp
+        if current_shield == self._has_shield and current_hp == self._hp:
+            return
+
+        self._image = Surface((self._w, self._h), SRCALPHA)
         cur_x: int = 0
         for i in range(self._map.player.max_hp):
             if i + 1 <= self._map.player.hp:
-                self._screen.blit(self._heart_image, (cur_x, 0))
+                self._image.blit(self._HEART_IMAGE, (cur_x, 0))
             else:
-                self._screen.blit(self._lost_heart_image, (cur_x, 0))
-            cur_x += self._w
+                self._image.blit(self._LOST_HEART_IMAGE, (cur_x, 0))
+            cur_x += self._HEART_W
+
         if self._map.player.has_shield:
-            self._screen.blit(self._shield_image, (cur_x, 0))
+            self._image.blit(self._SHIELD_IMAGE, (cur_x, 0))

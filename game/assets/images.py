@@ -17,6 +17,7 @@ __all__ = (
     'CLOUDS_IMAGES',
     'COIN_IMAGES',
     'HEART_IMAGES',
+    'LOST_HEART_IMAGE',
     'TREES_IMAGES',
     'SPIKE_IMAGE',
     'HINT_IMAGES',
@@ -98,6 +99,8 @@ FINISH_IMAGE: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('finish'))
 CLOUDS_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('clouds'))
 COIN_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('coin'))
 HEART_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('heart/as_item'))
+LOST_HEART_IMAGE: Surface = HEART_IMAGES[0].copy()
+LOST_HEART_IMAGE.set_alpha(100)
 TREES_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('trees'))
 SPIKE_IMAGE: Surface = load_image(GameConfig.IMAGES_PATH.joinpath('spike'))
 HINT_IMAGES: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('hint'))

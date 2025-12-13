@@ -15,7 +15,10 @@ __all__ = (
 @Map.add_object_type
 class Slug(AbstractXPatrolEnemy):
 
-    _SPEED: float = 1
+    _SPEED = 0.6
+    _IMAGES = SlugImages
+    _ANIMATION_DELAY = 0.1
+
     _PLAYER_Y_VEL_FOR_DEATH: float = 8
     _Y_PUSHING_POWER_AFTER_DEATH: float = 15
 
@@ -26,19 +29,18 @@ class Slug(AbstractXPatrolEnemy):
                  ) -> None:
         super().__init__(
             map_=map_,
-            rect=FloatRect(SlugImages.GO[0].get_rect(x=x, y=y)),
+            rect=FloatRect(self._IMAGES.GO[0].get_rect(x=x, y=y)),
             start_x=start_x,
             end_x=end_x,
-            speed=self._SPEED,
         )
 
         self._go_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(SlugImages.GO),
-            transition_delay_as_seconds=0.1,
+            frames_count=len(self._IMAGES.GO),
+            transition_delay_as_seconds=self._ANIMATION_DELAY,
         )
         self._death_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(SlugImages.DEATH),
-            transition_delay_as_seconds=0.1,
+            frames_count=len(self._IMAGES.DEATH),
+            transition_delay_as_seconds=self._ANIMATION_DELAY,
         )
 
         self._anim_rect: Rect = self._rect
@@ -58,10 +60,10 @@ class Slug(AbstractXPatrolEnemy):
 
     def _update_image(self) -> None:
         if self._death_frames_counter.is_end:
-            self._image = SlugImages.GO[self._go_frames_counter.current_index]
+            self._image = self._IMAGES.GO[self._go_frames_counter.current_index]
             self._go_frames_counter.next()
         else:
-            self._image = SlugImages.DEATH[self._death_frames_counter.current_index]
+            self._image = self._IMAGES.DEATH[self._death_frames_counter.current_index]
             self._anim_rect: Rect = self._image.get_rect()
             self._anim_rect.centerx = self._rect.centerx
             self._anim_rect.bottom = self._rect.bottom

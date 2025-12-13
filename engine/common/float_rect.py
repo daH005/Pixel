@@ -25,3 +25,6 @@ class FloatRect(Rect):
             super().__setattr__('x', int(self.float_x))
         elif key == 'float_y':
             super().__setattr__('y', int(self.float_y))
+
+    def __copy__(self) -> 'FloatRect':
+        return FloatRect(self)

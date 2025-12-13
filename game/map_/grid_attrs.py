@@ -1,11 +1,12 @@
 from enum import IntEnum
 
 __all__ = (
-    'MapObjectAttr',
+    'GridObjectAttr',
 )
 
 
-class MapObjectAttr(IntEnum):
+class GridObjectAttr(IntEnum):
+
     BLOCK = 0
     PLAYER = 1
     SLUG = 2

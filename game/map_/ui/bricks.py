@@ -10,11 +10,11 @@ __all__ = (
 
 @Map.add_object_type
 class Bricks(AbstractBlock):
+    _image = BricksImages.DEFAULT
 
     def __init__(self, map_: Map,
                  x: int, y: int,
                  ) -> None:
-        self._image = BricksImages.DEFAULT
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),
@@ -23,11 +23,11 @@ class Bricks(AbstractBlock):
 
 @Map.add_object_type
 class BackgroundBricks(AbstractBackground):
+    _image = BricksImages.BACKGROUND
 
     def __init__(self, map_: Map,
                  x: int, y: int,
                  ) -> None:
-        self._image = BricksImages.BACKGROUND
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),

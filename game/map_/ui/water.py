@@ -9,7 +9,9 @@ __all__ = (
 
 @Map.add_object_type
 class Water(AbstractInteractingWithPlayerMapObject):
-    _Z_INDEX: int = 6
+
+    _Z_INDEX = 6
+    _IMAGES = WaterImages
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -20,14 +22,13 @@ class Water(AbstractInteractingWithPlayerMapObject):
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),
-            z_index=self._Z_INDEX,
         )
 
     def _init_image(self) -> None:
         if self._is_top:
-            self._image = WaterImages.TOP
+            self._image = self._IMAGES.TOP
         else:
-            self._image = WaterImages.DEFAULT
+            self._image = self._IMAGES.DEFAULT
 
     def _handle_collision_with_player(self) -> None:
         self._map.player.set_that_in_water()

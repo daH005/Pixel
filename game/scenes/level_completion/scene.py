@@ -3,7 +3,7 @@ from engine.common.colors import Color
 from engine.scenes.manager import ScenesManager
 from game.assets.fonts import PixelFonts
 from game.scenes.keys import SceneKey
-from game.common.windows.building import TextWindowPartsSurfacesBuilder
+from game.common.windows.building import TextWindowPartBuilder
 from game.common.windows.windows import Button, TextWindow
 from game.common.windows.rect_relative_position_names import RectRelativePositionName
 from game.scenes.common import AbstractLevelEndingScene
@@ -21,7 +21,7 @@ class LevelCompletionScene(AbstractLevelEndingScene):
 
         screen_center: XYTupleType = self._screen.get_rect().center
         self._next_level_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Следующий',
                 w=300,
             ),
@@ -32,7 +32,7 @@ class LevelCompletionScene(AbstractLevelEndingScene):
             on_click=self._next_level_button_on_click,
         )
         self._levels_menu_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='В меню',
                 w=300,
             ),
@@ -43,7 +43,7 @@ class LevelCompletionScene(AbstractLevelEndingScene):
             on_click=self._levels_menu_button_on_click,
         )
         self._title_window: TextWindow = TextWindow(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Уровень пройден!',
                 w=500,
                 font=PixelFonts.LARGE,

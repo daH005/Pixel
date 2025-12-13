@@ -7,11 +7,11 @@ from engine.common.typing_ import ColorTupleType, SizeTupleType
 from game.assets.fonts import PixelFonts
 
 __all__ = (
-    'TextWindowPartsSurfacesBuilder',
+    'TextWindowPartBuilder',
 )
 
 
-class TextWindowPartsSurfacesBuilder:
+class TextWindowPartBuilder:
 
     def __init__(self, text: str,
                  font: Font = PixelFonts.MEDIUM,

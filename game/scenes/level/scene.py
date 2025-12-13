@@ -16,8 +16,8 @@ from game.map_.levels_extra_data_keys import LevelExtraDataKey
 from game.scenes.keys import SceneKey
 from game.scenes.level.ui import (
     Background,
-    CloudsManager,
-    CoinsCounterHUD,
+    CloudManager,
+    CoinCounterHUD,
     PlayerHPHUD,
 )
 
@@ -41,8 +41,8 @@ class LevelScene(AbstractScene):
         )
 
         self._background: Background = Background(camera=self._camera)
-        self._clouds: CloudsManager = CloudsManager()
-        self._coins_counter_hud: CoinsCounterHUD = CoinsCounterHUD()
+        self._clouds: CloudManager = CloudManager()
+        self._coins_counter_hud: CoinCounterHUD = CoinCounterHUD()
         self._player_hp_hud: PlayerHPHUD = PlayerHPHUD(map_=self._map)
 
         self._need_to_save_screen_and_switch_to: SceneKey | None = None

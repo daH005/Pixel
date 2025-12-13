@@ -4,7 +4,7 @@ from pygame.event import Event
 from engine.common.colors import Color
 from engine.common.typing_ import XYTupleType
 from engine.scenes.manager import ScenesManager
-from game.common.windows.building import TextWindowPartsSurfacesBuilder
+from game.common.windows.building import TextWindowPartBuilder
 from game.common.windows.windows import Button
 from game.common.windows.rect_relative_position_names import RectRelativePositionName
 from game.scenes.keys import SceneKey
@@ -24,7 +24,7 @@ class LevelPauseScene(AbstractLevelOverlayScene):
 
         screen_center: XYTupleType = self._screen.get_rect().center
         self._restart_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Начать заново',
                 w=300,
             ),
@@ -35,7 +35,7 @@ class LevelPauseScene(AbstractLevelOverlayScene):
             on_click=self._restart_button_on_click,
         )
         self._continue_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Продолжить',
                 w=300,
             ),
@@ -46,7 +46,7 @@ class LevelPauseScene(AbstractLevelOverlayScene):
             on_click=self._continue_button_on_click,
         )
         self._levels_menu_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='В меню',
                 w=300,
             ),

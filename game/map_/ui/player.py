@@ -16,7 +16,7 @@ from engine.common.float_rect import FloatRect
 from engine.map_.map_ import Map
 from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
 from game.assets.sounds import hit_sound
-from game.map_.attrs import MapObjectAttr
+from game.map_.grid_attrs import GridObjectAttr
 from game.map_.abstract_ui import AbstractMovingMapObject, AbstractBlock
 
 __all__ = (
@@ -27,7 +27,9 @@ __all__ = (
 @Map.add_object_type
 class Player(AbstractMovingMapObject):
 
-    _Z_INDEX: int = 5
+    _Z_INDEX = 5
+    _IMAGES = PlayerDefaultImages
+
     _MAX_HP: int = 3
     _SPEED: float = 5
     _GRAVITY: float = 0.5
@@ -48,8 +50,8 @@ class Player(AbstractMovingMapObject):
         super().__init__(
             map_=map_,
             rect=FloatRect(PlayerDefaultImages.STAND.get_rect(x=x, y=y)),
-            z_index=self._Z_INDEX,
         )
+        self._map.set_player(self)
 
         self._be_white_count: float = calc_count_by_fps_from_seconds(0.25)
         self._go_frames_counter: FramesCounter = FramesCounter(
@@ -77,9 +79,10 @@ class Player(AbstractMovingMapObject):
     def hp(self) -> int:
         return self._hp
 
+    @classmethod
     @property
-    def max_hp(self) -> int:
-        return self._MAX_HP
+    def max_hp(cls) -> int:
+        return cls._MAX_HP
 
     @property
     def has_shield(self) -> bool:
@@ -154,7 +157,7 @@ class Player(AbstractMovingMapObject):
         self._on_ground = False
 
     def _update_rect_xy(self) -> None:
-        blocks: list[AbstractBlock] = self._map.grid.visible_by_attrs([MapObjectAttr.BLOCK])
+        blocks: list[AbstractBlock] = self._map.grid.visible_by_attrs([GridObjectAttr.BLOCK])
 
         self._rect.float_x += self._x_vel
         self._check_collision_with_blocks(blocks, self._x_vel, 0)

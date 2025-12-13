@@ -22,3 +22,5 @@ from game.map_.ui.hint import Hint
 __all__ = (
     'Map',
 )
+
+Map: type[Map[Player]]

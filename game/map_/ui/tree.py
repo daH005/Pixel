@@ -11,15 +11,16 @@ __all__ = (
 
 @Map.add_object_type
 class Tree(AbstractBackground):
+
     _Z_INDEX: int = -3
+    _IMAGE_VARIANTS = TREES_IMAGES
 
     def __init__(self, map_: Map,
                  x: int, y: int,
                  image_index: int = 0,
                  ) -> None:
-        self._image: Surface = TREES_IMAGES[image_index]
+        self._image: Surface = self._IMAGE_VARIANTS[image_index]
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),
-            z_index=self._Z_INDEX,
         )

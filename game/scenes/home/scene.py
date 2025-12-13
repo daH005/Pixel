@@ -5,7 +5,7 @@ from engine.scenes.abstract_scene import AbstractScene
 from engine.exceptions import ExitFromGame
 from game.assets.sounds import play_mainscreen_music
 from game.assets.fonts import PixelFonts
-from game.common.windows.building import TextWindowPartsSurfacesBuilder
+from game.common.windows.building import TextWindowPartBuilder
 from game.common.windows.windows import TextWindow, Button
 from game.common.windows.rect_relative_position_names import RectRelativePositionName
 from game.scenes.keys import SceneKey
@@ -25,7 +25,7 @@ class HomeScene(AbstractScene):
 
         screen_center: XYTupleType = self._screen.get_rect().center
         self._start_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Играть',
                 w=300,
             ),
@@ -36,7 +36,7 @@ class HomeScene(AbstractScene):
             on_click=self._start_button_on_click,
         )
         self._exit_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Выйти',
                 w=300,
             ),
@@ -47,7 +47,7 @@ class HomeScene(AbstractScene):
             on_click=self._exit_button_on_click,
         )
         self._title_window: TextWindow = TextWindow(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Pixel',
                 w=500,
                 font=PixelFonts.LARGE,

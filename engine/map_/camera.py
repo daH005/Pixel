@@ -69,5 +69,10 @@ class Camera(ScreenAccessMixin, metaclass=SingletonMeta):
     def apply(self, rect: Rect | FloatRect) -> Rect:
         return rect.move(-self._rect.x, -self._rect.y)
 
-    def get_rect(self):
-        return self._rect.copy()
+    @property
+    def centerx(self) -> int:
+        return self._rect.centerx
+
+    @property
+    def centery(self) -> int:
+        return self._rect.centery

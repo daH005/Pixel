@@ -2,7 +2,7 @@ from pygame import Surface, Rect
 from abc import ABC
 
 from engine.common.colors import Color
-from engine.abstract_ui import AbstractUI
+from engine.abstract_ui import AbstractRectangularUI
 from engine.scenes.abstract_scene import AbstractScene
 from engine.scenes.manager import ScenesManager
 from game.assets.images import BackgroundImages
@@ -47,7 +47,7 @@ class AbstractLevelEndingScene(AbstractLevelOverlayScene, ABC):
         level_ending_music.stop()
 
 
-class HomeBackground(AbstractUI):
+class HomeBackground(AbstractRectangularUI):
 
     def __init__(self) -> None:
         super().__init__(rect=BackgroundImages.HOME.get_rect())

@@ -4,8 +4,8 @@ from typing import Callable
 
 from engine.common.colors import Color
 from engine.common.typing_ import ColorTupleType
-from engine.abstract_ui import AbstractUI
-from game.common.windows.building import TextWindowPartsSurfacesBuilder
+from engine.abstract_ui import AbstractRectangularUI
+from game.common.windows.building import TextWindowPartBuilder
 from game.common.windows.rect_relative_position_names import RectRelativePositionName
 
 __all__ = (
@@ -15,9 +15,9 @@ __all__ = (
 )
 
 
-class AbstractTextWindow(AbstractUI):
+class AbstractTextWindow(AbstractRectangularUI):
 
-    def __init__(self, builder: TextWindowPartsSurfacesBuilder,
+    def __init__(self, builder: TextWindowPartBuilder,
                  x: int = 0, y: int = 0,
                  position_name: RectRelativePositionName = RectRelativePositionName.TOPLEFT,
                  ) -> None:
@@ -41,7 +41,7 @@ class AbstractTextWindow(AbstractUI):
 
 class TextWindow(AbstractTextWindow):
 
-    def __init__(self, builder: TextWindowPartsSurfacesBuilder,
+    def __init__(self, builder: TextWindowPartBuilder,
                  x: int = 0, y: int = 0,
                  position_name: RectRelativePositionName = RectRelativePositionName.TOPLEFT,
                  background_color: ColorTupleType = Color.WHITE,
@@ -63,7 +63,7 @@ class TextWindow(AbstractTextWindow):
 
 class Button(AbstractTextWindow):
 
-    def __init__(self, builder: TextWindowPartsSurfacesBuilder,
+    def __init__(self, builder: TextWindowPartBuilder,
                  on_click: Callable,
                  x: int = 0, y: int = 0,
                  position_name: RectRelativePositionName = RectRelativePositionName.TOPLEFT,

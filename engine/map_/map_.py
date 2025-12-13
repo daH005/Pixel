@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Callable, TypeVar, Generic
 
 from engine.common.singleton import SingletonMeta
 from engine.exceptions import MapObjectCannotBeCreated
@@ -13,8 +13,10 @@ __all__ = (
     'Map',
 )
 
+PlayerType = TypeVar('PlayerType', bound='AbstractMapObject')
 
-class Map(ScreenAccessMixin, metaclass=SingletonMeta):
+
+class Map(Generic[PlayerType], ScreenAccessMixin, metaclass=SingletonMeta):
 
     _objects_types: dict[str, type['AbstractMapObject']] = {}
     _current_level: Level
@@ -85,15 +87,15 @@ class Map(ScreenAccessMixin, metaclass=SingletonMeta):
             object_ = self._new_object(object_data)
         except MapObjectCannotBeCreated:
             return
-
         self._grid.add(object_)
-        if object_data.type == 'Player':
-            self._player = object_
 
     def _new_object(self, object_data: LevelObjectDataTuple) -> 'AbstractMapObject':
         object_type: type[AbstractMapObject] = self._objects_types[object_data.type]
         factory_method: Callable = getattr(object_type, object_data.factory_method)
         return factory_method(map_=self, **object_data.args)
+
+    def set_player(self, player: PlayerType) -> None:
+        self._player = player
 
     def update(self) -> None:
         self._camera.update(central_rect=self._player.get_rect())
@@ -110,4 +112,3 @@ class Map(ScreenAccessMixin, metaclass=SingletonMeta):
 
 
 from engine.map_.abstract_map_object import AbstractMapObject
-from engine.map_.typing_ import PlayerType

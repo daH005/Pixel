@@ -16,6 +16,9 @@ __all__ = (
 @Map.add_object_type
 class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
 
+    _IMAGES = SpiderImages
+    _ANIMATION_DELAY = 0.075
+
     _SPEED: float = 1.75
     _SPIDERWEB_W: int = 2
 
@@ -25,13 +28,13 @@ class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
                  ) -> None:
         super().__init__(
             map_=map_,
-            rect=FloatRect(SpiderImages.GO[0].get_rect(x=x, y=y)),
+            rect=FloatRect(self._IMAGES.GO[0].get_rect(x=x, y=y)),
         )
         self._end_y = end_y
 
         self._go_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(SpiderImages.GO),
-            transition_delay_as_seconds=0.075,
+            frames_count=len(self._IMAGES.GO),
+            transition_delay_as_seconds=self._ANIMATION_DELAY,
         )
 
         self._start_y: int = y
@@ -52,10 +55,10 @@ class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
 
     def _update_image(self) -> None:
         if self._y_vel:
-            self._image = SpiderImages.GO[self._go_frames_counter.current_index]
+            self._image = self._IMAGES.GO[self._go_frames_counter.current_index]
             self._go_frames_counter.next()
         else:
-            self._image = SpiderImages.STAND
+            self._image = self._IMAGES.STAND
 
     def _draw(self) -> None:
         self._draw_spiderweb()

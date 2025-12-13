@@ -9,6 +9,7 @@ __all__ = (
 
 @Map.add_object_type
 class Finish(AbstractInteractingWithPlayerMapObject):
+    _Z_INDEX = 99
 
     def __init__(self, map_: Map,
                  x: int, y: int,
@@ -17,7 +18,6 @@ class Finish(AbstractInteractingWithPlayerMapObject):
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),
-            z_index=99,
         )
 
     def _handle_collision_with_player(self) -> None:

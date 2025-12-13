@@ -13,11 +13,13 @@ __all__ = (
 
 @Map.add_object_type
 class Dirt(AbstractBlock):
+
     _current_grass_index: int = 0
 
-    _EDGES_IMAGES: dict[Direction, Surface] = {
-        Direction.LEFT: DirtImages.LEFT,
-        Direction.RIGHT: DirtImages.RIGHT,
+    _IMAGES = DirtImages
+    _EDGE_IMAGES: dict[Direction, Surface] = {
+        Direction.LEFT: _IMAGES.LEFT,
+        Direction.RIGHT: _IMAGES.RIGHT,
     }
 
     def __init__(self, map_: Map,
@@ -36,11 +38,12 @@ class Dirt(AbstractBlock):
     def _init_image(self) -> None:
         self._image: Surface
         if self._direction is not None:
-            self._image = self._EDGES_IMAGES[self._direction].copy()
+            self._image = self._EDGE_IMAGES[self._direction].copy()
         else:
-            self._image = DirtImages.DEFAULT.copy()
+            self._image = self._IMAGES.DEFAULT.copy()
+
         if self._grass_enabled:
-            self._image.blit(DirtImages.GRASS_LIST[self._current_grass_index], (0, 0))
+            self._image.blit(self._IMAGES.GRASS_LIST[self._current_grass_index], (0, 0))
             self._increment_grass_index()
 
     @classmethod
@@ -56,9 +59,9 @@ class Dirt(AbstractBlock):
 
 @Map.add_object_type
 class BackgroundDirt(AbstractBackground):
+    _image = DirtImages.BACKGROUND
 
     def __init__(self, map_: Map, x: int, y: int) -> None:
-        self._image = DirtImages.BACKGROUND
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),

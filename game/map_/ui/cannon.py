@@ -15,26 +15,29 @@ __all__ = (
 @Map.add_object_type
 class Cannon(AbstractMapObject):
 
+    _IMAGES = CannonImages
+    _ANIMATION_DELAY: float = 0.4
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  end_x: int,
                  ) -> None:
         super().__init__(
             map_=map_,
-            rect=CannonImages.DEFAULT_RIGHT.get_rect(x=x, y=y),
+            rect=self._IMAGES.DEFAULT_RIGHT.get_rect(x=x, y=y),
         )
         self._end_x = end_x
 
         if self._end_x < self._rect.centerx:
-            self._images = CannonImages.SHOOT_LEFT
+            self._images = self._IMAGES.SHOOT_LEFT
             self._cannonballs_spawn_x = self._rect.left
         else:
-            self._images = CannonImages.SHOOT_RIGHT
-            self._cannonballs_spawn_x: int = self._rect.right - CannonImages.CannonballImages.DEFAULT.get_width()
+            self._images = self._IMAGES.SHOOT_RIGHT
+            self._cannonballs_spawn_x: int = self._rect.right - self._IMAGES.CannonballImages.DEFAULT.get_width()
 
         self._shoot_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(CannonImages.SHOOT_RIGHT),
-            transition_delay_as_seconds=0.4,
+            frames_count=len(self._IMAGES.SHOOT_RIGHT),
+            transition_delay_as_seconds=self._ANIMATION_DELAY,
         )
 
         self._shoot_frame_index: int = 3
@@ -78,11 +81,14 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
     _END_SPEED: float = 10
     _SPEED_DECREASE: float = 0.25
 
+    _IMAGES = CannonImages.CannonballImages
+    _DEATH_ANIMATION_DELAY: float = 0.01
+
     def __init__(self, map_: Map,
                  x: int, y: int,
                  end_x: int,
                  ) -> None:
-        self._image = CannonImages.CannonballImages.DEFAULT
+        self._image = self._IMAGES.DEFAULT
         super().__init__(
             map_=map_,
             rect=FloatRect(self._image.get_rect(x=x, y=y)),
@@ -90,8 +96,8 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
         self._end_x = end_x
 
         self._death_frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(CannonImages.CannonballImages.DEATH),
-            transition_delay_as_seconds=0.01,
+            frames_count=len(self._IMAGES.DEATH),
+            transition_delay_as_seconds=self._DEATH_ANIMATION_DELAY,
         )
 
         if end_x < self._rect.centerx:
@@ -125,7 +131,7 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
 
     def _update_image(self) -> None:
         if not self._death_frames_counter.is_end:
-            self._image = CannonImages.CannonballImages.DEATH[self._death_frames_counter.current_index]
+            self._image = self._IMAGES.DEATH[self._death_frames_counter.current_index]
             self._death_frames_counter.next()
             if self._death_frames_counter.is_end:
                 self._to_delete = True

@@ -1,10 +1,9 @@
 from typing import TypeVar
-from pygame import Rect
 from abc import ABC
 
-from engine.abstract_ui import AbstractUI
-from engine.common.float_rect import FloatRect
-from engine.map_.grid.typing_ import AttrsType
+from engine.common.typing_ import AnyRectType
+from engine.abstract_ui import AbstractRectangularUI
+from engine.map_.grid.typing_ import GridAttrsType
 
 __all__ = (
     'AbstractGridObject',
@@ -12,26 +11,20 @@ __all__ = (
 )
 
 
-class AbstractGridObject(AbstractUI, ABC):
-    _DEFAULT_ATTRS: AttrsType = []
+class AbstractGridObject(AbstractRectangularUI, ABC):
+    _GRID_ATTRS: GridAttrsType = []
 
-    def __init__(self, rect: Rect | FloatRect | None = None,
-                 attrs: AttrsType | None = None,
-                 ) -> None:
+    def __init__(self, rect: AnyRectType) -> None:
         super().__init__(rect=rect)
-        if attrs is None:
-            attrs = self._DEFAULT_ATTRS.copy()
-
-        self._to_delete = False
-        self._attrs = attrs
+        self._to_delete: bool = False
 
     @property
     def to_delete(self) -> bool:
         return self._to_delete
 
     @property
-    def attrs(self) -> AttrsType:
-        return list(self._attrs)
+    def grid_attrs(self) -> GridAttrsType:
+        return self._GRID_ATTRS
 
 
 AnyGridObjectType = TypeVar('AnyGridObjectType', bound=AbstractGridObject)

@@ -8,7 +8,7 @@ from engine.scenes.manager import ScenesManager
 from engine.scenes.abstract_scene import AbstractScene
 from game.assets.sounds import play_mainscreen_music, mainscreen_music
 from game.assets.fonts import PixelFonts
-from game.common.windows.building import TextWindowPartsSurfacesBuilder
+from game.common.windows.building import TextWindowPartBuilder
 from game.common.windows.windows import Button, TextWindow
 from game.common.windows.rect_relative_position_names import RectRelativePositionName
 from game.scenes.keys import SceneKey
@@ -29,7 +29,7 @@ class LevelsMenuScene(AbstractScene):
 
         screen_bottomleft: XYTupleType = self._screen.get_rect().bottomleft
         self._back_button: Button = Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Вернуться',
                 font=PixelFonts.SMALL,
             ),
@@ -42,7 +42,7 @@ class LevelsMenuScene(AbstractScene):
 
         screen_bottomright: XYTupleType = self._screen.get_rect().bottomright
         self._not_available_level_message_window: TextWindow = TextWindow(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text='Сначала пройдите предыдущий уровень!',
                 font=PixelFonts.SMALL,
             ),
@@ -127,7 +127,7 @@ class LevelsMenuScene(AbstractScene):
                                    alpha: int | None = None,
                                    ) -> Button:
         return Button(
-            builder=TextWindowPartsSurfacesBuilder(
+            builder=TextWindowPartBuilder(
                 text=text,
                 font=PixelFonts.LARGE,
                 w=60,

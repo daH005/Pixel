@@ -14,6 +14,10 @@ __all__ = (
 @Map.add_object_type
 class Coin(AbstractItemToDisposableCollect):
 
+    _Z_INDEX = 2
+    _IMAGES = COIN_IMAGES
+    _ANIMATION_DELAY: float = 0.15
+
     _collected_count: int = 0
     _visual_collected_count: int = 0
 
@@ -26,14 +30,13 @@ class Coin(AbstractItemToDisposableCollect):
                  ) -> None:
         super().__init__(
             map_=map_,
-            rect=COIN_IMAGES[0].get_rect(x=x, y=y),
-            z_index=2,
+            rect=self._IMAGES[0].get_rect(x=x, y=y),
             id_=id_,
         )
 
         self._frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(COIN_IMAGES),
-            transition_delay_as_seconds=0.15,
+            frames_count=len(self._IMAGES),
+            transition_delay_as_seconds=self._ANIMATION_DELAY,
         )
 
         self._is_taken: bool = False
@@ -60,7 +63,7 @@ class Coin(AbstractItemToDisposableCollect):
         super().update()
 
     def _update_image(self) -> None:
-        self._image = COIN_IMAGES[self._frames_counter.current_index]
+        self._image = self._IMAGES[self._frames_counter.current_index]
         self._frames_counter.next()
 
     def _fly(self) -> None:

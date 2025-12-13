@@ -11,11 +11,14 @@ __all__ = (
 
 @Map.add_object_type
 class Chest(AbstractItemToDisposableCollect):
-    _DEFAULT_COINS_COUNT: int = 10
+
+    _DEFAULT_COIN_COUNT: int = 10
+    _COIN_SPAWN_DELAY: float = 0.1
 
     def __init__(self, map_: Map,
                  x: int, y: int,
-                 id_: int, count: int | None = None,
+                 id_: int,
+                 count: int | None = None,
                  ) -> None:
         super().__init__(
             map_=map_,
@@ -24,21 +27,21 @@ class Chest(AbstractItemToDisposableCollect):
         )
 
         if count is None:
-            count = self._DEFAULT_COINS_COUNT
+            count = self._DEFAULT_COIN_COUNT
 
-        self._max_count = count
+        self._max_count: int = count
         self._spawned_count: int = 0
-        self._coins_spawn_delay_timer: TimeCounter = TimeCounter(0.1)
-        self._is_opened = False
+        self._coin_spawn_delay_timer: TimeCounter = TimeCounter(self._COIN_SPAWN_DELAY)
+        self._is_opened: bool = False
 
     def update(self) -> None:
         super().update()
         if self._is_opened and self._spawned_count < self._max_count:
-            if not self._coins_spawn_delay_timer.is_working():
-                self._coins_spawn_delay_timer.restart()
+            if not self._coin_spawn_delay_timer.is_working():
+                self._coin_spawn_delay_timer.restart()
                 self._map.grid.add(self._new_coin())
                 self._spawned_count += 1
-            self._coins_spawn_delay_timer.next()
+            self._coin_spawn_delay_timer.next()
 
     def _update_image(self) -> None:
         if self._is_opened:
