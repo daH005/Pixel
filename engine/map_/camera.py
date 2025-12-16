@@ -11,11 +11,12 @@ __all__ = (
 
 
 class Camera(ScreenAccessMixin, metaclass=SingletonMeta):
+
     _map_w: int
     _map_h: int
     _central_rect: Rect
 
-    def __init__(self, smooth: float) -> None:
+    def __init__(self, smooth: float = 1) -> None:
         self._smooth = smooth
 
         self._screen_size: SizeTupleType = self._screen.get_size()
