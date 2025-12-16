@@ -14,7 +14,7 @@ __all__ = (
 @Map.add_object_type
 class Hint(AbstractInteractingWithPlayerMapObject):
 
-    _Z_INDEX: int = 20
+    _Z_INDEX = 20
     _IMAGES = HINT_IMAGES
     _ANIMATION_DELAY: float = 0.09
     _WINDOW_SHOWING_ANIMATION_DELAY: float = 0.025

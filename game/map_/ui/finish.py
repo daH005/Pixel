@@ -9,12 +9,13 @@ __all__ = (
 
 @Map.add_object_type
 class Finish(AbstractInteractingWithPlayerMapObject):
+
     _Z_INDEX = 99
+    _image = FINISH_IMAGE
 
     def __init__(self, map_: Map,
                  x: int, y: int,
                  ) -> None:
-        self._image = FINISH_IMAGE
         super().__init__(
             map_=map_,
             rect=self._image.get_rect(x=x, y=y),

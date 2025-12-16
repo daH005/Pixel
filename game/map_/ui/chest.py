@@ -12,6 +12,7 @@ __all__ = (
 @Map.add_object_type
 class Chest(AbstractItemToDisposableCollect):
 
+    _IMAGES = CHEST_IMAGES
     _DEFAULT_COIN_COUNT: int = 10
     _COIN_SPAWN_DELAY: float = 0.1
 
@@ -22,7 +23,7 @@ class Chest(AbstractItemToDisposableCollect):
                  ) -> None:
         super().__init__(
             map_=map_,
-            rect=CHEST_IMAGES[0].get_rect(x=x, y=y),
+            rect=self._IMAGES[0].get_rect(x=x, y=y),
             id_=id_,
         )
 
@@ -45,9 +46,9 @@ class Chest(AbstractItemToDisposableCollect):
 
     def _update_image(self) -> None:
         if self._is_opened:
-            self._image = CHEST_IMAGES[1]
+            self._image = self._IMAGES[1]
         else:
-            self._image = CHEST_IMAGES[0]
+            self._image = self._IMAGES[0]
 
     def _handle_collision_with_player(self) -> None:
         if not self._is_opened:

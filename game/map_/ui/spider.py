@@ -17,7 +17,7 @@ __all__ = (
 class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
 
     _IMAGES = SpiderImages
-    _ANIMATION_DELAY = 0.075
+    _ANIMATION_DELAY: float = 0.075
 
     _SPEED: float = 1.75
     _SPIDERWEB_W: int = 2

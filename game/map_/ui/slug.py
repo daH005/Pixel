@@ -17,7 +17,7 @@ class Slug(AbstractXPatrolEnemy):
 
     _SPEED = 0.6
     _IMAGES = SlugImages
-    _ANIMATION_DELAY = 0.1
+    _ANIMATION_DELAY: float = 0.1
 
     _PLAYER_Y_VEL_FOR_DEATH: float = 8
     _Y_PUSHING_POWER_AFTER_DEATH: float = 15

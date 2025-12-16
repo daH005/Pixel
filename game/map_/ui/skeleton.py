@@ -20,7 +20,7 @@ class Skeleton(AbstractXPatrolEnemy):
     _Y_PUSHING_POWER = 3
 
     _IMAGES = SkeletonImages
-    _ANIMATION_DELAY = 0.15
+    _ANIMATION_DELAY: float = 0.15
 
     _ATTACK_ANIMATION_INDENTS: dict[Direction, tuple[int, int]] = {
         Direction.LEFT: (0, 72),
