@@ -884,5 +884,6 @@
     "h": 720,
     "extra_data": {
         "ids": []
-    }
+    },
+    "camera_bounding_horizontal_lines": []
 }

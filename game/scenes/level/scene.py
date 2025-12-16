@@ -32,7 +32,7 @@ class LevelScene(AbstractScene):
 
     def __init__(self, scenes_manager: ScenesManager) -> None:
         super().__init__(scenes_manager=scenes_manager)
-        self._camera = Camera(smooth=0.05)
+        self._camera = Camera()
         self._grid = Grid(camera=self._camera)
         self._map = Map(
             camera=self._camera,

@@ -1,7 +1,7 @@
 from pygame import (
-    K_LEFT, 
-    K_RIGHT, 
-    K_UP, 
+    K_LEFT,
+    K_RIGHT,
+    K_UP,
     K_DOWN,
     K_w,
     K_a,
@@ -9,12 +9,14 @@ from pygame import (
     K_SPACE,
     K_s,
     K_RETURN,
+    Rect,
 )
 from pygame.key import get_pressed, ScancodeWrapper
 
 from engine.common.counters import FramesCounter, TimeCounter, calc_count_by_fps_from_seconds
 from engine.common.float_rect import FloatRect
 from engine.map_.map_ import Map
+from engine.map_.collision_checkable_mixin import CollisionCheckableMixin
 from engine.common.direction import Direction
 from engine.abstract_ui import AbstractNoSizeUI
 from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
@@ -28,7 +30,7 @@ __all__ = (
 
 
 @Map.add_object_type
-class Player(AbstractMovingMapObject):
+class Player(AbstractMovingMapObject, CollisionCheckableMixin):
 
     _Z_INDEX = 5
     _DEFAULT_IMAGES = PlayerDefaultImages
@@ -195,37 +197,23 @@ class Player(AbstractMovingMapObject):
         blocks: list[AbstractBlock] = self._map.grid.visible_by_attrs([GridObjectAttr.BLOCK])
 
         self._rect.float_x += self._x_vel
-        self._check_collision_with_blocks(blocks, self._x_vel, 0)
+        self._handle_collision_with_blocks(blocks, self._x_vel, 0)
         self._check_left_map_edge()
         self._check_right_map_edge()
 
         self._rect.float_y += self._y_vel
-        self._check_collision_with_blocks(blocks, 0, self._y_vel)
+        self._handle_collision_with_blocks(blocks, 0, self._y_vel)
 
-    def _check_collision_with_blocks(self, blocks: list[AbstractBlock],
-                                     x_vel: float,
-                                     y_vel: float,
-                                     ) -> None:
+    def _handle_collision_with_blocks(self, blocks: list[AbstractBlock],
+                                      x_vel: float,
+                                      y_vel: float,
+                                      ) -> None:
         for block in blocks:
-            self._check_collision_with_block(block, x_vel, y_vel)
+            self._handle_collision_with_bounding_rect(block.get_rect(), x_vel, y_vel)
 
-    def _check_collision_with_block(self, block: AbstractBlock,
-                                    x_vel: float,
-                                    y_vel: float,
-                                    ) -> None:
-        block_rect = block.get_rect()
-        if self._rect.colliderect(block_rect):
-            if x_vel > 0:
-                self._rect.right = block_rect.left
-            elif x_vel < 0:
-                self._rect.left = block_rect.right
-            elif y_vel > 0:
-                self._rect.bottom = block_rect.top
-                self._y_vel = 0
-                self._on_ground = True
-            elif y_vel < 0:
-                self._rect.top = block_rect.bottom
-                self._y_vel = 0
+    def _handle_bottom_collision(self, block_rect: Rect) -> None:
+        super()._handle_bottom_collision(block_rect)
+        self._on_ground = True
 
     def _kill_if_is_out_of_map(self) -> None:
         if self._rect.y > self._map.levels_manager.current_level.h:

@@ -71,6 +71,7 @@ class Map(Generic[PlayerType], ScreenAccessMixin, metaclass=SingletonMeta):
         self._camera.reset(
             self._levels_manager.current_level.w,
             self._levels_manager.current_level.h,
+            self._levels_manager.current_level.camera_bounding_horizontal_lines,
         )
         self._camera.move_quick(central_rect=self._player.get_rect())
 

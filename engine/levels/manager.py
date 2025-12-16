@@ -1,5 +1,6 @@
 from os import listdir
 from pathlib import Path
+from traceback import print_exc
 
 from engine.common.files import del_extension
 from engine.common.singleton import SingletonMeta
@@ -38,6 +39,7 @@ class LevelsManager(metaclass=SingletonMeta):
                 level = Level(index=level_index, file_path=full_level_path)
                 self._levels.append(level)
             except ValueError:
+                print_exc()
                 continue
         self._levels = sorted(self._levels, key=lambda x: x.index)
 

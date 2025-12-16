@@ -9,6 +9,8 @@ __all__ = (
     'SizeTupleType',
     'ColorTupleType',
     'AnyRectType',
+    'CameraBoundingLineType',
+    'CameraBoundingLinesType',
 )
 
 XYTupleType: TypeAlias = tuple[int, int]
@@ -16,3 +18,6 @@ SizeTupleType: TypeAlias = tuple[int, int]
 ColorTupleType: TypeAlias = tuple[int, int, int] | tuple[int, int, int, float] | Color
 
 AnyRectType: TypeAlias = Rect | FloatRect
+
+CameraBoundingLineType: TypeAlias = tuple[int, int, int]
+CameraBoundingLinesType: TypeAlias = list[CameraBoundingLineType]

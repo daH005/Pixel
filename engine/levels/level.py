@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Generic
 
 from engine.common.files import save_json, load_json
+from engine.common.typing_ import CameraBoundingLinesType
 from engine.levels.object_data_tuple import LevelObjectDataTuple
 from engine.levels.level_data import LevelData
 from engine.levels.typing_ import ExtraDataType
@@ -47,6 +48,10 @@ class Level(Generic[ExtraDataType]):
     @property
     def is_completed(self) -> bool:
         return self._data['is_completed']
+
+    @property
+    def camera_bounding_horizontal_lines(self) -> CameraBoundingLinesType:
+        return self._data['camera_bounding_horizontal_lines']
 
     @property
     def extra(self) -> ExtraDataType:

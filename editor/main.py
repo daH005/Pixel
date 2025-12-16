@@ -4,6 +4,7 @@ from math import ceil
 
 _FILENAME: str = 'map.txt'
 _EXTRA_OBJECTS_FILENAME: str = 'extra_objects.json'
+_CAMERA_BOUNDING_HORIZONTAL_LINES_FILENAME: str = 'camera_bounding_horizontal_lines.json'
 _BLOCK_W: int = 40
 _RESULT_JSON_MAP_FILENAME: str = '../assets/levels/{}.json'
 
@@ -35,6 +36,7 @@ def main() -> None:
         'is_completed': False,
         'w': None,
         'h': None,
+        'camera_bounding_horizontal_lines': [],
         'extra_data': {},
     }
 
@@ -53,6 +55,9 @@ def main() -> None:
 
     result_json_map['w'] = ceil(max_row_len / 2) * _BLOCK_W
     result_json_map['h'] = len(map_) * _BLOCK_W
+
+    with open(_CAMERA_BOUNDING_HORIZONTAL_LINES_FILENAME, 'r', encoding='utf-8') as f:
+        result_json_map['camera_bounding_horizontal_lines'] = json.load(f)
 
     if len(sys.argv) > 1:
         fn = sys.argv[1]
