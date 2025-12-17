@@ -16,3 +16,4 @@ class PixelFonts:
     LARGE = load_font(40)
     MEDIUM = load_font(30)
     SMALL = load_font(20)
+    VERY_SMALL = load_font(10)
