@@ -1,4 +1,4 @@
-from pygame import display, Surface, Rect
+from pygame import display, Surface
 
 __all__ = (
     'ScreenAccessMixin',
