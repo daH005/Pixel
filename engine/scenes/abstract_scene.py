@@ -31,8 +31,12 @@ class AbstractScene(ScreenAccessMixin, ABC, metaclass=SingletonABCMeta):
     def _handle_events(self) -> None:
         for event in get_events():
             if event.type == QUIT:
+                self._before_exit()
                 raise ExitFromGame
             self._handle_event(event)
+
+    def _before_exit(self) -> None:
+        pass
 
     def _handle_event(self, event: Event) -> None:
         pass
