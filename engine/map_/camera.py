@@ -65,7 +65,7 @@ class Camera(ScreenAccessMixin, metaclass=SingletonMeta):
 
     def _define_bounding_bottom_y(self) -> int:
         for line in self._bounding_horizontal_lines:
-            if not (self._rect.right > line[0] and self._rect.left < line[1]):
+            if not (self._rect.left >= line[0] and self._rect.right <= line[1]):
                 continue
             return line[2] - self._rect.h
         return self._map_h - self._rect.h
