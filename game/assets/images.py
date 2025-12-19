@@ -144,10 +144,6 @@ class PlayerDefaultImages:
     GO_LEFT: ImagesListType = flip_many(GO_RIGHT)
     GO_VERTICAL: ImagesListType = load_images(__PATH.joinpath('go_vertical'))
 
-    class SwordImages:
-        RIGHT: ImagesListType = load_images(GameConfig.IMAGES_PATH.joinpath('player/default/sword'))
-        LEFT: ImagesListType = flip_many(RIGHT)
-
 
 class PlayerDefaultWhiteImages:
 

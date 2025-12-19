@@ -8,7 +8,6 @@ from pygame import (
     K_d,
     K_SPACE,
     K_s,
-    K_RETURN,
     Rect,
 )
 from pygame.key import get_pressed, ScancodeWrapper
@@ -18,7 +17,6 @@ from engine.common.float_rect import FloatRect
 from engine.map_.map_ import Map
 from engine.map_.collision_checkable_mixin import CollisionCheckableMixin
 from engine.common.direction import Direction
-from engine.abstract_ui import AbstractNoSizeUI
 from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
 from game.assets.sounds import hit_sound
 from game.map_.grid_attrs import GridObjectAttr
@@ -94,9 +92,6 @@ class Player(AbstractMovingMapObject, CollisionCheckableMixin):
         self._y_vel: float = 0
         self._direction: Direction = Direction.RIGHT
 
-        self._is_attack_moment: bool = False
-        self._sword: _Sword = _Sword(self._map, self)
-
     @property
     def hp(self) -> int:
         return self._hp
@@ -122,18 +117,11 @@ class Player(AbstractMovingMapObject, CollisionCheckableMixin):
     def direction(self) -> Direction:
         return self._direction
 
-    @property
-    def is_attack_moment(self) -> bool:
-        return self._is_attack_moment
-
     def update(self) -> None:
         self._pressed = get_pressed()
         super().update()
         self._on_ladder = False
         self._in_water = False
-
-        self._is_attack_moment = False
-        self._sword.update()
 
     def _move(self) -> None:
         self._set_on_ground_or_not()
@@ -311,64 +299,3 @@ class Player(AbstractMovingMapObject, CollisionCheckableMixin):
 
     def add_shield(self) -> None:
         self._has_shield = True
-
-    def set_attack_moment(self) -> None:
-        self._is_attack_moment = True
-
-
-class _Sword(AbstractNoSizeUI):
-
-    _IMAGES = PlayerDefaultImages.SwordImages
-    _ANIMATION_DELAY: float = 0.2
-    _ATTACK_BOTTOM_KEY = K_RETURN
-
-    _INDENTS_BY_DIRECTION_AND_FRAMES = {
-        Direction.LEFT: [
-            (-25, 40),
-            (65, 40),
-        ],
-        Direction.RIGHT: [
-            (20, 40),
-            (0, 40),
-        ]
-    }
-
-    def __init__(self, map_: Map, player: Player) -> None:
-        super().__init__()
-        self._map = map_
-        self._player = player
-
-        self._frames_counter: FramesCounter = FramesCounter(
-            frames_count=len(self._IMAGES.RIGHT),
-            transition_delay_as_seconds=self._ANIMATION_DELAY,
-        )
-        self._is_on: bool = False
-
-    def update(self) -> None:
-        if get_pressed()[self._ATTACK_BOTTOM_KEY] and not self._is_on:
-            # self._is_on = True
-            pass
-
-        if not self._is_on:
-            return
-
-        indents = self._INDENTS_BY_DIRECTION_AND_FRAMES[self._player.direction][self._frames_counter.current_index]
-        self._x = self._player.x - indents[0]
-        self._y = self._player.y - indents[1]
-        if self._player.direction == Direction.LEFT:
-            images = self._IMAGES.LEFT
-        else:
-            images = self._IMAGES.RIGHT
-        self._image = images[self._frames_counter.current_index]
-
-        self._frames_counter.next()
-        if self._frames_counter.is_end:
-            self._is_on = False
-            self._player.set_attack_moment()
-        super().update()
-
-    def on(self) -> None:
-        self._is_on = True
-
-    def _draw(self) -> None:
-        self._screen.blit(self._image, self._map.camera.apply_xy((self._x, self._y)))
