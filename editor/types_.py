@@ -4,18 +4,28 @@ from abc import ABC
 from engine.common.direction import Direction
 from game.assets.images import (
     DirtImages,
+    BricksImages,
     PlayerDefaultImages,
     FINISH_IMAGE,
     TREES_IMAGES,
     COIN_IMAGES,
     CHEST_IMAGES,
     HINT_IMAGES,
+    HEART_IMAGES,
+    SHIELD_IMAGES,
+    LADDER_IMAGE,
+    SPIKE_IMAGE,
+    WebImages,
+    WaterImages,
 )
 from game.assets.fonts import PixelFonts
 
 __all__ = (
     'AbstractEditorObject',
     'Dirt',
+    'BackgroundDirt',
+    'Bricks',
+    'BackgroundBricks',
     'Player',
     'Finish',
     'Tree',
@@ -23,10 +33,18 @@ __all__ = (
     'Coin',
     'Chest',
     'Hint',
+    'Heart',
+    'Shield',
+    'Ladder',
+    'Spike',
+    'Web',
+    'Water',
 )
 
 
 class AbstractEditorObject(ABC):
+
+    _Z_INDEX: int = 0
     _image: pg.Surface
 
     def __init__(self, x: int, y: int) -> None:
@@ -40,6 +58,10 @@ class AbstractEditorObject(ABC):
     @property
     def y(self) -> int:
         return self._rect.y
+
+    @property
+    def z_index(self) -> int:
+        return self._Z_INDEX
 
     def get_rect(self) -> pg.Rect:
         return self._rect.copy()
@@ -71,6 +93,10 @@ class AbstractEditorObject(ABC):
             'x': self._rect.x,
             'y': self._rect.y,
         }
+
+
+class AbstractBackgroundEditorObject(AbstractEditorObject):
+    _Z_INDEX = -2
 
 
 class Dirt(AbstractEditorObject):
@@ -107,6 +133,18 @@ class Dirt(AbstractEditorObject):
         }
 
 
+class BackgroundDirt(AbstractBackgroundEditorObject):
+    _image = DirtImages.BACKGROUND
+
+
+class Bricks(AbstractEditorObject):
+    _image = BricksImages.DEFAULT
+
+
+class BackgroundBricks(AbstractBackgroundEditorObject):
+    _image = BricksImages.BACKGROUND
+
+
 class Player(AbstractEditorObject):
     _image = PlayerDefaultImages.STAND_RIGHT[0]
 
@@ -116,6 +154,8 @@ class Finish(AbstractEditorObject):
 
 
 class Tree(AbstractEditorObject):
+
+    _Z_INDEX = -3
     _IMAGE_VARIANTS = TREES_IMAGES
 
     def __init__(self, x: int, y: int, image_index: int = 0) -> None:
@@ -180,4 +220,56 @@ class Hint(AbstractEditorObject):
         return {
             **super()._make_json_args(),
             'text': self._text,
+        }
+
+
+class Heart(AbstractEditorObject):
+    _image = HEART_IMAGES[0]
+
+
+class Shield(AbstractEditorObject):
+    _image = SHIELD_IMAGES[0]
+
+
+class Web(AbstractEditorObject):
+    _IMAGES = WebImages
+
+    def __init__(self, x: int, y: int, direction: Direction) -> None:
+        self._direction = direction
+        if self._direction == direction.RIGHT:
+            self._image = self._IMAGES.RIGHT
+        else:
+            self._image = self._IMAGES.LEFT
+        super().__init__(x, y)
+
+    def _make_json_args(self) -> dict:
+        return {
+            **super()._make_json_args(),
+            'direction': self._direction,
+        }
+
+
+class Ladder(AbstractEditorObject):
+    _image = LADDER_IMAGE
+
+
+class Spike(AbstractEditorObject):
+    _image = SPIKE_IMAGE
+
+
+class Water(AbstractEditorObject):
+    _IMAGES = WaterImages
+
+    def __init__(self, x: int, y: int, is_top: bool) -> None:
+        self._is_top = is_top
+        if self._is_top:
+            self._image = self._IMAGES.TOP
+        else:
+            self._image = self._IMAGES.DEFAULT
+        super().__init__(x, y)
+
+    def _make_json_args(self) -> dict:
+        return {
+            **super()._make_json_args(),
+            'is_top': self._is_top,
         }

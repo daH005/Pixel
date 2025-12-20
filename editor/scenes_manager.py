@@ -164,8 +164,11 @@ class EditorScene(AbstractScene):
                 self._camera_bounding_horizontal_lines.remove(line)
 
     def _handle_objects(self) -> None:
-        for ob in self._objects:
+        for ob in self._objects_sorted_by_z_index():
             ob.update(self._x_offset, self._y_offset)
+
+    def _objects_sorted_by_z_index(self) -> list[AbstractEditorObject]:
+        return sorted(self._objects, key=lambda x: x.z_index)
 
     def _handle_camera_bounding_horizontal_lines(self) -> None:
         for line in self._camera_bounding_horizontal_lines:
@@ -235,6 +238,11 @@ class _ObjectTypePanel:
         (Dirt, dict(grass_enabled=True, direction=Direction.LEFT)),
         (Dirt, dict(grass_enabled=True, direction=Direction.RIGHT)),
 
+        (BackgroundDirt, dict()),
+
+        (Bricks, dict()),
+        (BackgroundBricks, dict()),
+
         (Tree, dict(image_index=0)),
         (Tree, dict(image_index=1)),
         (Tree, dict(image_index=2)),
@@ -245,6 +253,17 @@ class _ObjectTypePanel:
 
         (Coin, dict()),
         (Chest, dict()),
+        (Heart, dict()),
+        (Shield, dict()),
+
+        (Spike, dict()),
+        (Ladder, dict()),
+
+        (Water, dict(is_top=False)),
+        (Water, dict(is_top=True)),
+
+        (Web, dict(direction=Direction.LEFT)),
+        (Web, dict(direction=Direction.RIGHT)),
     ]
 
     def __init__(self, on_click) -> None:
