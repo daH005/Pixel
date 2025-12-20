@@ -2,6 +2,7 @@ from pygame import Surface
 
 from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractMapObject
+from game.map_.z_indexes import ZIndex
 
 __all__ = (
     'Overlay',
@@ -11,7 +12,7 @@ __all__ = (
 @Map.add_object_type
 class Overlay(AbstractMapObject):
 
-    _Z_INDEX = 9
+    _Z_INDEX = ZIndex.OVERLAY
     _ALPHA: int = 100
 
     def __init__(self, map_: Map,

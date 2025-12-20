@@ -21,6 +21,7 @@ from game.assets.images import PlayerDefaultImages, PlayerDefaultWhiteImages
 from game.assets.sounds import hit_sound
 from game.map_.grid_attrs import GridObjectAttr
 from game.map_.abstract_ui import AbstractMovingMapObject, AbstractBlock
+from game.map_.z_indexes import ZIndex
 
 __all__ = (
     'Player',
@@ -30,7 +31,7 @@ __all__ = (
 @Map.add_object_type
 class Player(AbstractMovingMapObject, CollisionCheckableMixin):
 
-    _Z_INDEX = 10
+    _Z_INDEX = ZIndex.MOVING_OBJECT
     _DEFAULT_IMAGES = PlayerDefaultImages
     _WHITE_IMAGES = PlayerDefaultWhiteImages
 

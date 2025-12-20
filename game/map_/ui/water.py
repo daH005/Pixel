@@ -1,6 +1,7 @@
 from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractInteractingWithPlayerMapObject
 from game.assets.images import WaterImages
+from game.map_.z_indexes import ZIndex
 
 __all__ = (
     'Water',
@@ -10,7 +11,7 @@ __all__ = (
 @Map.add_object_type
 class Water(AbstractInteractingWithPlayerMapObject):
 
-    _Z_INDEX = 1
+    _Z_INDEX = ZIndex.OVERLAY
     _IMAGES = WaterImages
 
     def __init__(self, map_: Map,

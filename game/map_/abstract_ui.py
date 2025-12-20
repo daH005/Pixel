@@ -7,6 +7,7 @@ from engine.map_.map_ import Map
 from engine.exceptions import MapObjectCannotBeCreated
 from game.map_.grid_attrs import GridObjectAttr
 from game.map_.levels_extra_data_keys import LevelExtraDataKey
+from game.map_.z_indexes import ZIndex
 
 __all__ = (
     'AbstractMapObject',
@@ -26,12 +27,12 @@ class AbstractMapObject(BaseAbstractMapObject):
 
 class AbstractBlock(AbstractMapObject, ABC):
 
-    _Z_INDEX = 10
+    _Z_INDEX = ZIndex.BLOCK
     _GRID_ATTRS = [GridObjectAttr.BLOCK]
 
 
 class AbstractBackground(AbstractMapObject, ABC):
-    _Z_INDEX = -10
+    _Z_INDEX = ZIndex.BACKGROUND
 
 
 class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
@@ -94,7 +95,7 @@ class AbstractMovingMapObject(AbstractMapObject, ABC):
 class AbstractMovingAndInteractingWithPlayerMapObject(AbstractMovingMapObject,
                                                       AbstractInteractingWithPlayerMapObject,
                                                       ABC):
-    _Z_INDEX = 5
+    _Z_INDEX = ZIndex.MOVING_OBJECT
 
     def update(self) -> None:
         self._move()

@@ -19,6 +19,7 @@ from game.assets.images import (
     WaterImages,
 )
 from game.assets.fonts import PixelFonts
+from game.map_.z_indexes import ZIndex
 
 __all__ = (
     'AbstractEditorObject',
@@ -96,10 +97,18 @@ class AbstractEditorObject(ABC):
 
 
 class AbstractBackgroundEditorObject(AbstractEditorObject):
-    _Z_INDEX = -2
+    _Z_INDEX = ZIndex.BACKGROUND
 
 
-class Dirt(AbstractEditorObject):
+class AbstractBlockEditorObject(AbstractEditorObject):
+    _Z_INDEX = ZIndex.BLOCK
+
+
+class AbstractMovingEditorObject(AbstractEditorObject):
+    _Z_INDEX = ZIndex.MOVING_OBJECT
+
+
+class Dirt(AbstractBlockEditorObject):
 
     _DEFAULT_IMAGE = DirtImages.DEFAULT
     _RIGHT_IMAGE = DirtImages.RIGHT
@@ -137,7 +146,7 @@ class BackgroundDirt(AbstractBackgroundEditorObject):
     _image = DirtImages.BACKGROUND
 
 
-class Bricks(AbstractEditorObject):
+class Bricks(AbstractBlockEditorObject):
     _image = BricksImages.DEFAULT
 
 
@@ -145,7 +154,7 @@ class BackgroundBricks(AbstractBackgroundEditorObject):
     _image = BricksImages.BACKGROUND
 
 
-class Player(AbstractEditorObject):
+class Player(AbstractMovingEditorObject):
     _image = PlayerDefaultImages.STAND_RIGHT[0]
 
 
@@ -155,7 +164,7 @@ class Finish(AbstractEditorObject):
 
 class Tree(AbstractEditorObject):
 
-    _Z_INDEX = -3
+    _Z_INDEX = ZIndex.TREE
     _IMAGE_VARIANTS = TREES_IMAGES
 
     def __init__(self, x: int, y: int, image_index: int = 0) -> None:
@@ -208,6 +217,8 @@ class Chest(AbstractEditorObjectToDisposableCollect):
 
 
 class Hint(AbstractEditorObject):
+
+    _Z_INDEX = ZIndex.HINT
     _image = HINT_IMAGES[0]
 
     def __init__(self, x: int, y: int, text: str | None = None) -> None:
@@ -258,6 +269,8 @@ class Spike(AbstractEditorObject):
 
 
 class Water(AbstractEditorObject):
+
+    _Z_INDEX = ZIndex.OVERLAY
     _IMAGES = WaterImages
 
     def __init__(self, x: int, y: int, is_top: bool) -> None:

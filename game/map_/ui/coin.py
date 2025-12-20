@@ -14,6 +14,7 @@ __all__ = (
 @Map.add_object_type
 class Coin(AbstractItemToDisposableCollect):
 
+    _Z_INDEX_WHEN_IS_TAKEN: int = 999
     _IMAGES = COIN_IMAGES
     _ANIMATION_DELAY: float = 0.15
 
@@ -40,11 +41,16 @@ class Coin(AbstractItemToDisposableCollect):
 
         self._is_taken: bool = False
         self._flying_end_xy: XYTupleType = self._screen.get_rect().topright
+        self._z_index: int = self._Z_INDEX
 
     @classmethod
     def reset_class(cls) -> None:
         cls._collected_count = 0
         cls._visual_collected_count = 0
+
+    @property
+    def z_index(self) -> int:
+        return self._z_index
 
     @classmethod
     @property
@@ -85,6 +91,7 @@ class Coin(AbstractItemToDisposableCollect):
 
     def take(self) -> None:
         super().take()
+        self._z_index = self._Z_INDEX_WHEN_IS_TAKEN
         self._is_taken = True
         self._flying_rect = FloatRect(self._map.camera.apply_rect(self._rect))
         type(self)._collected_count += 1

@@ -3,6 +3,7 @@ from pygame import Surface
 from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractBackground
 from game.assets.images import TREES_IMAGES
+from game.map_.z_indexes import ZIndex
 
 __all__ = (
     'Tree',
@@ -12,7 +13,7 @@ __all__ = (
 @Map.add_object_type
 class Tree(AbstractBackground):
 
-    _Z_INDEX = -100
+    _Z_INDEX = ZIndex.TREE
     _IMAGE_VARIANTS = TREES_IMAGES
 
     def __init__(self, map_: Map,

@@ -5,6 +5,7 @@ from game.assets.fonts import PixelFonts
 from game.map_.abstract_ui import AbstractInteractingWithPlayerMapObject
 from game.common.windows.building import TextWindowPartBuilder
 from game.common.windows.windows import TextWindow
+from game.map_.z_indexes import ZIndex
 
 __all__ = (
     'Hint',
@@ -14,7 +15,7 @@ __all__ = (
 @Map.add_object_type
 class Hint(AbstractInteractingWithPlayerMapObject):
 
-    _Z_INDEX = 100
+    _Z_INDEX = ZIndex.HINT
     _IMAGES = HINT_IMAGES
     _ANIMATION_DELAY: float = 0.09
     _WINDOW_SHOWING_ANIMATION_DELAY: float = 0.025

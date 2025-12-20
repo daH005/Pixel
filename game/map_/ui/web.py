@@ -10,8 +10,6 @@ __all__ = (
 
 @Map.add_object_type
 class Web(AbstractBackground):
-
-    _Z_INDEX = -1
     _IMAGES = WebImages
 
     def __init__(self, map_: Map,
