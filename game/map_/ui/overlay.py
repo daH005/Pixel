@@ -1,8 +1,5 @@
 from pygame import Surface
-from pygame.draw import rect as draw_rect
 
-from engine.common.colors import Color
-from engine.common.direction import Direction
 from engine.map_.map_ import Map
 from game.map_.abstract_ui import AbstractMapObject
 
