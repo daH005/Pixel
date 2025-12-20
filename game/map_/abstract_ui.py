@@ -25,12 +25,13 @@ class AbstractMapObject(BaseAbstractMapObject):
 
 
 class AbstractBlock(AbstractMapObject, ABC):
+
     _Z_INDEX = 10
     _GRID_ATTRS = [GridObjectAttr.BLOCK]
 
 
 class AbstractBackground(AbstractMapObject, ABC):
-    _Z_INDEX = -2
+    _Z_INDEX = -10
 
 
 class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
@@ -49,9 +50,7 @@ class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
 
 
 class AbstractItemToDisposableCollect(AbstractInteractingWithPlayerMapObject, ABC):
-
     _collected_ids: list[int] = []
-    _Z_INDEX = 1
 
     def __init__(self, map_: Map,
                  rect: Rect | FloatRect,
@@ -95,6 +94,7 @@ class AbstractMovingMapObject(AbstractMapObject, ABC):
 class AbstractMovingAndInteractingWithPlayerMapObject(AbstractMovingMapObject,
                                                       AbstractInteractingWithPlayerMapObject,
                                                       ABC):
+    _Z_INDEX = 5
 
     def update(self) -> None:
         self._move()
@@ -103,7 +103,6 @@ class AbstractMovingAndInteractingWithPlayerMapObject(AbstractMovingMapObject,
 
 class AbstractXPatrolEnemy(AbstractMovingAndInteractingWithPlayerMapObject, ABC):
 
-    _Z_INDEX = 2
     _SPEED: float = 1
     _X_PUSHING_POWER: float = 22
     _Y_PUSHING_POWER: float = 11

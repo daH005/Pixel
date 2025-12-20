@@ -14,7 +14,6 @@ __all__ = (
 @Map.add_object_type
 class Coin(AbstractItemToDisposableCollect):
 
-    _Z_INDEX = 15
     _IMAGES = COIN_IMAGES
     _ANIMATION_DELAY: float = 0.15
 

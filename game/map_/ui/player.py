@@ -30,7 +30,7 @@ __all__ = (
 @Map.add_object_type
 class Player(AbstractMovingMapObject, CollisionCheckableMixin):
 
-    _Z_INDEX = 5
+    _Z_INDEX = 10
     _DEFAULT_IMAGES = PlayerDefaultImages
     _WHITE_IMAGES = PlayerDefaultWhiteImages
 

@@ -9,8 +9,6 @@ __all__ = (
 
 @Map.add_object_type
 class Finish(AbstractInteractingWithPlayerMapObject):
-
-    _Z_INDEX = 99
     _image = FINISH_IMAGE
 
     def __init__(self, map_: Map,

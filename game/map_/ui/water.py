@@ -10,7 +10,7 @@ __all__ = (
 @Map.add_object_type
 class Water(AbstractInteractingWithPlayerMapObject):
 
-    _Z_INDEX = 6
+    _Z_INDEX = 1
     _IMAGES = WaterImages
 
     def __init__(self, map_: Map,

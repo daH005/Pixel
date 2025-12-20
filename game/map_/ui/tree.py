@@ -12,7 +12,7 @@ __all__ = (
 @Map.add_object_type
 class Tree(AbstractBackground):
 
-    _Z_INDEX: int = -3
+    _Z_INDEX = -100
     _IMAGE_VARIANTS = TREES_IMAGES
 
     def __init__(self, map_: Map,
