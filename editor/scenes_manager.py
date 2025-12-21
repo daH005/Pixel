@@ -97,7 +97,7 @@ class EditorScene(AbstractScene):
             position_name=RectRelativePositionName.BOTTOMLEFT,
             x=0,
             y=self._screen.get_height(),
-            on_click=self._save_map,
+            on_click=self.save_map,
         )
         self._buttons.append(save)
 
@@ -185,7 +185,7 @@ class EditorScene(AbstractScene):
         )
         self._buttons.append(run_level)
 
-    def _save_map(self, file_path: Path | str | None = None) -> None:
+    def save_map(self, file_path: Path | str | None = None) -> None:
         if file_path is None:
             file_path = self._filename
 
@@ -265,13 +265,10 @@ class EditorScene(AbstractScene):
 
     def _run_level(self) -> None:
         file_path: Path = Path(mktemp())
-        self._save_map(file_path)
+        self.save_map(file_path)
         self._scenes_manager.levels_manager.add_level(file_path)
         self._scenes_manager.levels_manager.switch_to(self._scenes_manager.levels_manager.last_index)
         self._scenes_manager.switch_to(SceneKey.LEVEL).reset()
-
-    def _before_exit(self) -> None:
-        self._save_map()
 
     def _handle_event(self, event: Event) -> None:
         super()._handle_event(event)
