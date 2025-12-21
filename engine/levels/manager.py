@@ -18,6 +18,7 @@ class LevelsManager(metaclass=SingletonMeta):
 
     def __init__(self, levels_folder_path: Path) -> None:
         self._levels_folder_path = levels_folder_path
+        self._levels_count: int = 0
 
     @property
     def levels(self) -> list[Level]:
@@ -32,16 +33,21 @@ class LevelsManager(metaclass=SingletonMeta):
         return len(self._levels) - 1
 
     def init(self) -> None:
-        for filename in listdir(self._levels_folder_path):
+        filenames: list[str] = sorted(
+            listdir(self._levels_folder_path),
+            key=lambda x: int(del_extension(x)),
+        )
+        for filename in filenames:
             try:
-                full_level_path: Path = self._levels_folder_path.joinpath(filename)
-                level_index: int = int(del_extension(filename))
-                level = Level(index=level_index, file_path=full_level_path)
-                self._levels.append(level)
+                self.add_level(self._levels_folder_path.joinpath(filename))
             except ValueError:
                 print_exc()
                 continue
-        self._levels = sorted(self._levels, key=lambda x: x.index)
+
+    def add_level(self, file_path: Path) -> None:
+        level = Level(index=self._levels_count, file_path=file_path)
+        self._levels_count += 1
+        self._levels.append(level)
 
     def next_after(self, level_index: int) -> Level:
         if level_index != self.last_index:

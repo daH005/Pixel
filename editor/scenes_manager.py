@@ -1,12 +1,16 @@
 import json
+from pathlib import Path
 from traceback import print_exc
 import pygame as pg
 from pygame.event import Event
+from tempfile import mktemp
 
 from engine.common.direction import Direction
 from engine.common.typing_ import CameraBoundingLinesType
 from engine.scenes.abstract_scene import AbstractScene
-from engine.scenes.manager import ScenesManager
+from game.scenes import ScenesManager
+from game.scenes.level.scene import LevelScene
+from game.scenes.keys import SceneKey
 from game.assets.fonts import PixelFonts
 from game.common.windows.windows import Button
 from game.common.windows.building import TextWindowPartBuilder
@@ -15,18 +19,21 @@ from editor.types_ import *
 
 __all__ = (
     'ScenesManager',
+    'EDITOR_SCENE_KEY',
     'EditorScene',
 )
 
+EDITOR_SCENE_KEY = 999
 
-@ScenesManager.add(0)
+
+@ScenesManager.add(EDITOR_SCENE_KEY)
 class EditorScene(AbstractScene):
 
     _BACKGROUND_COLOR = (0, 191, 255)
     _BLOCK_SIZE: int = 40
     _HALF_BLOCK_SIZE: int = _BLOCK_SIZE // 2
     _OFFSET_SPEED: int = 10
-    _DEFAULT_FILENAME: str = 'res.json'
+    _DEFAULT_FILENAME: str = 'nnn.json'
     _BOTTOM_UNCLICKABLE_AREA_H: int = 50
 
     def __init__(self, scenes_manager: ScenesManager) -> None:
@@ -166,7 +173,22 @@ class EditorScene(AbstractScene):
         )
         self._buttons.append(camera_bounding_hor_line)
 
-    def _save_map(self) -> None:
+        run_level: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Run level',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=camera_bounding_hor_line.get_rect().right,
+            y=self._screen.get_height(),
+            on_click=self._run_level,
+        )
+        self._buttons.append(run_level)
+
+    def _save_map(self, file_path: Path | str | None = None) -> None:
+        if file_path is None:
+            file_path = self._filename
+
         objects, max_right, max_bottom = self._prepare_json_objects_max_right_and_bottom_coordinates()
         m = {
             'objects': objects,
@@ -180,7 +202,7 @@ class EditorScene(AbstractScene):
             'camera_bounding_horizontal_lines': self._camera_bounding_horizontal_lines,
         }
 
-        with open(self._filename, 'w', encoding='utf-8') as f:
+        with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(m, f)
 
     def _prepare_json_objects_max_right_and_bottom_coordinates(self) -> tuple[list[dict], int, int]:
@@ -240,6 +262,13 @@ class EditorScene(AbstractScene):
             self._camera_bounding_horizontal_line_deleting_mode_is_on = False
         else:
             self._camera_bounding_horizontal_line_deleting_mode_is_on = True
+
+    def _run_level(self) -> None:
+        file_path: Path = Path(mktemp())
+        self._save_map(file_path)
+        self._scenes_manager.levels_manager.add_level(file_path)
+        self._scenes_manager.levels_manager.switch_to(self._scenes_manager.levels_manager.last_index)
+        self._scenes_manager.switch_to(SceneKey.LEVEL).reset()
 
     def _before_exit(self) -> None:
         self._save_map()
@@ -459,3 +488,27 @@ class _ObjectTypePanel:
     def update(self) -> None:
         for button in self._buttons:
             button.update()
+
+
+@ScenesManager.add(SceneKey.LEVEL)
+class TestLevelScene(LevelScene):
+
+    def __init__(self, scenes_manager: ScenesManager) -> None:
+        super().__init__(scenes_manager)
+        self._back_to_editor_button: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Back to Editor',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            x=self._screen.get_width(),
+            y=self._screen.get_height(),
+            position_name=RectRelativePositionName.BOTTOMRIGHT,
+            on_click=self._back_to_editor,
+        )
+
+    def _back_to_editor(self) -> None:
+        self._scenes_manager.switch_to(EDITOR_SCENE_KEY)
+
+    def update(self) -> None:
+        super().update()
+        self._back_to_editor_button.update()

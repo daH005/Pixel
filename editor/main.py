@@ -5,14 +5,14 @@ from engine.screen import set_global_screen
 from engine.main_game_class import Game
 from game.assets.images import ICON_IMAGE
 from game.config import GameConfig
-from editor.scenes_manager import ScenesManager
+from editor.scenes_manager import ScenesManager, EDITOR_SCENE_KEY
 
 
 def main() -> None:
     flags = GameConfig.WINDOW_FLAGS & (~pg.FULLSCREEN)
-    set_global_screen(720, 'Editor', flags, ICON_IMAGE)
+    set_global_screen(GameConfig.WINDOW_HEIGHT, 'Editor', flags, ICON_IMAGE)
 
-    game = Game(200, ScenesManager(0, LevelsManager(GameConfig.LEVELS_PATH)))
+    game = Game(GameConfig.MAX_FPS, ScenesManager(EDITOR_SCENE_KEY, LevelsManager(GameConfig.LEVELS_PATH)))
     game.run()
 
 

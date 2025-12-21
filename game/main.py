@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from engine.screen import set_global_screen
 from engine.levels.manager import LevelsManager
 from engine.main_game_class import Game
@@ -18,13 +20,17 @@ def start_game() -> None:
         flags=GameConfig.WINDOW_FLAGS,
         icon=ICON_IMAGE,
     )
+
+    levels_manager: LevelsManager = LevelsManager(
+        levels_folder_path=GameConfig.LEVELS_PATH,
+    )
+    initial_scene_key = SceneKey.HOME
+
     game: Game = Game(
         max_fps=GameConfig.MAX_FPS,
         scenes_manager=ScenesManager(
-            initial_scene_key=SceneKey.HOME,
-            levels_manager=LevelsManager(
-                levels_folder_path=GameConfig.LEVELS_PATH,
-            ),
+            initial_scene_key=initial_scene_key,
+            levels_manager=levels_manager,
         ),
     )
     game.run()
