@@ -2,6 +2,7 @@ from pygame import Surface, KEYDOWN, K_ESCAPE
 from pygame.event import Event
 
 from engine.common.colors import Color
+from engine.common.typing_ import XYTupleType
 from engine.scenes.abstract_scene import AbstractScene
 from engine.map_.camera import Camera
 from engine.map_.grid.grid import Grid
@@ -28,6 +29,9 @@ __all__ = (
 
 @ScenesManager.add(SceneKey.LEVEL)
 class LevelScene(AbstractScene):
+
+    _BACKGROUND_COLOR: Color = Color.BLUE
+    _SUN_XY: XYTupleType = (50, 50)
     _saved_screen: Surface
 
     def __init__(self, scenes_manager: ScenesManager) -> None:
@@ -46,8 +50,6 @@ class LevelScene(AbstractScene):
         self._player_hp_hud: PlayerHPHUD = PlayerHPHUD(map_=self._map)
 
         self._need_to_save_screen_and_switch_to: SceneKey | None = None
-        self._background_color = Color.BLUE
-        self._sun_xy = (50, 50)
 
     def reset(self) -> None:
         self._map.reset()
@@ -68,8 +70,8 @@ class LevelScene(AbstractScene):
     def update(self) -> None:
         super().update()
 
-        self._screen.fill(self._background_color)
-        self._screen.blit(SUN_IMAGE, self._sun_xy)
+        self._screen.fill(self._BACKGROUND_COLOR)
+        self._screen.blit(SUN_IMAGE, self._SUN_XY)
 
         self._clouds.update()
         self._background.update()

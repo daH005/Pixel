@@ -14,6 +14,7 @@ from pygame.key import get_pressed, ScancodeWrapper
 
 from engine.common.counters import FramesCounter, TimeCounter, calc_count_by_fps_from_seconds
 from engine.common.float_rect import FloatRect
+from engine.common.typing_ import AnyRectType
 from engine.map_.map_ import Map
 from engine.map_.collision_checkable_mixin import CollisionCheckableMixin
 from engine.common.direction import Direction
@@ -199,6 +200,10 @@ class Player(AbstractMovingMapObject, CollisionCheckableMixin):
                                       ) -> None:
         for block in blocks:
             self._handle_collision_with_bounding_rect(block.get_rect(), x_vel, y_vel)
+
+    def _handle_top_collision(self, bounding_rect: AnyRectType) -> None:
+        super()._handle_top_collision(bounding_rect)
+        self._y_vel = self._GRAVITY * 2
 
     def _handle_bottom_collision(self, block_rect: Rect) -> None:
         super()._handle_bottom_collision(block_rect)
