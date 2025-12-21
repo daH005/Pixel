@@ -79,6 +79,7 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
     _START_SPEED: float = 15
     _END_SPEED: float = 10
     _SPEED_DECREASE: float = 0.25
+    _X_PUSHING_POWER: int = 20
 
     _IMAGES = CannonImages.CannonballImages
     _DEATH_ANIMATION_DELAY: float = 0.01
@@ -125,7 +126,10 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
             self._current_speed -= self._SPEED_DECREASE
 
     def _handle_collision_with_player(self) -> None:
-        self._map.player.hit()
+        self._map.player.hit(
+            x_pushing=self._X_PUSHING_POWER,
+            enemy_center_x=self._rect.centerx,
+        )
         self._death_frames_counter.start()
 
     def _update_image(self) -> None:
