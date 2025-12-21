@@ -259,7 +259,7 @@ class Web(AbstractEditorObject):
 
     def __init__(self, x: int, y: int, direction: Direction) -> None:
         self._direction = direction
-        if self._direction == direction.RIGHT:
+        if self._direction == Direction.RIGHT:
             self._image = self._IMAGES.RIGHT
         else:
             self._image = self._IMAGES.LEFT

@@ -8,7 +8,6 @@ from engine.common.typing_ import CameraBoundingLinesType
 from engine.scenes.abstract_scene import AbstractScene
 from engine.scenes.manager import ScenesManager
 from game.assets.fonts import PixelFonts
-from game.assets.images import BackgroundImages
 from game.common.windows.windows import Button
 from game.common.windows.building import TextWindowPartBuilder
 from game.common.windows.rect_relative_position_names import RectRelativePositionName
@@ -23,7 +22,6 @@ __all__ = (
 @ScenesManager.add(0)
 class EditorScene(AbstractScene):
 
-    _BACKGROUND_IMAGE = BackgroundImages.MAP
     _BACKGROUND_COLOR = (0, 191, 255)
     _BLOCK_SIZE: int = 40
     _HALF_BLOCK_SIZE: int = _BLOCK_SIZE // 2
@@ -42,7 +40,6 @@ class EditorScene(AbstractScene):
         self._camera_bounding_horizontal_line_deleting_mode_is_on: bool = False
 
         self._init_buttons()
-        self._background_y: int = self._screen.get_height() - self._BACKGROUND_IMAGE.get_height()
 
         self._objects: list[AbstractEditorObject] = []
         self._camera_bounding_horizontal_lines: CameraBoundingLinesType = []
@@ -279,7 +276,6 @@ class EditorScene(AbstractScene):
 
     def _update_background(self) -> None:
         self._screen.fill(self._BACKGROUND_COLOR)
-        self._screen.blit(self._BACKGROUND_IMAGE, (0, self._background_y))
 
     def _update_objects(self) -> None:
         for ob in self._objects_sorted_by_z_index():
