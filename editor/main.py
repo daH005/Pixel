@@ -19,8 +19,6 @@ def main() -> None:
 
     try:
         game.run()
-    except ExitFromGame:
-        pass
     except:
         print_exc()
         scenes_manager.get(EDITOR_SCENE_KEY).save_map()

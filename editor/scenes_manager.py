@@ -7,6 +7,7 @@ from tempfile import mktemp
 
 from engine.common.direction import Direction
 from engine.common.typing_ import CameraBoundingLinesType
+from engine.exceptions import ExitFromGame
 from engine.scenes.abstract_scene import AbstractScene
 from game.scenes import ScenesManager
 from game.scenes.level.scene import LevelScene
@@ -297,6 +298,8 @@ class EditorScene(AbstractScene):
             self._update_keyboard_presses()
             self._update_buttons()
             self._update_panel()
+        except ExitFromGame:
+            raise
         except:
             print_exc()
 
