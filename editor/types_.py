@@ -17,6 +17,11 @@ from game.assets.images import (
     SPIKE_IMAGE,
     WebImages,
     WaterImages,
+    SkeletonImages,
+    BatImages,
+    SlugImages,
+    SpiderImages,
+    CannonImages,
 )
 from game.assets.fonts import PixelFonts
 from game.map_.z_indexes import ZIndex
@@ -40,6 +45,13 @@ __all__ = (
     'Spike',
     'Web',
     'Water',
+    'Overlay',
+    'AbstractXPatrolEnemyEditorObject',
+    'Slug',
+    'Skeleton',
+    'Bat',
+    'Spider',
+    'Cannon',
 )
 
 
@@ -68,8 +80,8 @@ class AbstractEditorObject(ABC):
         return self._rect.copy()
 
     def attach_rect_position_to_bottom_center_of_block(self, block_size: int) -> None:
-        self._rect.x += block_size // 2 - self._image.get_width() // 2
-        self._rect.y += block_size - self._image.get_height()
+        self._rect.x += block_size // 2 - self._rect.w // 2
+        self._rect.y += block_size - self._rect.h
 
     def data_to_compare(self):
         return type(self), self._rect.x, self._rect.y
@@ -167,7 +179,7 @@ class Tree(AbstractEditorObject):
     _Z_INDEX = ZIndex.TREE
     _IMAGE_VARIANTS = TREES_IMAGES
 
-    def __init__(self, x: int, y: int, image_index: int = 0) -> None:
+    def __init__(self, x: int, y: int, image_index: int) -> None:
         self._image_index = image_index
         self._image = self._IMAGE_VARIANTS[self._image_index]
         super().__init__(x, y)
@@ -285,4 +297,133 @@ class Water(AbstractEditorObject):
         return {
             **super()._make_json_args(),
             'is_top': self._is_top,
+        }
+
+
+class Overlay(AbstractEditorObject):
+
+    _Z_INDEX = ZIndex.OVERLAY
+    _ALPHA: int = 100
+
+    def __init__(self, x: int, y: int,
+                 w: int, h: int,
+                 ) -> None:
+        self._w = w
+        self._h = h
+        self._image = pg.Surface((self._w, self._h))
+        self._image.set_alpha(self._ALPHA)
+        super().__init__(x, y)
+
+    def _make_json_args(self) -> dict:
+        return {
+            **super()._make_json_args(),
+            'w': self._w,
+            'h': self._h,
+        }
+
+
+class AbstractXPatrolEnemyEditorObject(AbstractEditorObject):
+    _Z_INDEX = ZIndex.MOVING_OBJECT
+
+    def __init__(self, x: int, y: int, start_x: int = 0, end_x: int = 0) -> None:
+        super().__init__(x, y)
+        self._start_x = start_x
+        self._end_x = end_x
+
+    def set_start_and_end_xs(self, start_x: int, end_x: int) -> None:
+        self._start_x = start_x
+        self._end_x = end_x
+
+    def update(self, x_offset: int, y_offset: int) -> None:
+        super().update(x_offset, y_offset)
+        self._update_patrol_bounding_lines(x_offset, y_offset)
+
+    def _update_patrol_bounding_lines(self, x_offset: int, y_offset: int) -> None:
+        y = self._rect.y - y_offset
+        for x in (self._start_x - x_offset, self._end_x - x_offset):
+            pg.draw.rect(self._screen, (255, 0, 0), (x, y, 2, self._rect.h))
+
+    def _make_json_args(self) -> dict:
+        return {
+            **super()._make_json_args(),
+            'start_x': self._start_x,
+            'end_x': self._end_x,
+        }
+
+
+class Skeleton(AbstractXPatrolEnemyEditorObject):
+    _image = SkeletonImages.GO_RIGHT[0]
+
+
+class Slug(AbstractXPatrolEnemyEditorObject):
+    _image = SlugImages.GO[0]
+
+
+class Bat(AbstractXPatrolEnemyEditorObject):
+    _image = BatImages.GO_RIGHT[0]
+
+
+class Spider(AbstractEditorObject):
+
+    _Z_INDEX = ZIndex.MOVING_OBJECT
+    _image = SpiderImages.STAND
+
+    def __init__(self, x: int, y: int, end_y: int = 0) -> None:
+        super().__init__(x, y)
+        self._end_y = end_y
+
+    def set_end_y(self, end_y: int) -> None:
+        self._end_y = end_y
+
+    def update(self, x_offset: int, y_offset: int) -> None:
+        super().update(x_offset, y_offset)
+        self._update_descent_line(x_offset, y_offset)
+
+    def _update_descent_line(self, x_offset: int, y_offset: int) -> None:
+        x = self._rect.x - x_offset
+        y = self._end_y - y_offset
+        pg.draw.rect(self._screen, (0, 0, 255), (x, y, self._rect.w, 2))
+
+    def _make_json_args(self) -> dict:
+        return {
+            **super()._make_json_args(),
+            'end_y': self._end_y,
+        }
+
+
+class Cannon(AbstractEditorObject):
+    _IMAGES = CannonImages
+
+    def __init__(self, x: int, y: int, end_x: int = 0) -> None:
+        self._end_x = end_x
+        self._image = self._IMAGES.DEFAULT_RIGHT
+        super().__init__(x, y)
+        self._set_image()
+
+    def set_end_x(self, end_x: int) -> None:
+        self._end_x = end_x
+        self._set_image()
+
+    def _set_image(self) -> None:
+        if self._end_x < self._rect.centerx:
+            self._image = self._IMAGES.DEFAULT_LEFT
+        else:
+            self._image = self._IMAGES.DEFAULT_RIGHT
+
+    def update(self, x_offset: int, y_offset: int) -> None:
+        super().update(x_offset, y_offset)
+        self._update_cannonball_end_line(x_offset, y_offset)
+
+    def _update_cannonball_end_line(self, x_offset: int, y_offset: int) -> None:
+        x = self._end_x - x_offset
+        y = self._rect.y - y_offset
+        pg.draw.rect(self._screen, (0, 255, 0), (x, y, 2, self._rect.h))
+
+    def attach_rect_position_to_bottom_center_of_block(self, block_size: int) -> None:
+        self._rect.y += block_size - self._rect.h
+
+    def _make_json_args(self) -> dict:
+        return {
+            **super()._make_json_args(),
+            'end_x': self._end_x,
         }

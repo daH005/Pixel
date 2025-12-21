@@ -1,14 +1,17 @@
 import json
+from traceback import print_exc
 import pygame as pg
 from pygame.event import Event
 
 from engine.common.direction import Direction
-from engine.common.typing_ import CameraBoundingLinesType, CameraBoundingLineType
+from engine.common.typing_ import CameraBoundingLinesType
 from engine.scenes.abstract_scene import AbstractScene
 from engine.scenes.manager import ScenesManager
 from game.assets.fonts import PixelFonts
+from game.assets.images import BackgroundImages
 from game.common.windows.windows import Button
 from game.common.windows.building import TextWindowPartBuilder
+from game.common.windows.rect_relative_position_names import RectRelativePositionName
 from editor.types_ import *
 
 __all__ = (
@@ -20,9 +23,13 @@ __all__ = (
 @ScenesManager.add(0)
 class EditorScene(AbstractScene):
 
+    _BACKGROUND_IMAGE = BackgroundImages.MAP
+    _BACKGROUND_COLOR = (0, 191, 255)
     _BLOCK_SIZE: int = 40
+    _HALF_BLOCK_SIZE: int = _BLOCK_SIZE // 2
     _OFFSET_SPEED: int = 10
     _DEFAULT_FILENAME: str = 'res.json'
+    _BOTTOM_UNCLICKABLE_AREA_H: int = 50
 
     def __init__(self, scenes_manager: ScenesManager) -> None:
         super().__init__(scenes_manager)
@@ -31,27 +38,16 @@ class EditorScene(AbstractScene):
         self._selected_object_type = Dirt
         self._selected_object_kwargs = {}
 
+        self._overlay_deleting_mode_is_on: bool = False
+        self._camera_bounding_horizontal_line_deleting_mode_is_on: bool = False
+
+        self._init_buttons()
+        self._background_y: int = self._screen.get_height() - self._BACKGROUND_IMAGE.get_height()
+
         self._objects: list[AbstractEditorObject] = []
         self._camera_bounding_horizontal_lines: CameraBoundingLinesType = []
 
-        class _CameraBoundingHorizontalLine:
-            y: int | None = None
-            start_x: int | None = None
-            end_x: int | None = None
-
-            @classmethod
-            def nullify(cls) -> None:
-                cls.y = None
-                cls.start_x = None
-                cls.end_x = None
-
-            @classmethod
-            def get_tuple(cls) -> CameraBoundingLineType:
-                # It needs because User may set the last point more left than the first.
-                x_coordinates = sorted([cls.start_x, cls.end_x])
-                return x_coordinates[0], x_coordinates[1], cls.y
-
-        self._CameraBoundingHorizontalLine = _CameraBoundingHorizontalLine
+        self._points: list[tuple[int, int]] = []
 
         self._x_offset: int = 0
         self._y_offset: int = 0
@@ -64,125 +60,14 @@ class EditorScene(AbstractScene):
             self._filename = self._DEFAULT_FILENAME
 
     def _object_type_panel_choice(self, t, kwargs) -> None:
+        if issubclass(t, AbstractXPatrolEnemyEditorObject) and len(self._points) < 2:
+            print('This type requires two points!')
+            return
+        if issubclass(t, (Spider, Cannon)) and len(self._points) < 1:
+            print('This type requires at least one point!')
+            return
         self._selected_object_type = t
         self._selected_object_kwargs = kwargs
-
-    def _before_exit(self) -> None:
-        self._save_map()
-
-    def _handle_event(self, event: Event) -> None:
-        super()._handle_event(event)
-        if event.type == pg.KEYDOWN:
-            if event.key == pg.K_RETURN:
-                if self._panel_is_on:
-                    self._panel_is_on = False
-                else:
-                    self._panel_is_on = True
-            elif event.key == pg.K_SPACE:
-                self._save_map()
-            elif event.key == pg.K_i:
-                self._handle_camera_bounding_horizontal_line_setting()
-
-    def _handle_camera_bounding_horizontal_line_setting(self) -> None:
-        mouse_pos = pg.mouse.get_pos()
-        if self._CameraBoundingHorizontalLine.y is None:
-            self._CameraBoundingHorizontalLine.y = mouse_pos[1] + self._y_offset
-
-        if self._CameraBoundingHorizontalLine.start_x is None:
-            self._CameraBoundingHorizontalLine.start_x = mouse_pos[0] + self._x_offset - self._BLOCK_SIZE
-        elif self._CameraBoundingHorizontalLine.end_x is None:
-            self._CameraBoundingHorizontalLine.end_x = mouse_pos[0] + self._x_offset + self._BLOCK_SIZE
-            self._camera_bounding_horizontal_lines.append(self._CameraBoundingHorizontalLine.get_tuple())
-            self._CameraBoundingHorizontalLine.nullify()
-
-    def update(self) -> None:
-        super().update()
-
-        self._screen.fill((255, 255, 255))
-        self._handle_objects()
-        self._handle_camera_bounding_horizontal_lines()
-        self._handle_mouse_clicks()
-        self._handle_keyboard_presses()
-        self._handle_panel()
-
-    def _handle_mouse_clicks(self) -> None:
-        if self._panel_is_on:
-            return
-
-        x_diff = self._x_offset % self._BLOCK_SIZE
-        y_diff = self._y_offset % self._BLOCK_SIZE
-
-        pos = pg.mouse.get_pos()
-        block_x = pos[0] - (pos[0] + x_diff) % self._BLOCK_SIZE
-        block_y = pos[1] - (pos[1] + y_diff) % self._BLOCK_SIZE
-        pg.draw.rect(self._screen, (0, 0, 0), (block_x, block_y, self._BLOCK_SIZE, self._BLOCK_SIZE), width=1)
-
-        presses = pg.mouse.get_pressed()
-        if presses[0]:
-            self._handle_creating(block_x, block_y)
-
-    def _handle_creating(self, block_x: int, block_y: int) -> None:
-        x = block_x + self._x_offset
-        y = block_y + self._y_offset
-        ob = self._selected_object_type(x, y, **self._selected_object_kwargs)
-        ob.attach_rect_position_to_bottom_center_of_block(self._BLOCK_SIZE)
-        if ob not in self._objects:
-            self._objects.append(ob)
-            if isinstance(ob, AbstractEditorObjectToDisposableCollect):
-                ob.set_id()
-
-    def _handle_keyboard_presses(self) -> None:
-        presses = pg.key.get_pressed()
-        if presses[pg.K_RIGHT]:
-            self._x_offset += self._OFFSET_SPEED
-        elif presses[pg.K_LEFT]:
-            self._x_offset -= self._OFFSET_SPEED
-        elif presses[pg.K_DOWN]:
-            self._y_offset += self._OFFSET_SPEED
-        elif presses[pg.K_UP]:
-            self._y_offset -= self._OFFSET_SPEED
-
-        if self._x_offset < 0:
-            self._x_offset = 0
-        if self._y_offset < 0:
-            self._y_offset = 0
-
-        if presses[pg.K_DELETE]:
-            self._handle_objects_deleting()
-        if presses[pg.K_d]:
-            self._handle_camera_bounding_horizontal_line_deleting()
-
-    def _handle_objects_deleting(self) -> None:
-        for ob in self._objects:
-            if ob.get_rect().move(-self._x_offset, -self._y_offset).collidepoint(pg.mouse.get_pos()):
-                self._objects.remove(ob)
-
-    def _handle_camera_bounding_horizontal_line_deleting(self) -> None:
-        mouse_pos = pg.mouse.get_pos()
-        for line in self._camera_bounding_horizontal_lines[:]:
-            if line[0] - self._x_offset < mouse_pos[0] < line[1] - self._x_offset:
-                self._camera_bounding_horizontal_lines.remove(line)
-
-    def _handle_objects(self) -> None:
-        for ob in self._objects_sorted_by_z_index():
-            ob.update(self._x_offset, self._y_offset)
-
-    def _objects_sorted_by_z_index(self) -> list[AbstractEditorObject]:
-        return sorted(self._objects, key=lambda x: x.z_index)
-
-    def _handle_camera_bounding_horizontal_lines(self) -> None:
-        for line in self._camera_bounding_horizontal_lines:
-            pg.draw.line(
-                self._screen,
-                (255, 0, 0),
-                (line[0] - self._x_offset, line[2] - self._y_offset),
-                (line[1] - self._x_offset, line[2] - self._y_offset),
-                width=3,
-            )
-
-    def _handle_panel(self) -> None:
-        if self._panel_is_on:
-            self._panel.update()
 
     def _load_map(self, filename: str) -> None:
         with open(filename, 'r', encoding='utf-8') as f:
@@ -196,6 +81,93 @@ class EditorScene(AbstractScene):
                 continue
             self._objects.append(t(**ob['args']))
         self._camera_bounding_horizontal_lines = data['camera_bounding_horizontal_lines']
+
+    def _init_buttons(self) -> None:
+        self._buttons: list[Button] = []
+
+        save: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Save',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=0,
+            y=self._screen.get_height(),
+            on_click=self._save_map,
+        )
+        self._buttons.append(save)
+
+        open_close_panel: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Panel',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=save.get_rect().right,
+            y=self._screen.get_height(),
+            on_click=self._switch_panel,
+        )
+        self._buttons.append(open_close_panel)
+
+        clear_points: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Clear points',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=open_close_panel.get_rect().right,
+            y=self._screen.get_height(),
+            on_click=self._clear_points,
+        )
+        self._buttons.append(clear_points)
+
+        add_camera_bounding_horizontal_line: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Camera bounding horizontal line',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=clear_points.get_rect().right,
+            y=self._screen.get_height(),
+            on_click=self._add_camera_bounding_horizontal_line,
+        )
+        self._buttons.append(add_camera_bounding_horizontal_line)
+
+        add_overlay_object: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Add overlay',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=add_camera_bounding_horizontal_line.get_rect().right,
+            y=self._screen.get_height(),
+            on_click=self._add_overlay_object,
+        )
+        self._buttons.append(add_overlay_object)
+
+        overlay_deleting_mode: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Overlay deleting',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=add_overlay_object.get_rect().right,
+            y=self._screen.get_height(),
+            on_click=self._switch_overlay_deleting_mode,
+        )
+        self._buttons.append(overlay_deleting_mode)
+
+        camera_bounding_hor_line: Button = Button(
+            builder=TextWindowPartBuilder(
+                text='Camera bounding hor. line del.',
+                font=PixelFonts.VERY_SMALL,
+            ),
+            position_name=RectRelativePositionName.BOTTOMLEFT,
+            x=overlay_deleting_mode.get_rect().right,
+            y=self._screen.get_height(),
+            on_click=self._switch_camera_bounding_horizontal_line_deleting_mode,
+        )
+        self._buttons.append(camera_bounding_hor_line)
 
     def _save_map(self) -> None:
         objects, max_right, max_bottom = self._prepare_json_objects_max_right_and_bottom_coordinates()
@@ -225,6 +197,200 @@ class EditorScene(AbstractScene):
             max_bottom = max(max_bottom, rect.bottom)
 
         return obs, max_right, max_bottom
+
+    def _switch_panel(self) -> None:
+        if self._panel_is_on:
+            self._panel_is_on = False
+        else:
+            self._panel_is_on = True
+
+    def _clear_points(self) -> None:
+        self._points.clear()
+        print('The points have been cleared.')
+
+    def _add_camera_bounding_horizontal_line(self) -> None:
+        if len(self._points) < 2:
+            print('It takes two points!')
+            return
+
+        x1 = self._points[0][0] - self._HALF_BLOCK_SIZE
+        x2 = self._points[1][0] + self._HALF_BLOCK_SIZE
+        y = self._points[0][1] - self._HALF_BLOCK_SIZE
+        self._camera_bounding_horizontal_lines.append(
+            (min(x1, x2), max(x1, x2), y)
+        )
+
+    def _add_overlay_object(self) -> None:
+        if len(self._points) < 2:
+            print('It takes two points!')
+            return
+
+        x, y = self._points[0]
+        x -= self._HALF_BLOCK_SIZE
+        y -= self._HALF_BLOCK_SIZE
+        w = self._points[1][0] - x + self._HALF_BLOCK_SIZE
+        h = self._points[1][1] - y + self._HALF_BLOCK_SIZE
+        self._objects.append(Overlay(x, y, w, h))
+
+    def _switch_overlay_deleting_mode(self) -> None:
+        if self._overlay_deleting_mode_is_on:
+            self._overlay_deleting_mode_is_on = False
+        else:
+            self._overlay_deleting_mode_is_on = True
+
+    def _switch_camera_bounding_horizontal_line_deleting_mode(self) -> None:
+        if self._camera_bounding_horizontal_line_deleting_mode_is_on:
+            self._camera_bounding_horizontal_line_deleting_mode_is_on = False
+        else:
+            self._camera_bounding_horizontal_line_deleting_mode_is_on = True
+
+    def _before_exit(self) -> None:
+        self._save_map()
+
+    def _handle_event(self, event: Event) -> None:
+        super()._handle_event(event)
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_i:
+                self._add_point()
+
+    def _add_point(self) -> None:
+        pos = pg.mouse.get_pos()
+        x = pos[0] + self._x_offset
+        x = x - x % self._BLOCK_SIZE + self._HALF_BLOCK_SIZE
+        y = pos[1] + self._y_offset
+        y = y - y % self._BLOCK_SIZE + self._HALF_BLOCK_SIZE
+        self._points.append((x, y))
+        print('The point has been added.')
+
+    def update(self) -> None:
+        try:
+            super().update()
+
+            self._update_background()
+            self._update_objects()
+            self._update_camera_bounding_horizontal_lines()
+            self._update_points()
+            self._update_mouse()
+            self._update_keyboard_presses()
+            self._update_buttons()
+            self._update_panel()
+        except:
+            print_exc()
+
+    def _update_background(self) -> None:
+        self._screen.fill(self._BACKGROUND_COLOR)
+        self._screen.blit(self._BACKGROUND_IMAGE, (0, self._background_y))
+
+    def _update_objects(self) -> None:
+        for ob in self._objects_sorted_by_z_index():
+            ob.update(self._x_offset, self._y_offset)
+
+    def _objects_sorted_by_z_index(self) -> list[AbstractEditorObject]:
+        return sorted(self._objects, key=lambda x: x.z_index)
+
+    def _update_camera_bounding_horizontal_lines(self) -> None:
+        for line in self._camera_bounding_horizontal_lines:
+            pg.draw.line(
+                self._screen,
+                (255, 0, 0),
+                (line[0] - self._x_offset, line[2] - self._y_offset),
+                (line[1] - self._x_offset, line[2] - self._y_offset),
+                width=3,
+            )
+
+    def _update_points(self) -> None:
+        for i, point in enumerate(self._points):
+            surface = PixelFonts.VERY_SMALL.render(str(i + 1), 1, (0, 0, 255))
+            x = point[0] - self._x_offset - surface.get_width() // 2
+            y = point[1] - self._y_offset - surface.get_height() // 2
+            self._screen.blit(surface, (x, y))
+
+    def _update_mouse(self) -> None:
+        if self._panel_is_on:
+            return
+
+        pos = pg.mouse.get_pos()
+        if pos[1] >= self._screen.get_height() - self._BOTTOM_UNCLICKABLE_AREA_H:
+            return
+
+        block_x = self._x_offset + pos[0]
+        block_x = block_x - block_x % self._BLOCK_SIZE
+
+        block_y = self._y_offset + pos[1]
+        block_y = block_y - block_y % self._BLOCK_SIZE
+
+        mouse_block_x = block_x - self._x_offset
+        mouse_block_y = block_y - self._y_offset
+        pg.draw.rect(self._screen, (0, 0, 0), (mouse_block_x, mouse_block_y, self._BLOCK_SIZE, self._BLOCK_SIZE), width=1)
+
+        presses = pg.mouse.get_pressed()
+        if presses[0]:
+            self._handle_creating(block_x, block_y)
+
+    def _handle_creating(self, block_x: int, block_y: int) -> None:
+        ob = self._selected_object_type(block_x, block_y, **self._selected_object_kwargs)
+        ob.attach_rect_position_to_bottom_center_of_block(self._BLOCK_SIZE)
+        if ob not in self._objects:
+            self._objects.append(ob)
+            if isinstance(ob, AbstractEditorObjectToDisposableCollect):
+                ob.set_id()
+            elif isinstance(ob, AbstractXPatrolEnemyEditorObject):
+                start_x = self._points[0][0] - self._HALF_BLOCK_SIZE
+                end_x = self._points[1][0] + self._HALF_BLOCK_SIZE
+                ob.set_start_and_end_xs(start_x, end_x)
+            elif isinstance(ob, Spider):
+                end_y = self._points[0][1] + self._HALF_BLOCK_SIZE
+                ob.set_end_y(end_y)
+            elif isinstance(ob, Cannon):
+                end_x = self._points[0][0]
+                if end_x < ob.get_rect().centerx:
+                    end_x -= self._HALF_BLOCK_SIZE
+                else:
+                    end_x += self._HALF_BLOCK_SIZE
+                ob.set_end_x(end_x)
+
+    def _update_keyboard_presses(self) -> None:
+        presses = pg.key.get_pressed()
+        if presses[pg.K_RIGHT]:
+            self._x_offset += self._OFFSET_SPEED
+        elif presses[pg.K_LEFT]:
+            self._x_offset -= self._OFFSET_SPEED
+        elif presses[pg.K_DOWN]:
+            self._y_offset += self._OFFSET_SPEED
+        elif presses[pg.K_UP]:
+            self._y_offset -= self._OFFSET_SPEED
+
+        if self._x_offset < 0:
+            self._x_offset = 0
+        if self._y_offset < 0:
+            self._y_offset = 0
+
+        if presses[pg.K_DELETE]:
+            self._handle_objects_deleting()
+            if self._camera_bounding_horizontal_line_deleting_mode_is_on:
+                self._handle_camera_bounding_horizontal_lines_deleting()
+
+    def _handle_objects_deleting(self) -> None:
+        mouse_pos = pg.mouse.get_pos()
+        for ob in self._objects:
+            if isinstance(ob, Overlay) and not self._overlay_deleting_mode_is_on:
+                continue
+            if ob.get_rect().move(-self._x_offset, -self._y_offset).collidepoint(mouse_pos):
+                self._objects.remove(ob)
+
+    def _handle_camera_bounding_horizontal_lines_deleting(self) -> None:
+        mouse_pos = pg.mouse.get_pos()
+        for line in self._camera_bounding_horizontal_lines[:]:
+            if line[0] - self._x_offset < mouse_pos[0] < line[1] - self._x_offset:
+                self._camera_bounding_horizontal_lines.remove(line)
+
+    def _update_buttons(self) -> None:
+        for button in self._buttons:
+            button.update()
+
+    def _update_panel(self) -> None:
+        if self._panel_is_on:
+            self._panel.update()
 
 
 class _ObjectTypePanel:
@@ -264,6 +430,12 @@ class _ObjectTypePanel:
 
         (Web, dict(direction=Direction.LEFT)),
         (Web, dict(direction=Direction.RIGHT)),
+
+        (Slug, dict()),
+        (Skeleton, dict()),
+        (Bat, dict()),
+        (Spider, dict()),
+        (Cannon, dict()),
     ]
 
     def __init__(self, on_click) -> None:
