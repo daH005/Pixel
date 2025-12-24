@@ -83,7 +83,13 @@ class EditorScene(AbstractScene):
                 print(f'Type {ob["type"]} does not exist.')
                 continue
             self._objects.append(t(**ob['args']))
+            if t == Player:
+                self._set_xy_offsets(self._objects[-1].get_rect())
         self._camera_bounding_horizontal_lines = data['camera_bounding_horizontal_lines']
+
+    def _set_xy_offsets(self, rect: pg.Rect) -> None:
+        self._x_offset = rect.x - self._screen.get_width() // 2
+        self._y_offset = rect.y - self._screen.get_height() // 2
 
     def _init_buttons(self) -> None:
         self._buttons: list[Button] = []
