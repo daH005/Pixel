@@ -15,7 +15,7 @@ class Camera(ScreenAccessMixin, metaclass=SingletonMeta):
     _map_w: int
     _map_h: int
     _bounding_horizontal_lines: CameraBoundingLinesType
-    _central_rect: Rect
+    _central_rect: Rect = None
 
     def __init__(self, x_smooth: float = 0.05,
                  y_smooth: float = 0.01,
@@ -65,10 +65,13 @@ class Camera(ScreenAccessMixin, metaclass=SingletonMeta):
 
     def _define_bounding_bottom_y(self) -> int:
         for line in self._bounding_horizontal_lines:
-            if not (line[0] <= self._rect.centerx <= line[1]):
+            if not (line[0] <= self._x_center_to_move() <= line[1]):
                 continue
             return line[2] - self._rect.h
         return self._map_h - self._rect.h
+
+    def _x_center_to_move(self) -> int:
+        return self._x_to_move + self._rect.w // 2
 
     def _update_float_xy(self) -> None:
         x_vel = (self._x_to_move - self._rect.float_x) * self._x_smooth
