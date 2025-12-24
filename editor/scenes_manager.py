@@ -67,10 +67,8 @@ class EditorScene(AbstractScene):
     def _object_type_panel_choice(self, t, kwargs) -> None:
         if issubclass(t, AbstractXPatrolEnemyEditorObject) and len(self._points) < 2:
             print('This type requires two points!')
-            return
         if issubclass(t, (Spider, Cannon)) and len(self._points) < 1:
             print('This type requires at least one point!')
-            return
         self._selected_object_type = t
         self._selected_object_kwargs = kwargs
 
@@ -461,6 +459,7 @@ class _ObjectTypePanel:
         (Bat, dict()),
         (Spider, dict()),
         (Cannon, dict()),
+        (Ghost, dict()),
     ]
 
     def __init__(self, on_click) -> None:

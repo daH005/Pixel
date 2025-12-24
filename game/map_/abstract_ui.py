@@ -38,15 +38,15 @@ class AbstractBackground(AbstractMapObject, ABC):
 class AbstractInteractingWithPlayerMapObject(AbstractMapObject, ABC):
 
     def update(self) -> None:
-        self._check_collision_with_player()
+        self._handle_collision_with_player()
         super().update()
 
-    def _check_collision_with_player(self) -> None:
+    def _handle_collision_with_player(self) -> None:
         if self._rect.colliderect(self._map.player.get_rect()):
-            self._handle_collision_with_player()
+            self._on_collision_with_player()
 
     @abstractmethod
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         pass
 
 
@@ -126,7 +126,7 @@ class AbstractXPatrolEnemy(AbstractMovingAndInteractingWithPlayerMapObject, ABC)
             self._x_vel *= -1
         self._rect.float_x += self._x_vel
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         self._map.player.hit(
             x_pushing=self._X_PUSHING_POWER,
             y_pushing=self._Y_PUSHING_POWER,

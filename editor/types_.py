@@ -22,6 +22,7 @@ from game.assets.images import (
     SlugImages,
     SpiderImages,
     CannonImages,
+    GhostImages,
 )
 from game.assets.fonts import PixelFonts
 from game.map_.z_indexes import ZIndex
@@ -52,6 +53,7 @@ __all__ = (
     'Bat',
     'Spider',
     'Cannon',
+    'Ghost',
 )
 
 
@@ -361,6 +363,10 @@ class Slug(AbstractXPatrolEnemyEditorObject):
 
 class Bat(AbstractXPatrolEnemyEditorObject):
     _image = BatImages.GO_RIGHT[0]
+
+
+class Ghost(AbstractXPatrolEnemyEditorObject):
+    _image = GhostImages.GO_RIGHT
 
 
 class Spider(AbstractEditorObject):

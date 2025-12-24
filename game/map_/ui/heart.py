@@ -31,7 +31,7 @@ class Heart(AbstractInteractingWithPlayerMapObject):
         self._image = self._IMAGES[self.frames_counter.current_index]
         self.frames_counter.next()
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         if self._map.player.hp < self._map.player.max_hp:
             self._to_delete = True
             self._map.player.replenish_hp()

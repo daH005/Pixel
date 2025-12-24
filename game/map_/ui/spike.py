@@ -21,6 +21,6 @@ class Spike(AbstractInteractingWithPlayerMapObject):
             rect=self._image.get_rect(x=x, y=y),
         )
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         if self._map.player.y_vel >= self._PLAYER_Y_VEL_FOR_HIT:
             self._map.player.hit()

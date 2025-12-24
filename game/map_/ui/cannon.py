@@ -125,7 +125,7 @@ class Cannonball(AbstractMovingAndInteractingWithPlayerMapObject):
         if self._current_speed > self._END_SPEED:
             self._current_speed -= self._SPEED_DECREASE
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         self._map.player.hit(
             x_pushing=self._X_PUSHING_POWER,
             enemy_center_x=self._rect.centerx,

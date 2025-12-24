@@ -19,5 +19,5 @@ class Finish(AbstractInteractingWithPlayerMapObject):
             rect=self._image.get_rect(x=x, y=y),
         )
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         self._map.finish()

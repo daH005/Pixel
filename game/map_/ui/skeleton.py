@@ -56,9 +56,9 @@ class Skeleton(AbstractXPatrolEnemy):
         if self._attack_frames_counter.is_end:
             super()._move()
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         if self._attack_frames_counter.current_index == self._ATTACK_FRAME_INDEX:
-            super()._handle_collision_with_player()
+            super()._on_collision_with_player()
         if self._attack_frames_counter.is_end:
             self._attack_frames_counter.start()
             if self._map.player.get_rect().centerx < self._rect.centerx:

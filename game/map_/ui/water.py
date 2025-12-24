@@ -31,5 +31,5 @@ class Water(AbstractInteractingWithPlayerMapObject):
         else:
             self._image = self._IMAGES.DEFAULT
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         self._map.player.set_that_in_water()

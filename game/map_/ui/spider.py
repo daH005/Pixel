@@ -50,7 +50,7 @@ class Spider(AbstractMovingAndInteractingWithPlayerMapObject):
             self._y_vel = -self._SPEED
         self._rect.float_y += self._y_vel
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         self._map.player.hit()
 
     def _update_image(self) -> None:

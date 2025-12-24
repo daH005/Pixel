@@ -1,5 +1,6 @@
 from engine.common.direction import Direction
 from engine.map_.map_ import Map
+from game.map_.z_indexes import ZIndex
 from game.map_.abstract_ui import AbstractBackground
 from game.assets.images import WebImages
 
@@ -10,6 +11,8 @@ __all__ = (
 
 @Map.add_object_type
 class Web(AbstractBackground):
+
+    _Z_INDEX = ZIndex.WEB
     _IMAGES = WebImages
 
     def __init__(self, map_: Map,

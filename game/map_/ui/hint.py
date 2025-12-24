@@ -73,7 +73,7 @@ class Hint(AbstractInteractingWithPlayerMapObject):
         if self._window_showing_enabled:
             self._windows[self._window_showing_frames_counter.current_index].update()
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         self._window_showing_enabled = True
         if not self._window_showing_frames_counter.is_last_frame:
             self._window_showing_frames_counter.next()

@@ -11,5 +11,6 @@ class ZIndex(IntEnum):
     BACKGROUND = -10
     MOVING_OBJECT = 5
     OVERLAY = 9
-    BLOCK = 10
+    WEB = 10
+    BLOCK = 12
     HINT = 100

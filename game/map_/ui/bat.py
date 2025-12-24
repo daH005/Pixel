@@ -12,9 +12,9 @@ __all__ = (
 @Map.add_object_type
 class Bat(AbstractXPatrolEnemy):
 
-    _SPEED: float = 2
-    _X_PUSHING_POWER: float = 15
-    _Y_PUSHING_POWER: float = -5
+    _SPEED = 2
+    _X_PUSHING_POWER = 15
+    _Y_PUSHING_POWER = -5
 
     _IMAGES = BatImages
     _ANIMATION_DELAY: float = 0.05

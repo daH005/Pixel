@@ -85,7 +85,7 @@ class Coin(AbstractItemToDisposableCollect):
             type(self)._visual_collected_count += 1
             coin_sound.play()
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         if not self._is_taken:
             self.take()
 

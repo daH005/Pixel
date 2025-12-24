@@ -32,7 +32,7 @@ class Shield(AbstractInteractingWithPlayerMapObject):
         self._image = self._IMAGES[self._frames_counter.current_index]
         self._frames_counter.next()
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         if not self._map.player.has_shield:
             self._to_delete = True
             self._map.player.add_shield()

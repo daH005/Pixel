@@ -50,7 +50,7 @@ class Chest(AbstractItemToDisposableCollect):
         else:
             self._image = self._IMAGES[0]
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         if not self._is_opened:
             self._is_opened = True
             self.take()

@@ -49,14 +49,14 @@ class Slug(AbstractXPatrolEnemy):
         if self._death_frames_counter.is_end:
             super()._move()
 
-    def _handle_collision_with_player(self) -> None:
+    def _on_collision_with_player(self) -> None:
         if self._map.player.y_vel >= self._PLAYER_Y_VEL_FOR_DEATH:
             if not self._map.player.in_god_mode():
                 self._map.player.jump_from_slug(-self._Y_PUSHING_POWER_AFTER_DEATH)
                 self._death_frames_counter.start()
                 slug_sound.play()
         elif self._death_frames_counter.is_end:
-            super()._handle_collision_with_player()
+            super()._on_collision_with_player()
 
     def _update_image(self) -> None:
         if self._death_frames_counter.is_end:

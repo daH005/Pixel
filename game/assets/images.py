@@ -34,6 +34,7 @@ __all__ = (
     'SkeletonImages',
     'CannonImages',
     'SpiderImages',
+    'GhostImages',
     'WaterImages',
     'WebImages',
 )
@@ -196,6 +197,19 @@ class SpiderImages:
     __PATH: Path = GameConfig.IMAGES_PATH.joinpath('spider')
     STAND: Surface = load_image(__PATH.joinpath('stand'))
     GO: ImagesListType = load_images(__PATH.joinpath('go'))
+
+
+class GhostImages:
+
+    __PATH: Path = GameConfig.IMAGES_PATH.joinpath('ghost')
+    GO_LEFT: Surface = load_image(__PATH.joinpath('go'))
+    GO_LEFT.set_alpha(155)
+    GO_RIGHT: Surface = flip(GO_LEFT, flip_x=True, flip_y=False)
+    GO_RIGHT.set_alpha(155)
+    ATTACK_LEFT: Surface = load_image(__PATH.joinpath('attack'))
+    # ATTACK_LEFT.set_alpha(100)
+    ATTACK_RIGHT: Surface = flip(ATTACK_LEFT, flip_x=True, flip_y=False)
+    # ATTACK_RIGHT.set_alpha(100)
 
 
 class WaterImages:

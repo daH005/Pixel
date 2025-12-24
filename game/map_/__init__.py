@@ -13,6 +13,7 @@ from game.map_.ui.slug import Slug
 from game.map_.ui.bat import Bat
 from game.map_.ui.skeleton import Skeleton
 from game.map_.ui.spider import Spider
+from game.map_.ghost import Ghost
 from game.map_.ui.coin import Coin
 from game.map_.ui.heart import Heart
 from game.map_.ui.shield import Shield
