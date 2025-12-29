@@ -4,7 +4,6 @@ from traceback import print_exc
 from engine.levels.manager import LevelsManager
 from engine.screen import set_global_screen
 from engine.main_game_class import Game
-from engine.exceptions import ExitFromGame
 from game.assets.images import ICON_IMAGE
 from game.config import GameConfig
 from editor.scenes_manager import ScenesManager, EDITOR_SCENE_KEY
