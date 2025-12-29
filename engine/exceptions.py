@@ -1,6 +1,7 @@
 __all__ = (
     'ExitFromGame',
     'MapObjectCannotBeCreated',
+    'PlayerWasNotCreated',
 )
 
 
@@ -9,4 +10,8 @@ class ExitFromGame(Exception):
 
 
 class MapObjectCannotBeCreated(Exception):
+    pass
+
+
+class PlayerWasNotCreated(Exception):
     pass

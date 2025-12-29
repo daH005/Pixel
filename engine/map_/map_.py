@@ -1,7 +1,7 @@
 from typing import Callable, TypeVar, Generic
 
 from engine.common.singleton import SingletonMeta
-from engine.exceptions import MapObjectCannotBeCreated
+from engine.exceptions import MapObjectCannotBeCreated, PlayerWasNotCreated
 from engine.screen_access_mixin import ScreenAccessMixin
 from engine.levels.manager import LevelsManager
 from engine.levels.object_data_tuple import LevelObjectDataTuple
@@ -20,7 +20,6 @@ class Map(Generic[PlayerType], ScreenAccessMixin, metaclass=SingletonMeta):
 
     _objects_types: dict[str, type['AbstractMapObject']] = {}
     _current_level: Level
-    _player: 'PlayerType'
 
     def __init__(self, camera: Camera,
                  grid: Grid,
@@ -30,6 +29,7 @@ class Map(Generic[PlayerType], ScreenAccessMixin, metaclass=SingletonMeta):
         self._grid = grid
         self._levels_manager = levels_manager
         self._is_completed: bool = False
+        self._player: PlayerType | None = None
 
     @property
     def camera(self) -> Camera:
@@ -57,11 +57,14 @@ class Map(Generic[PlayerType], ScreenAccessMixin, metaclass=SingletonMeta):
         return type_
 
     def reset(self) -> None:
+        self._is_completed = False
+        self._player = None
         self._current_level = self._levels_manager.current_level
         self._reset_objects_types()
         self._reset_grid()
+        if self._player is None:
+            raise PlayerWasNotCreated
         self._reset_camera()
-        self._is_completed = False
 
     def _reset_objects_types(self) -> None:
         for type_ in self._objects_types.values():

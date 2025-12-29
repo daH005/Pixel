@@ -3,9 +3,10 @@ from pygame.event import Event
 
 from engine.common.colors import Color
 from engine.common.typing_ import XYTupleType
-from engine.scenes.abstract_scene import AbstractScene
+from engine.exceptions import PlayerWasNotCreated
 from engine.map_.camera import Camera
 from engine.map_.grid.grid import Grid
+from engine.scenes.abstract_scene import AbstractScene
 from engine.scenes.manager import ScenesManager
 from game.assets.images import SUN_IMAGE
 from game.assets.sounds import level_music
@@ -30,6 +31,7 @@ __all__ = (
 @ScenesManager.add(SceneKey.LEVEL)
 class LevelScene(AbstractScene):
 
+    _SCENE_KEY_TO_SWITCH_ON_PLAYER_WAS_NOT_CREATED_EXCEPTION: SceneKey = SceneKey.LEVELS_MENU
     _BACKGROUND_COLOR: Color = Color.BLUE
     _SUN_XY: XYTupleType = (50, 50)
     _saved_screen: Surface
@@ -52,8 +54,17 @@ class LevelScene(AbstractScene):
         self._need_to_save_screen_and_switch_to: SceneKey | None = None
 
     def reset(self) -> None:
-        self._map.reset()
+        try:
+            self._map.reset()
+        except PlayerWasNotCreated:
+            self._on_player_was_not_created_exception()
+            return
         self._clouds.reset()
+
+    def _on_player_was_not_created_exception(self) -> None:
+        print('The level is invalid! The player cannot be created.')
+        level_music.stop()
+        self._scenes_manager.switch_to(self._SCENE_KEY_TO_SWITCH_ON_PLAYER_WAS_NOT_CREATED_EXCEPTION)
 
     def on_open(self) -> None:
         self._need_to_save_screen_and_switch_to = False

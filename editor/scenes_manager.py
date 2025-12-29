@@ -499,6 +499,7 @@ class _ObjectTypePanel:
 
 @ScenesManager.add(SceneKey.LEVEL)
 class TestLevelScene(LevelScene):
+    _SCENE_KEY_TO_SWITCH_ON_PLAYER_WAS_NOT_CREATED_EXCEPTION = EDITOR_SCENE_KEY
 
     def __init__(self, scenes_manager: ScenesManager) -> None:
         super().__init__(scenes_manager)
