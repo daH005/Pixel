@@ -195,6 +195,8 @@ class EditorScene(AbstractScene):
             file_path = self._filename
 
         objects, max_right, max_bottom = self._prepare_json_objects_max_right_and_bottom_coordinates()
+        max_right = max(max_right, self._screen.get_width())
+        max_bottom = max(max_bottom, self._screen.get_height())
         m = {
             'objects': objects,
             'is_available': True,
