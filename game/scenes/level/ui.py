@@ -39,7 +39,7 @@ class Background(AbstractNoSizeUI):
         self._float_x: float = 0
 
     def update(self) -> None:
-        self._float_x = -self._camera.float_x * self._SMOOTH
+        self._float_x = min(-self._camera.float_x * self._SMOOTH, 0)
         self._x = round(self._float_x)
         super().update()
 
