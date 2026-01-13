@@ -34,7 +34,7 @@ class EditorScene(AbstractScene):
     _BLOCK_SIZE: int = 40
     _HALF_BLOCK_SIZE: int = _BLOCK_SIZE // 2
     _OFFSET_SPEED: int = 10
-    _DEFAULT_FILENAME: str = 'nnn.json'
+    _DEFAULT_FILENAME: str = 'default.json'
     _BOTTOM_UNCLICKABLE_AREA_H: int = 50
 
     def __init__(self, scenes_manager: ScenesManager) -> None:
@@ -60,9 +60,13 @@ class EditorScene(AbstractScene):
         self._filename: str = input('Enter the path to the map of press ENTER (without .json extension): ')
         if self._filename:
             self._filename += '.json'
-            self._load_map(self._filename)
         else:
             self._filename = self._DEFAULT_FILENAME
+
+        try:
+            self._load_map(self._filename)
+        except FileNotFoundError:
+            pass
 
     def _object_type_panel_choice(self, t, kwargs) -> None:
         if issubclass(t, AbstractXPatrolEnemyEditorObject) and len(self._points) < 2:
