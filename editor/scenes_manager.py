@@ -57,7 +57,8 @@ class EditorScene(AbstractScene):
         self._x_offset: int = 0
         self._y_offset: int = 0
 
-        self._filename: str = input('Enter the path to the map of press ENTER (without .json extension): ')
+        self._filename: str = input('Введите название файла карты (не включая расширение .json, '
+                                    'по умолчанию открывается default.json): ')
         if self._filename:
             self._filename += '.json'
         else:
@@ -68,11 +69,18 @@ class EditorScene(AbstractScene):
         except FileNotFoundError:
             pass
 
+        print('Добро пожаловать! Вот некоторые пояснения:\n'
+              'Удалять объекты можно по клавише DELETE.\n'
+              'Некоторым объектам нужны обозначенные точки, они выставляются по "i".\n'
+              'Для удаления затемнения либо ограничивающей линии камеры нужно нажать на соответствующую кнопку и '
+              'удалить при помощи клавиши DELETE. Потом нужно снова нажать на ту же кнопку, чтобы отключить этот режим.\n'
+              'Остальное - разберетесь.')
+
     def _object_type_panel_choice(self, t, kwargs) -> None:
         if issubclass(t, AbstractXPatrolEnemyEditorObject) and len(self._points) < 2:
-            print('This type requires two points!')
+            print('Этому объекту необходимы две точки. Точки ставятся клавишей "i".')
         if issubclass(t, (Spider, Cannon)) and len(self._points) < 1:
-            print('This type requires at least one point!')
+            print('Этому объекту необходима точка. Точка ставится клавишей "i".')
         self._selected_object_type = t
         self._selected_object_kwargs = kwargs
 
@@ -84,7 +92,7 @@ class EditorScene(AbstractScene):
             try:
                 t = globals()[ob['type']]
             except KeyError:
-                print(f'Type {ob["type"]} does not exist.')
+                print(f'Объекта {ob["type"]} не существует.')
                 continue
             self._objects.append(t(**ob['args']))
             if t == Player:
@@ -100,7 +108,7 @@ class EditorScene(AbstractScene):
 
         save: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Save',
+                text='Сохранить',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -112,7 +120,7 @@ class EditorScene(AbstractScene):
 
         open_close_panel: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Panel',
+                text='Объекты',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -124,7 +132,7 @@ class EditorScene(AbstractScene):
 
         clear_points: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Clear points',
+                text='Очистить точки',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -136,7 +144,7 @@ class EditorScene(AbstractScene):
 
         add_camera_bounding_horizontal_line: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Camera bounding horizontal line',
+                text='Огранич. линия камеры',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -148,7 +156,7 @@ class EditorScene(AbstractScene):
 
         add_overlay_object: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Add overlay',
+                text='Затемнение',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -160,7 +168,7 @@ class EditorScene(AbstractScene):
 
         overlay_deleting_mode: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Overlay deleting',
+                text='Удаление затемнения (клавиша DELETE)',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -172,7 +180,7 @@ class EditorScene(AbstractScene):
 
         camera_bounding_hor_line: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Camera bounding hor. line del.',
+                text='Удаление огр. линии камеры (клавиша DELETE)',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -184,7 +192,7 @@ class EditorScene(AbstractScene):
 
         run_level: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Run level',
+                text='Запуск',
                 font=PixelFonts.VERY_SMALL,
             ),
             position_name=RectRelativePositionName.BOTTOMLEFT,
@@ -216,6 +224,9 @@ class EditorScene(AbstractScene):
         with open(file_path, 'w', encoding='utf-8') as f:
             json.dump(m, f)
 
+        if self._filename in str(file_path):
+            print(f'Уровень успешно сохранён в {self._filename}!')
+
     def _prepare_json_objects_max_right_and_bottom_coordinates(self) -> tuple[list[dict], int, int]:
         obs = []
         max_right: int = 0
@@ -236,11 +247,11 @@ class EditorScene(AbstractScene):
 
     def _clear_points(self) -> None:
         self._points.clear()
-        print('The points have been cleared.')
+        print('Точки очищены.')
 
     def _add_camera_bounding_horizontal_line(self) -> None:
         if len(self._points) < 2:
-            print('It takes two points!')
+            print('Нужны две точки! Точки ставятся по "i".')
             return
 
         x1 = self._points[0][0] - self._HALF_BLOCK_SIZE
@@ -252,7 +263,7 @@ class EditorScene(AbstractScene):
 
     def _add_overlay_object(self) -> None:
         if len(self._points) < 2:
-            print('It takes two points!')
+            print('Нужны две точки! Точки ставятся по "i".')
             return
 
         x, y = self._points[0]
@@ -294,7 +305,7 @@ class EditorScene(AbstractScene):
         y = pos[1] + self._y_offset
         y = y - y % self._BLOCK_SIZE + self._HALF_BLOCK_SIZE
         self._points.append((x, y))
-        print('The point has been added.')
+        print('Точка добавлена.')
 
     def update(self) -> None:
         try:
@@ -431,62 +442,62 @@ class EditorScene(AbstractScene):
 class _ObjectTypePanel:
 
     _TYPES_AND_ARGS = [
-        (Dirt, dict()),
-        (Dirt, dict(direction=Direction.LEFT)),
-        (Dirt, dict(direction=Direction.RIGHT)),
+        (Dirt, dict(), 'Земля'),
+        (Dirt, dict(direction=Direction.LEFT), 'Левая земля'),
+        (Dirt, dict(direction=Direction.RIGHT), 'Правая земля'),
 
-        (Dirt, dict(grass_enabled=True)),
-        (Dirt, dict(grass_enabled=True, direction=Direction.LEFT)),
-        (Dirt, dict(grass_enabled=True, direction=Direction.RIGHT)),
+        (Dirt, dict(grass_enabled=True), 'Земля с травой'),
+        (Dirt, dict(grass_enabled=True, direction=Direction.LEFT), 'Левая земля с травой'),
+        (Dirt, dict(grass_enabled=True, direction=Direction.RIGHT), 'Правая земля с травой'),
 
-        (BackgroundDirt, dict()),
+        (BackgroundDirt, dict(), 'Земляной фон'),
 
-        (Bricks, dict()),
-        (BackgroundBricks, dict()),
+        (Bricks, dict(), 'Кирпичи'),
+        (BackgroundBricks, dict(), 'Кирпичный фон'),
 
-        (Tree, dict(image_index=0)),
-        (Tree, dict(image_index=1)),
-        (Tree, dict(image_index=2)),
+        (Tree, dict(image_index=0), 'Дерево 1'),
+        (Tree, dict(image_index=1), 'Дерево 2'),
+        (Tree, dict(image_index=2), 'Дерево 3'),
 
-        (Player, dict()),
-        (Finish, dict()),
-        (Hint, dict()),
+        (Player, dict(), 'Игрок'),
+        (Finish, dict(), 'Финиш'),
+        (Hint, dict(), 'Подсказка-вопросик'),
 
-        (Coin, dict()),
-        (Chest, dict()),
-        (Heart, dict()),
-        (Shield, dict()),
+        (Coin, dict(), 'Монета'),
+        (Chest, dict(), 'Сундук'),
+        (Heart, dict(), 'Сердце'),
+        (Shield, dict(), 'Щит'),
 
-        (Spike, dict()),
-        (Ladder, dict()),
+        (Spike, dict(), 'Шип'),
+        (Ladder, dict(), 'Лестница'),
 
-        (Water, dict(is_top=False)),
-        (Water, dict(is_top=True)),
+        (Water, dict(is_top=False), 'Вода'),
+        (Water, dict(is_top=True), 'Поверхностная вода'),
 
-        (Web, dict(direction=Direction.LEFT)),
-        (Web, dict(direction=Direction.RIGHT)),
+        (Web, dict(direction=Direction.LEFT), 'Левая паутина'),
+        (Web, dict(direction=Direction.RIGHT), 'Правая паутина'),
 
-        (Slug, dict()),
-        (Skeleton, dict()),
-        (Bat, dict()),
-        (Spider, dict()),
-        (Cannon, dict()),
-        (Ghost, dict()),
+        (Slug, dict(), 'Слизняк'),
+        (Skeleton, dict(), 'Скелет'),
+        (Bat, dict(), 'Летучая мышь'),
+        (Spider, dict(), 'Паук'),
+        (Cannon, dict(), 'Пушка'),
+        (Ghost, dict(), 'Призрак'),
     ]
 
     def __init__(self, on_click) -> None:
         self._on_click = on_click
         self._buttons: list[Button] = []
         y: int = 0
-        for t, kwargs in self._TYPES_AND_ARGS:
-            button = self._new_button(t, kwargs, y)
+        for t, kwargs, name in self._TYPES_AND_ARGS:
+            button = self._new_button(t, kwargs, name, y)
             self._buttons.append(button)
             y += button.get_rect().h
 
-    def _new_button(self, t, kwargs, y: int) -> Button:
+    def _new_button(self, t, kwargs, name: str, y: int) -> Button:
         return Button(
             builder=TextWindowPartBuilder(
-                text=t.__name__ + ' ' + str(kwargs),
+                text=name,
                 font=PixelFonts.VERY_SMALL,
                 inner_indent=5,
                 border_wh=2,
@@ -509,18 +520,22 @@ class TestLevelScene(LevelScene):
         super().__init__(scenes_manager)
         self._back_to_editor_button: Button = Button(
             builder=TextWindowPartBuilder(
-                text='Back to Editor',
+                text='Вернуться в редактор',
                 font=PixelFonts.VERY_SMALL,
             ),
-            x=self._screen.get_width(),
+            x=0,
             y=self._screen.get_height(),
-            position_name=RectRelativePositionName.BOTTOMRIGHT,
+            position_name=RectRelativePositionName.BOTTOMLEFT,
             on_click=self._back_to_editor,
         )
-
-    def _back_to_editor(self) -> None:
-        self._scenes_manager.switch_to(EDITOR_SCENE_KEY)
 
     def update(self) -> None:
         super().update()
         self._back_to_editor_button.update()
+
+    def _save_screen_and_switch_if_it_need(self) -> None:
+        if self._need_to_save_screen_and_switch_to:
+            self._back_to_editor()
+
+    def _back_to_editor(self) -> None:
+        self._scenes_manager.switch_to(EDITOR_SCENE_KEY)

@@ -62,7 +62,7 @@ class LevelScene(AbstractScene):
         self._clouds.reset()
 
     def _on_player_was_not_created_exception(self) -> None:
-        print('The level is invalid! The player cannot be created.')
+        print('Уровень не может быть запущен, поскольку не выставлена позиция игрока!')
         level_music.stop()
         self._scenes_manager.switch_to(self._SCENE_KEY_TO_SWITCH_ON_PLAYER_WAS_NOT_CREATED_EXCEPTION)
 
